@@ -17,7 +17,8 @@ async function connectDB() {
 
 app.get("/test", async (req, res) => {
   let data = await db
-    .collection("test").find()
+    .collection("test")
+    .find()
     .project({ _id: 0, id: 1, nombre: 1, materia: 1 })
     .toArray();
   res.set("Access-Control-Expose-Headers", "X-Total-Count");
