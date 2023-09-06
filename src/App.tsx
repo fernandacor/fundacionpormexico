@@ -1,6 +1,6 @@
 import { Admin, ListGuesser, Resource, } from "react-admin";
-import { dataProvider } from "./dataProvider";
-import { i18nProvider } from "./i18nProvider";
+import { dataProvider } from "./providers/dataProvider";
+import { i18nProvider } from "./providers/i18nProvider";
 
 export const App = () => <Admin dataProvider={dataProvider} i18nProvider={i18nProvider}>
   <Resource name="test" list={ListGuesser}></Resource>
