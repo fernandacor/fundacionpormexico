@@ -3,18 +3,14 @@ import en from "ra-language-english";
 import es from "ra-language-spanish";
 import spanishMessages from "./spanishMessages";
 
-const translations = { es, en };
-
-// export const i18nProvider = polyglotI18nProvider(
-//   (locale) => translations[locale],
-//   "en", // default locale
-//   [
-//     { locale: "en", name: "English" },
-//     { locale: "es", name: "Español" },
-//   ]
-// );
+const translations = { es, en, spanishMessages };
 
 export const i18nProvider = polyglotI18nProvider(
-  (locale) => spanishMessages,
-  "es"
+  (locale) => translations[locale],
+  "spanishMessages", // default locale
+  [
+    { locale: "en", name: "English" },
+    { locale: "es", name: "Español" },
+    { locale: "spanishMessages", name: "Español nuestro" },
+  ]
 );
