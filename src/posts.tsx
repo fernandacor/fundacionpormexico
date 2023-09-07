@@ -1,33 +1,20 @@
-// in src/posts.tsx
-import { useRecordContext} from "react-admin";
-import {
-    List,
-    Datagrid,
-    TextField,
-    ReferenceField,
-    EditButton,
-    Edit,
-    Create,
-    SimpleForm,
-    ReferenceInput,
-    TextInput,
-} from "react-admin";
-
-const PostTitle = () => {
-      const record = useRecordContext();
-      return <span>Post {record ? `"${record.title}"` : ''}</span>;
-    };
+import React from 'react'; // Asegúrate de importar React
+import { List, Datagrid, TextField, ReferenceField, EditButton, Edit, Create, SimpleForm, ReferenceInput, TextInput } from "react-admin";
+import { useRecordContext } from "react-admin";
+import DeleteButton from './DeleteButton'; // Asegúrate de proporcionar la ruta correcta
 
 export const PostList = () => (
     <List filters={postFilters}>
-        <Datagrid rowClick="edit">
-           <ReferenceField source="userId" reference="users" link="show" />
+        <Datagrid>
             <TextField source="id" />
+            <ReferenceField source="userId" reference="users" link="show" />
             <TextField source="title" />
-            <TextField source="body" />
+            <EditButton />
+            <DeleteButton /> {/* Añade el botón de eliminación aquí */}
         </Datagrid>
     </List>
 );
+
 export const PostEdit = () => (
     <Edit title={<PostTitle />}>
         <SimpleForm>
@@ -40,16 +27,21 @@ export const PostEdit = () => (
 );
 
 export const PostCreate = () => (
-     <Create>
+    <Create>
         <SimpleForm>
-          <ReferenceInput source="userId" reference="users" />
-          <TextInput source="title" />
-          <TextInput source="body" multiline rows={5} />
+            <ReferenceInput source="userId" reference="users" />
+            <TextInput source="title" />
+            <TextInput source="body" multiline rows={5} />
         </SimpleForm>
-      </Create>
-    );
+    </Create>
+);
 
-    const postFilters = [
-        <TextInput source="q" label="Search" alwaysOn />,
-        <ReferenceInput source="userId" label="User" reference="users" />,
-    ];
+const PostTitle = () => {
+    const record = useRecordContext();
+    return <span>Post {record ? `"${record.title}"` : ''}</span>;
+};
+
+const postFilters = [
+    <TextInput source="q" label="Search" alwaysOn />,
+    <ReferenceInput source="userId" label="User" reference="users" />,
+];
