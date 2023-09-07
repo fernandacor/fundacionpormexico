@@ -1,4 +1,3 @@
-import React from 'react'; // Asegúrate de importar React
 import { List, Datagrid, TextField, ReferenceField, EditButton, Edit, Create, SimpleForm, ReferenceInput, TextInput } from "react-admin";
 import { useRecordContext } from "react-admin";
 import DeleteButton from './DeleteButton'; // Asegúrate de proporcionar la ruta correcta
