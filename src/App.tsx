@@ -8,8 +8,8 @@ import {
   useDelete,
   useRecordContext,
 } from "react-admin";
-import { Dashboard } from "./Dashboard";
 import MyLoginPage from "./MyLoginPage";
+import { Dashboard } from "./Dashboard";
 import { authProvider } from "./authProvider";
 import { dataProvider } from "./dataProvider";
 import { PostCreate, PostEdit, PostList } from "./posts";
@@ -35,10 +35,10 @@ const DeleteButton = () => {
   );
 };
 
+
 export const App = () => (
   <Admin
-    authProvider={authProvider}
-    loginPage={MyLoginPage}
+  loginPage={MyLoginPage}    authProvider={authProvider}
     dataProvider={dataProvider}
     dashboard={Dashboard}
     theme={lightTheme}
