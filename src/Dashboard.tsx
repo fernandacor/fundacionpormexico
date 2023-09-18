@@ -1,18 +1,20 @@
 import { Card, CardContent, CardHeader } from "@mui/material";
-import { useRedirect } from "react-admin";
+import { useLogout } from "react-admin";
 
-const PostsButton = () => {
-  const redirect = useRedirect();
-  const handleClick = () => {
-    redirect("/posts");
+const LogoutButton = () => {
+  const logout = useLogout();
+
+  const handleLogoutClick = () => {
+    logout();
   };
-  return <button onClick={handleClick}>Posts</button>;
+
+  return <button onClick={handleLogoutClick}>Cerrar Sesión</button>;
 };
 
 export const Dashboard = () => (
   <Card>
     <CardHeader title="Welcome to the administration" />
     <CardContent>Lorem ipsum sic dolor amet...</CardContent>
-    <PostsButton />
+    <LogoutButton />
   </Card>
 );
