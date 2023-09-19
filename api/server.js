@@ -4,6 +4,7 @@ import { MongoClient } from "mongodb";
 
 const app = express();
 const port = 1337;
+
 app.use(cors());
 
 let db;
