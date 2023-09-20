@@ -1,10 +1,8 @@
 {
-  "name": "react-admin-and-mongo",
+  "name": "client",
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "vite",
-    "start": "nodemon index.js",
     "build": "vite build",
     "serve": "vite preview",
     "type-check": "tsc --noEmit",
@@ -12,29 +10,22 @@
     "format": "prettier --write ./src"
   },
   "dependencies": {
-    "@blackbox-vision/ra-language-spanish": "^4.11.2",
-    "cors": "^2.8.5",
-    "express": "^4.18.2",
-    "mongodb": "^6.0.0",
-    "node-polyglot": "^2.5.0",
     "ra-data-json-server": "^4.13.0",
-    "ra-language-english": "^4.13.3",
     "react": "^18.2.0",
     "react-admin": "^4.13.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@typescript-eslint/parser": "^5.60.1",
+    "@typescript-eslint/eslint-plugin": "^5.60.1",
     "@types/node": "^18.16.1",
     "@types/react": "^18.0.22",
     "@types/react-dom": "^18.0.7",
-    "@typescript-eslint/eslint-plugin": "^5.60.1",
-    "@typescript-eslint/parser": "^5.60.1",
     "@vitejs/plugin-react": "^4.0.1",
     "eslint": "^8.43.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "nodemon": "^3.0.1",
     "prettier": "^2.8.8",
     "typescript": "^5.1.6",
     "vite": "^4.3.9"
