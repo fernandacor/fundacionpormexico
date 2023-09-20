@@ -16,19 +16,14 @@ async function connectDB() {
   console.log("Conectado a la base de datos");
 }
 
-app.get("/test", async (req, res) => {
+app.get("/users", async (req, res) => {
   let data = await db
     .collection("users")
     .find()
-    .project({ _id: 0, nombre: 1, apellidoMaterno: 1 })
+    //.project({ _id: 0, id: 1, nombre: 1, apellidoMaterno: 1 })
     .toArray();
   res.set("Access-Control-Expose-Headers", "X-Total-Count");
   res.set("X-Total-Count", data.length);
-  res.json(data);
-});
-
-app.delete("/test/:id", async (req, res) => {
-  let data = await db.collection("test").deleteOne({ id: req.params.id });
   res.json(data);
 });
 

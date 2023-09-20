@@ -1,5 +1,6 @@
 [
   {
+    "id": 1,
     "usuario": "usuario",
     "contrasena": "contraseña",
     "nombre": "Sebastian",
@@ -8,6 +9,7 @@
     "correo": "sebas@example.com"
   },
   {
+    "id":2,
     "usuario": "usuario",
     "contrasena": "contraseña",
     "nombre": "Samuel",
@@ -16,6 +18,7 @@
     "correo": "chamo@example.com"
   },
   {
+    "id":3,
     "usuario": "usuario",
     "contrasena": "contraseña",
     "nombre": "Alina",
@@ -24,6 +27,7 @@
     "correo": "ali@example.com"
   },
   {
+    "id":4,
     "usuario": "usuario",
     "contrasena": "contraseña",
     "nombre": "Fernanda",
