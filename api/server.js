@@ -10,7 +10,7 @@ app.use(cors());
 let db;
 
 async function connectDB() {
-  let client = new MongoClient("mongodb://127.0.0.1:27017/db401test");
+  let client = new MongoClient("mongodb://127.0.0.1:27017/fundacionPorMexico");
   await client.connect();
   db = client.db();
   console.log("Conectado a la base de datos");
@@ -18,9 +18,9 @@ async function connectDB() {
 
 app.get("/test", async (req, res) => {
   let data = await db
-    .collection("test")
+    .collection("users")
     .find()
-    .project({ _id: 0, id: 1, nombre: 1, materia: 1 })
+    .project({ _id: 0, nombre: 1, apellidoMaterno: 1 })
     .toArray();
   res.set("Access-Control-Expose-Headers", "X-Total-Count");
   res.set("X-Total-Count", data.length);
