@@ -6,10 +6,11 @@ import {
   ShowGuesser,
 } from "react-admin";
 import { dataProvider } from "./dataProvider";
-import { UsersList } from "./users";
+import MyLoginPage from "./MyLoginPage";
+import { authProvider } from './authProvider';
 
 export const App = () => (
-  <Admin dataProvider={dataProvider}>
-    <Resource name="users" list={UsersList} />
+  <Admin authProvider={authProvider} dataProvider={dataProvider} loginPage={MyLoginPage}>
+    <Resource name="test" list={ListGuesser} />
   </Admin>
 );
