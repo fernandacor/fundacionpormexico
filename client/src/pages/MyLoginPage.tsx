@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { useState } from 'react';
 import { Button, TextField, Grid, Paper, Typography } from '@mui/material';
 import { useLogin } from 'react-admin';

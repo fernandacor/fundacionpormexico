@@ -3,7 +3,7 @@ import { MongoClient } from "mongodb";
 
 const data = JSON.parse(fs.readFileSync("./db/users.json", "utf-8").toString());
 
-const uri = "mongodb://127.0.0.1:2701";
+const uri = "mongodb://127.0.0.1:27017";
 const dbName = "fundacionPorMexico";
 
 async function importData() {
