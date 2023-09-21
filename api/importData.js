@@ -3,23 +3,21 @@ import { MongoClient } from "mongodb";
 
 const data = JSON.parse(fs.readFileSync("./db/users.json", "utf-8").toString());
 
-const uri = "mongodb://127.0.0.1:27017";
+const uri = "mongodb://127.0.0.1:2701";
 const dbName = "fundacionPorMexico";
 
-let db;
-
-async function connectDB() {
+async function importData() {
   const client = new MongoClient(uri);
   await client.connect();
-  db = client.db(dbName);
 
+  const db = client.db(dbName);
   const users = db.collection("users");
 
   await users.drop();
   await db.createCollection("users");
-
   await users.insertMany(data);
+
   client.close();
 }
 
-connectDB();
+importData();
