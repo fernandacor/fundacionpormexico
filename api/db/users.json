@@ -1,38 +1,34 @@
 [
   {
-    "id": 1,
-    "usuario": "usuario",
-    "contrasena": "contraseña",
-    "nombre": "Sebastian",
-    "apellidoPaterno": "Moncada",
-    "apellidoMaterno": "Moncada",
-    "correo": "sebas@example.com"
-  },
-  {
-    "id":2,
-    "usuario": "usuario",
-    "contrasena": "contraseña",
+    "id": 4,
+    "usuario": "chamito813",
+    "contrasena": "$2b$10$5eNKgLWBue28U6GDAGvnM.gF86LWTnm.IX0sMAyL5lPMCTgEwZ5yq",
     "nombre": "Samuel",
     "apellidoPaterno": "Acevedo",
-    "apellidoMaterno": "Acevedo",
-    "correo": "chamo@example.com"
+    "apellidoMaterno": "Sandoval"
   },
   {
-    "id":3,
-    "usuario": "usuario",
-    "contrasena": "contraseña",
-    "nombre": "Alina",
-    "apellidoPaterno": "Rosas",
-    "apellidoMaterno": "Rosas",
-    "correo": "ali@example.com"
+    "id": 4,
+    "usuario": "sebas21mg",
+    "contrasena": "$2b$10$/ZFTk.oHCWtkooxx9.2CSegrdfmJk5/fdanU3VqAOaUXpVFQFUG6.",
+    "nombre": "Sebastian",
+    "apellidoPaterno": "Moncada",
+    "apellidoMaterno": "Gonzalez"
   },
   {
-    "id":4,
-    "usuario": "usuario",
-    "contrasena": "contraseña",
+    "id": 4,
+    "usuario": "fernandacor",
+    "contrasena": "$2b$10$HSRSiSZ4f6GMgaF.SaYyBOHJe.5rn3qbjPN0A/HlIC1WhdRRSMJe.",
     "nombre": "Fernanda",
     "apellidoPaterno": "Cantú",
-    "apellidoMaterno": "Cantú",
-    "correo": "fer@example.com"
+    "apellidoMaterno": "Ortega"
+  },
+  {
+    "id": 4,
+    "usuario": "alinarosasm",
+    "contrasena": "$2b$10$Rg4hiu14fELN.tN.tue30uiAyBZxy5j24K8dDbOJz19fFfUyjl9wu",
+    "nombre": "Alina",
+    "apellidoPaterno": "Rosas",
+    "apellidoMaterno": "Macedo"
   }
 ]

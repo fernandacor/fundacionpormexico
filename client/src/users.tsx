@@ -8,7 +8,6 @@ export const UsersList = () => (
             <TextField source="nombre" />
             <TextField source="apellidoPaterno" />
             <TextField source="apellidoMaterno" />
-            <EmailField source="correo" />
         </Datagrid>
     </List>
 );
