@@ -1,0 +1,29 @@
+// // import { DataProvider } from 'react-admin';
+// // import {fetchUtils} from 'react-admin';
+// // import { dataProvider } from './dataProvider';
+// const DataProvider = require('react-admin').DataProvider;
+// const fetchUtils = require('react-admin').fetchUtils;
+// const dataProvider = require('./dataProvider');
+
+// describe('dataProvider', () => {
+//     test('getOne', async () => {
+//         const result = await dataProvider.getOne('posts', { id: 1 });
+//         expect(result.data).toHaveProperty('id');
+//         expect(result.data).toHaveProperty('name');
+//     });
+
+//     test('getMany', async () => {
+//         const result = await dataProvider.getMany('posts', { ids: [1, 2, 3] });
+//         expect(Array.isArray(result.data)).toBe(true);
+//         expect(result.data[0]).toHaveProperty('id'); // Corrección aquí: falta un punto.
+//         expect(result.data[0]).toHaveProperty('name'); // Corrección aquí: falta un punto.
+//     });
+// });
+
+HOOKS
+useDelete (deleteButton)
+useLogin (myLoginPage)
+useLogout ()
+useTheme (theme)
+
+¿¿QUE QUEREMOS TESTEAR??
