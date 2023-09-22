@@ -1,25 +1,48 @@
 import fs from "fs";
 import { MongoClient } from "mongodb";
-
-const data = JSON.parse(fs.readFileSync("./db/users.json", "utf-8").toString());
+import path from "path";
 
 const uri = "mongodb://127.0.0.1:27017";
 const dbName = "fundacionPorMexico";
+const collectionsFolder = "./db";
 
-let db;
+// Se leen todos los archivos que esten en la collectionsFolder y se meten en un
+// diccionario el nombre de cada archivo y su contenido
+function readFiles() {
+  const data = {};
 
-async function connectDB() {
+  const files = fs.readdirSync(collectionsFolder);
+  files.forEach((file) => {
+    const filePath = path.join(collectionsFolder, file);
+    const fileContent = fs.readFileSync(filePath, "utf-8");
+    const fileName = path.parse(file).name;
+
+    data[fileName] = JSON.parse(fileContent.toString());
+  });
+
+  return data;
+}
+
+// Se eliminan las colecciones que ya hayan en la DB y usando el diccionario
+// data se crean las colecciones y se insertan los JSONs
+async function importData() {
   const client = new MongoClient(uri);
   await client.connect();
-  db = client.db(dbName);
 
-  const users = db.collection("users");
+  const db = client.db(dbName);
+  const data = readFiles();
 
-  await users.drop();
-  await db.createCollection("users");
+  for (const element in data) {
+    if (data.hasOwnProperty(element)) {
+      const collection = db.collection(element);
 
-  await users.insertMany(data);
+      await collection.drop();
+      await db.createCollection(element);
+      await collection.insertMany(data[element]);
+    }
+  }
+
   client.close();
 }
 
-connectDB();
+importData();
