@@ -1,17 +1,9 @@
-import {
-  Admin,
-  EditGuesser,
-  ListGuesser,
-  Resource,
-  ShowGuesser,
-  CustomRoutes,
-} from "react-admin";
+import { Admin, CustomRoutes, Resource } from "react-admin";
 import { Route } from "react-router-dom";
-import { dataProvider } from "../providers/dataProvider";
-import MyLoginPage from "./MyLoginPage";
-import authProvider from "../providers/authProvider";
-import { UsersList } from "../lists/users";
 import { TicketsCreate, TicketsEdit, TicketsList } from "../lists/tickets";
+import UsersList from "../lists/usersList";
+import authProvider from "../providers/authProvider";
+import { dataProvider } from "../providers/dataProvider";
 import Registrarse from "./registrarse";
 
 export const App = () => (

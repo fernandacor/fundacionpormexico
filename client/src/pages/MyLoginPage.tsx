@@ -1,17 +1,17 @@
-import { useState } from 'react';
-import { Button, TextField, Grid, Paper, Typography } from '@mui/material';
-import { useLogin } from 'react-admin';
+import { Button, Grid, Paper, TextField, Typography } from "@mui/material";
+import { useState } from "react";
+import { useLogin } from "react-admin";
 
 const MaterialUILoginPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const login = useLogin();
 
   const handleLogin = async () => {
     try {
       await login({ email, password });
     } catch (error) {
-      console.error('Error al iniciar sesión:', error);
+      console.error("Error al iniciar sesión:", error);
     }
   };
 
@@ -20,10 +20,10 @@ const MaterialUILoginPage = () => {
       container
       justifyContent="center"
       alignItems="center"
-      style={{ height: '100vh' }}
+      style={{ height: "100vh" }}
     >
       <Grid item xs={10} sm={6} md={4}>
-        <Paper elevation={3} style={{ padding: '20px' }}>
+        <Paper elevation={3} style={{ padding: "20px" }}>
           <Typography variant="h5" gutterBottom>
             Iniciar Sesión
           </Typography>
@@ -48,7 +48,7 @@ const MaterialUILoginPage = () => {
             variant="contained"
             color="primary"
             fullWidth
-            style={{ marginTop: '20px' }}
+            style={{ marginTop: "20px" }}
             onClick={handleLogin}
           >
             Iniciar Sesión
