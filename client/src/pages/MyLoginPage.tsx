@@ -1,17 +1,24 @@
-import { Button, Grid, Paper, TextField, Typography } from "@mui/material";
+import { Button, Grid, Paper, TextField, Typography, Alert } from "@mui/material";
 import { useState } from "react";
 import { useLogin } from "react-admin";
 
 const MaterialUILoginPage = () => {
-  const [email, setEmail] = useState("");
+  const [username, setusername] = useState("");
   const [password, setPassword] = useState("");
+  const [showusernameError, setShowusernameError] = useState(false);
+  const [showPasswordError, setShowPasswordError] = useState(false);
   const login = useLogin();
 
   const handleLogin = async () => {
     try {
-      await login({ email, password });
-    } catch (error) {
+      await login({ username, password });
+    } catch (error: any) {
       console.error("Error al iniciar sesión:", error);
+      if (error.message === "Usuario incorrecto") {
+        setShowusernameError(true);
+      } else if (error.message === "Contraseña incorrecta") {
+        setShowPasswordError(true);
+      }
     }
   };
 
@@ -32,8 +39,8 @@ const MaterialUILoginPage = () => {
             label="Correo Electrónico"
             variant="outlined"
             margin="normal"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={username}
+            onChange={(e) => setusername(e.target.value)}
           />
           <TextField
             fullWidth
@@ -53,6 +60,24 @@ const MaterialUILoginPage = () => {
           >
             Iniciar Sesión
           </Button>
+          {showusernameError && (
+            <Alert
+              severity="error"
+              onClose={() => setShowusernameError(false)}
+              style={{ marginTop: "20px" }}
+            >
+              Error en el usuario
+            </Alert>
+          )}
+          {showPasswordError && (
+            <Alert
+              severity="error"
+              onClose={() => setShowPasswordError(false)}
+              style={{ marginTop: "20px" }}
+            >
+              Error en la contraseña
+            </Alert>
+          )}
         </Paper>
       </Grid>
     </Grid>
