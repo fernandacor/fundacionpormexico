@@ -36,7 +36,7 @@ const MaterialUILoginPage = () => {
           </Typography>
           <TextField
             fullWidth
-            label="Correo Electrónico"
+            label="Usuario"
             variant="outlined"
             margin="normal"
             value={username}
