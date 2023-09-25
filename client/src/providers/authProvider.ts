@@ -9,6 +9,12 @@ const authProvider: AuthProvider={
         });
         try {
             const response = await fetch(request);
+            if (response.status === 401) {
+                throw new Error('Usuario incorrecto');
+            }
+            if (response.status === 403) {
+                throw new Error('Contraseña incorrecta');
+            }
             if (response.status < 200 || response.status >= 300) {
                 throw new Error(response.statusText);
             }
@@ -16,8 +22,8 @@ const authProvider: AuthProvider={
             localStorage.setItem('auth', auth.token);
             localStorage.setItem('identity',  JSON.stringify({"id": auth.id,  "fullName":auth.fullName}));
             return Promise.resolve()
-        } catch {
-            throw new Error('Error en usuario o password');
+        } catch (error: any) {
+            throw new Error(error.message);
         }
     },
     logout: ()=>{

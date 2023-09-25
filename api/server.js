@@ -102,26 +102,25 @@ app.post("/registrarse", async(request, response)=>{
   }
 })
 
-app.post("/login", async(request, response)=>{
-  let user=request.body.username;
-  let pass=request.body.password;
-  console.log(user)
-  console.log(pass)
-  let data= await db.collection("users").findOne({"usuario": user});
-  console.log(data)
-  if(data==null){
-      response.sendStatus(401);
-  }else{
-      bcrypt.compare(pass, data.contrasena, (error, result)=>{
-          if(result){
-              let token=jwt.sign({usuario: data.usuario}, "secretKey", {expiresIn: 600});
-              response.json({"token": token, "id": data.usuario, "name": data.name})
-          }else{
-              response.sendStatus(401)
-          }
-      })
+app.post("/login", async (request, response) => {
+  let user = request.body.username;
+  let pass = request.body.password;
+
+  let data = await db.collection("users").findOne({ "usuario": user });
+
+  if (data === null) {
+    response.sendStatus(401); // Usuario incorrecto
+  } else {
+    bcrypt.compare(pass, data.contrasena, (error, result) => {
+      if (result) {
+        let token = jwt.sign({ usuario: data.usuario }, "secretKey", { expiresIn: 600 });
+        response.json({ "token": token, "id": data.usuario, "name": data.name });
+      } else {
+        response.sendStatus(403); // Contraseña incorrecta
+      }
+    });
   }
-})
+});
 
 //delete
 app.delete("/tickets/:id", async (req, res) => {

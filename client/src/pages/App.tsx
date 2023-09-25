@@ -5,9 +5,10 @@ import UsersList from "../lists/usersList";
 import authProvider from "../providers/authProvider";
 import { dataProvider } from "../providers/dataProvider";
 import Registrarse from "./registrarse";
+import MyLoginPage from "./MyLoginPage"
 
 export const App = () => (
-  <Admin authProvider={authProvider} dataProvider={dataProvider}>
+  <Admin authProvider={authProvider} dataProvider={dataProvider} loginPage={MyLoginPage}>
     <Resource name="users" list={UsersList} />
     <Resource
       name="tickets"
