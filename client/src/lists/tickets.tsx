@@ -74,7 +74,7 @@ export const TicketsEdit = (props: any) => {
 
     const handleCategoriaChange = (e: any, newValue: any) => {
         setSelectedCategoria(newValue);
-        const filtered = subcategorias.filter(subcategoria => subcategoria.categoria_id === newValue);
+        const filtered = subcategorias.filter(subcategoria => subcategoria.categoria_id === newValue.id);
         setFilteredSubcategorias(filtered);
     };
 
@@ -104,7 +104,7 @@ export const TicketsCreate = (props: any) => {
 
     const handleCategoriaChange = (e: any, newValue: any) => {
         setSelectedCategoria(newValue);
-        const filtered = subcategorias.filter(subcategoria => subcategoria.categoria_id === newValue);
+        const filtered = subcategorias.filter(subcategoria => subcategoria.categoria_id === newValue.id);
         setFilteredSubcategorias(filtered);
     };
 
@@ -123,28 +123,3 @@ export const TicketsCreate = (props: any) => {
         </Create>
     );
 };
-/*
-export const TicketsEdit = (props: any) => (
-    <Edit>
-        <SimpleForm>
-            <TextInput source="coordinador" disabled/>
-            <AutocompleteInput source="categoria" choices={categorias}/>
-            <AutocompleteInput source="subcategoria" choices={subcategorias} />
-            <TextInput source="status" />
-            <TextInput source="descripcion" />
-        </SimpleForm>
-    </Edit>
-);
-
-
-export const TicketsCreate = () => (
-    <Create>
-        <SimpleForm>
-            <TextInput source="coordinador" />
-            <AutocompleteInput source="categoria" choices={categorias} optionText="name"/>
-            <AutocompleteInput source="subcategoria" choices={subcategorias} optionText="name"/>
-            <TextInput source="status" />
-            <TextInput source="descripcion" />
-        </SimpleForm>
-    </Create>
-);*/
