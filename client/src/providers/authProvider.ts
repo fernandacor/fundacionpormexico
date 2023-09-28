@@ -19,8 +19,9 @@ const authProvider: AuthProvider={
                 throw new Error(response.statusText);
             }
             const auth = await response.json();
+            console.log('Nombre de usuario:', auth.nombre); 
             localStorage.setItem('auth', auth.token);
-            localStorage.setItem('identity',  JSON.stringify({"id": auth.id,  "fullName":auth.fullName}));
+            localStorage.setItem('identity',  JSON.stringify({"id": auth.id,  "fullName":auth.nombre}));
             return Promise.resolve()
         } catch (error: any) {
             throw new Error(error.message);
@@ -45,6 +46,7 @@ const authProvider: AuthProvider={
     },
     getIdentity: () => {
         const identityString = localStorage.getItem("identity");
+        console.log(identityString);
         if (identityString) {
             try {
                 return Promise.resolve(JSON.parse(identityString));

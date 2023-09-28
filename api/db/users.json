@@ -1,14 +1,15 @@
 [
   {
-    "id": 4,
+    "id": 1,
     "usuario": "chamito813",
     "contrasena": "$2b$10$5eNKgLWBue28U6GDAGvnM.gF86LWTnm.IX0sMAyL5lPMCTgEwZ5yq",
     "nombre": "Samuel",
     "apellidoPaterno": "Acevedo",
-    "apellidoMaterno": "Sandoval"
+    "apellidoMaterno": "Sandoval",
+    "permissions": "Coordinador"
   },
   {
-    "id": 4,
+    "id": 2,
     "usuario": "sebas21mg",
     "contrasena": "$2b$10$/ZFTk.oHCWtkooxx9.2CSegrdfmJk5/fdanU3VqAOaUXpVFQFUG6.",
     "nombre": "Sebastian",
@@ -16,12 +17,13 @@
     "apellidoMaterno": "Gonzalez"
   },
   {
-    "id": 4,
+    "id": 3,
     "usuario": "fernandacor",
     "contrasena": "$2b$10$HSRSiSZ4f6GMgaF.SaYyBOHJe.5rn3qbjPN0A/HlIC1WhdRRSMJe.",
     "nombre": "Fernanda",
     "apellidoPaterno": "Cantú",
-    "apellidoMaterno": "Ortega"
+    "apellidoMaterno": "Ortega",
+    "permissions": "Coordinador"
   },
   {
     "id": 4,

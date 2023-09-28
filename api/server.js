@@ -20,9 +20,27 @@ async function connectDB() {
   console.log("Conectado a la base de datos");
 }
 
+async function log(sujeto, accion, objeto){
+  toLog={}
+  toLog["timestamp"]=new Date();
+  toLog["sujeto"]=sujeto;
+  toLog["accion"]=accion;
+  toLog["objeto"]=objeto;
+  await db.collection("log").insertOne(toLog);
+}
+
 //getList, getMany, getManyReference
 app.get("/tickets", async (request, response)=>{
-  if ("_sort" in request.query){
+  try{
+    let token=request.get("Authentication");
+    let verifiedToken = await jwt.verify(token, "secretKey");
+    let authData=await db.collection("users").findOne({"usuario": verifiedToken.usuario})
+    let parametersFind={}
+    if(authData.permissions=="Coordinador"){
+      parametersFind["usuario"]=verifiedToken.usuario;
+    }
+
+    if ("_sort" in request.query){
       let sortBy=request.query._sort;
       let sortOrder=request.query._order=="ASC"?1:-1;
       let start=Number(request.query._start);
@@ -34,26 +52,40 @@ app.get("/tickets", async (request, response)=>{
       response.set('X-Total-Count', data.length)
       data=data.slice(start, end)
       response.json(data);
-  }else if ("id" in request.query){
-      let data=[]
-      for (let index=0; index<request.query.id.length; index++){
-          let dataObtain=await db.collection('tickets').find({id: Number(request.query.id[index])}).project({_id:0}).toArray();
-          data=await data.concat(dataObtain)
-      }
-      response.json(data);
-  }else {
-      let data=[]
-      data=await db.collection('tickets').find(request.query).project({_id:0}).toArray();
-      response.set('Access-Control-Expose-Headers', 'X-Total-Count')
-      response.set('X-Total-Count', data.length)
-      response.json(data)
+    }else if ("id" in request.query){
+        let data=[]
+        for (let index=0; index<request.query.id.length; index++){
+            let dataObtain=await db.collection('tickets').find({id: Number(request.query.id[index])}).project({_id:0}).toArray();
+            data=await data.concat(dataObtain)
+        }
+        response.json(data);
+    }else {
+        let data=[]
+        data=await db.collection('tickets').find(request.query).project({_id:0}).toArray();
+        response.set('Access-Control-Expose-Headers', 'X-Total-Count')
+        response.set('X-Total-Count', data.length)
+        response.json(data)
+    }
+  }catch{
+    response.sendStatus(401);
   }
 })
 
 //getOne
 app.get("/tickets/:id", async (req, res) => {
-  let data = await db.collection("tickets").find({"id": Number(req.params.id)}).project({_id:0}).toArray();
-  res.json(data[0]);
+  try{
+    let token=request.get("Authentication");
+    let verifiedToken = await jwt.verify(token, "secretKey");
+    let authData=await db.collection("users").findOne({"usuario": verifiedToken.usuario})
+    let parametersFind={"id": Number(request.params.id)}
+    if(authData.permissions=="Coordinador"){
+        parametersFind["usuario"]=verifiedToken.usuario;
+    }
+    let data = await db.collection("tickets").find(parametersFind).project({_id:0}).toArray();
+    res.json(data[0]);
+  }catch{
+    response.sendStatus(401);
+  }
 })
 
 //create
@@ -114,7 +146,7 @@ app.post("/login", async (request, response) => {
     bcrypt.compare(pass, data.contrasena, (error, result) => {
       if (result) {
         let token = jwt.sign({ usuario: data.usuario }, "secretKey", { expiresIn: 600 });
-        response.json({ "token": token, "id": data.usuario, "name": data.name });
+        response.json({ "token": token, "id": data.usuario, "nombre": data.nombre });
       } else {
         response.sendStatus(403); // Contraseña incorrecta
       }
