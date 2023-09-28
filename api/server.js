@@ -120,32 +120,6 @@ app.put("/tickets/:id", async (request, response) => {
 }
 })
 
-app.post("/registrarse", async(request, response)=>{
-  let user=request.body.username;
-  let pass=request.body.password;
-  let name=request.body.name;
-  let flastname=request.body.lastName;
-  let slastname=request.body.slastName;
-  console.log(request.body)
-  let data= await db.collection("users").findOne({"usuario": user});
-  if(data==null){
-      try{
-          bcrypt.genSalt(10, (error, salt)=>{
-              bcrypt.hash(pass, salt, async(error, hash)=>{
-                  let data=await db.collection('users').find({}).toArray();
-                  let id=data.length+1;
-                  let usuarioAgregar={"id": id, "usuario": user, "contrasena": hash, "nombre": name, "apellidoPaterno":flastname, "apellidoMaterno":slastname};
-                  data= await db.collection("users").insertOne(usuarioAgregar);
-                  response.sendStatus(201);
-              })
-          })
-      }catch{
-          response.sendStatus(401);
-      }
-  }else{
-      response.sendStatus(401)
-  }
-})
 
 app.post("/login", async (request, response) => {
   let user = request.body.username;
@@ -190,6 +164,39 @@ app.get("/users", async (req, res) => {
   res.json(data);
 });
 
+
+app.post('/users', async (request, response) => {
+    let token=request.get("Authentication");
+    let verifiedToken = await jwt.verify(token, "secretKey");
+    let addValue=request.body
+    let data=await db.collection('users').find({}).toArray();
+    let id=data.length+1;
+    addValue["id"]=id;
+    let pass = addValue["contrasena"];
+    console.log(request.body)
+    data= await db.collection("users").findOne({"usuario": addValue["usuario"]});
+    if(data==null){
+      try{
+          bcrypt.genSalt(10, (error, salt)=>{
+              bcrypt.hash(pass, salt, async(error, hash)=>{
+                  let data=await db.collection('users').find({}).toArray();
+                  addValue["contrasena"]=hash;
+                  console.log(addValue);
+                  //let usuarioAgregar={"id": id, "usuario": user, "contrasena": hash, "nombre": name, "apellidoPaterno":flastname, "apellidoMaterno":slastname};
+                  data= await db.collection("users").insertOne(addValue);
+                  response.json(data);
+              })
+          })
+      }catch{
+          response.sendStatus(401);
+      }
+    }else{
+        response.sendStatus(401)
+    }
+})
+
+
+/*
 app.post("/users", async (request, response) => {
   let user=request.body.username;
   let pass=request.body.password;
@@ -215,7 +222,8 @@ app.post("/users", async (request, response) => {
   }else{
       response.sendStatus(401)
   }
-})
+})*/
+
 
 app.get("/users/:id", async (request, response) => {
   try{
