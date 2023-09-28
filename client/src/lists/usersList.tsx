@@ -1,6 +1,6 @@
-import { Datagrid, EmailField, List, TextField } from "react-admin";
+import { Datagrid, EmailField, List, TextField, Edit, SimpleForm, TextInput } from "react-admin";
 
-const UsersList = () => (
+export const UsersList = () => (
   <List>
     <Datagrid rowClick="edit">
       <TextField source="usuario" />
@@ -12,4 +12,14 @@ const UsersList = () => (
   </List>
 );
 
-export default UsersList;
+export const UsersEdit = () => (
+  <Edit>
+    <SimpleForm>
+      <TextInput source="usuario" />
+      <TextInput source="nombre" />
+      <TextInput source="apellidoPaterno" />
+      <TextInput source="apellidoMaterno" />
+      <TextInput source="correo" />
+    </SimpleForm>
+  </Edit>
+)

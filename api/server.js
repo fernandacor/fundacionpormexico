@@ -55,7 +55,7 @@ app.get("/tickets", async (request, response)=>{
     }else if ("id" in request.query){
         let data=[]
         for (let index=0; index<request.query.id.length; index++){
-            let dataObtain=await db.collection('tickets').find({id: Number(request.query.id[index])}).project({_id:0}).toArray();
+            let dataObtain=await db.collection('tickets').find({"id": Number(request.query.id[index])}).project({_id:0}).toArray();
             data=await data.concat(dataObtain)
         }
         response.json(data);
@@ -169,8 +169,14 @@ app.post("/login", async (request, response) => {
 
 //delete
 app.delete("/tickets/:id", async (req, res) => {
-  let data = await db.collection("tickets").deleteOne({id: Number(req.params.id)})
-  res.json(data);
+  try{
+    let token=request.get("Authentication");
+    let verifiedToken = await jwt.verify(token, "secretKey");
+    let data=await db.collection('tickets').deleteOne({"id": Number(request.params.id)});
+    response.json(data);
+  }catch{
+      response.sendStatus(401);
+  }
 })
 
 app.get("/users", async (req, res) => {
@@ -183,6 +189,38 @@ app.get("/users", async (req, res) => {
   res.set("X-Total-Count", data.length);
   res.json(data);
 });
+
+app.get("/users/:id", async (request, response) => {
+  try{
+    let data = await db.collection('users').find({"id": Number(request.params.id)}).project({_id:0}).toArray()
+    response.json(data[0]);
+  }catch{
+    response.sendStatus(401);
+  }
+})
+
+app.put("/users/:id", async (request, response) => {
+  try{
+    let addValue=request.body
+    addValue["id"]=Number(request.params.id);
+    let data=await db.collection("users").updateOne({"id": addValue["id"]}, {"$set": addValue});
+    data = await db.collection('users').find({"id": Number(request.params.id)}).project({_id:0}).toArray();
+    response.json(data[0]);
+  }catch{
+    response.sendStatus(401);
+  }
+})
+
+app.delete("/users/:id", async (request, response) => {
+  try{
+    let token=request.get("Authentication");
+    let verifiedToken = await jwt.verify(token, "secretKey");
+    let data=await db.collection('tickets').deleteOne({"id": Number(request.params.id)});
+    response.json(data);
+  }catch{
+    response.sendStatus(401);
+  }
+})
 
 app.listen(port, () => {
   connectDB();
