@@ -5,7 +5,8 @@
     "categoria": "Operatividad y funcionamiento",
     "subcategoria": "Seguridad",
     "status": "Abierto",
-    "descripcion": "Se rompieron las rejas de la entrada principal"
+    "descripcion": "Se rompieron las rejas de la entrada principal",
+    "usuario": "chamito813"
   },
   {
     "id": 2,
@@ -13,7 +14,8 @@
     "categoria": "Servicios",
     "subcategoria": "Luz",
     "status": "Cerrado",
-    "descripcion": "Prueba1"
+    "descripcion": "Prueba1",
+    "usuario": "chamito813"
   },
   {
     "id": 3,
@@ -21,7 +23,8 @@
     "categoria": "Prueba",
     "subcategoria": "pruebaQuien Sabe que numero",
     "status": "Abierto",
-    "descripcion": "Pruebita"
+    "descripcion": "Pruebita",
+    "usuario": "fernandacor"
   },
   {
     "id": 4,
@@ -29,6 +32,7 @@
     "categoria": "Fenómeno Meteorológico",
     "subcategoria": "Ráfagas de viento (Turbonadas)",
     "status": "Cerrado",
-    "descripcion": "El viento se llevo el techo de las canchas"
+    "descripcion": "El viento se llevo el techo de las canchas",
+    "usuario": "fernandacor"
   }
 ]

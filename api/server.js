@@ -47,7 +47,7 @@ app.get("/tickets", async (request, response)=>{
       let end=Number(request.query._end);
       let sorter={}
       sorter[sortBy]=sortOrder
-      let data=await db.collection('tickets').find({}).sort(sorter).project({_id:0}).toArray();
+      let data=await db.collection('tickets').find(parametersFind).sort(sorter).project({_id:0}).toArray();
       response.set('Access-Control-Expose-Headers', 'X-Total-Count')
       response.set('X-Total-Count', data.length)
       data=data.slice(start, end)
@@ -72,7 +72,7 @@ app.get("/tickets", async (request, response)=>{
 })
 
 //getOne
-app.get("/tickets/:id", async (req, res) => {
+app.get("/tickets/:id", async (request, response) => {
   try{
     let token=request.get("Authentication");
     let verifiedToken = await jwt.verify(token, "secretKey");
@@ -82,7 +82,7 @@ app.get("/tickets/:id", async (req, res) => {
         parametersFind["usuario"]=verifiedToken.usuario;
     }
     let data = await db.collection("tickets").find(parametersFind).project({_id:0}).toArray();
-    res.json(data[0]);
+    response.json(data[0]);
   }catch{
     response.sendStatus(401);
   }
@@ -90,21 +90,34 @@ app.get("/tickets/:id", async (req, res) => {
 
 //create
 app.post("/tickets", async (request, response)=>{
-  let addValue=request.body
-  let data=await db.collection('tickets').find({}).toArray();
-  let id=data.length+1;
-  addValue["id"]=id;
-  data=await db.collection('tickets').insertOne(addValue);
-  response.json(data);
+  try{
+    let token=request.get("Authentication");
+    let verifiedToken = await jwt.verify(token, "secretKey");
+    let addValue=request.body
+    let data=await db.collection('tickets').find({}).toArray();
+    let id=data.length+1;
+    addValue["id"]=id;
+    addValue["usuario"]=verifiedToken.usuario;
+    data=await db.collection('tickets').insertOne(addValue);
+    response.json(data);
+}catch{
+    response.sendStatus(401);
+}
 }) 
 
 //update
-app.put("/tickets/:id", async (req, res) => {
-  let addValues = req.body;
-  addValues["id"] = Number(req.params.id);
-  let data = await db.collection("tickets").updateOne({id: addValues["id"]}, {"$set":addValues});
-  data = await db.collection("tickets").find({"id": Number(req.params.id)}).project({_id:0}).toArray();
-  res.json(data[0]);
+app.put("/tickets/:id", async (request, response) => {
+  try{
+    let token=request.get("Authentication");
+    let verifiedToken = await jwt.verify(token, "secretKey");
+    let addValue=request.body
+    addValue["id"]=Number(request.params.id);
+    let data=await db.collection("tickets").updateOne({"id": addValue["id"]}, {"$set": addValue});
+    data=await db.collection('tickets').find({"id": Number(request.params.id)}).project({_id:0, id:1, nombre:1, materia:1}).toArray();
+    response.json(data[0]);
+}catch{
+    response.sendStatus(401);
+}
 })
 
 app.post("/registrarse", async(request, response)=>{
