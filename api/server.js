@@ -132,7 +132,7 @@ app.post("/registrarse", async(request, response)=>{
       try{
           bcrypt.genSalt(10, (error, salt)=>{
               bcrypt.hash(pass, salt, async(error, hash)=>{
-                  let data=await db.collection('tickets').find({}).toArray();
+                  let data=await db.collection('users').find({}).toArray();
                   let id=data.length+1;
                   let usuarioAgregar={"id": id, "usuario": user, "contrasena": hash, "nombre": name, "apellidoPaterno":flastname, "apellidoMaterno":slastname};
                   data= await db.collection("users").insertOne(usuarioAgregar);
@@ -190,6 +190,33 @@ app.get("/users", async (req, res) => {
   res.json(data);
 });
 
+app.post("/users", async (request, response) => {
+  let user=request.body.username;
+  let pass=request.body.password;
+  let name=request.body.name;
+  let flastname=request.body.lastName;
+  let slastname=request.body.slastName;
+  console.log(request.body)
+  let data= await db.collection("users").findOne({"usuario": user});
+  if(data==null){
+      try{
+          bcrypt.genSalt(10, (error, salt)=>{
+              bcrypt.hash(pass, salt, async(error, hash)=>{
+                  let data=await db.collection('users').find({}).toArray();
+                  let id=data.length+1;
+                  let usuarioAgregar={"id": id, "usuario": user, "contrasena": hash, "nombre": name, "apellidoPaterno":flastname, "apellidoMaterno":slastname};
+                  data= await db.collection("users").insertOne(usuarioAgregar);
+                  response.sendStatus(201);
+              })
+          })
+      }catch{
+          response.sendStatus(401);
+      }
+  }else{
+      response.sendStatus(401)
+  }
+})
+
 app.get("/users/:id", async (request, response) => {
   try{
     let data = await db.collection('users').find({"id": Number(request.params.id)}).project({_id:0}).toArray()
@@ -215,7 +242,7 @@ app.delete("/users/:id", async (request, response) => {
   try{
     let token=request.get("Authentication");
     let verifiedToken = await jwt.verify(token, "secretKey");
-    let data=await db.collection('tickets').deleteOne({"id": Number(request.params.id)});
+    let data=await db.collection('users').deleteOne({"id": Number(request.params.id)});
     response.json(data);
   }catch{
     response.sendStatus(401);
