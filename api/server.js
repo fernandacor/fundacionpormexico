@@ -55,7 +55,7 @@ app.get("/tickets", async (request, response)=>{
     }else if ("id" in request.query){
         let data=[]
         for (let index=0; index<request.query.id.length; index++){
-            let dataObtain=await db.collection('tickets').find({id: Number(request.query.id[index])}).project({_id:0}).toArray();
+            let dataObtain=await db.collection('tickets').find({"id": Number(request.query.id[index])}).project({_id:0}).toArray();
             data=await data.concat(dataObtain)
         }
         response.json(data);
@@ -120,32 +120,6 @@ app.put("/tickets/:id", async (request, response) => {
 }
 })
 
-app.post("/registrarse", async(request, response)=>{
-  let user=request.body.username;
-  let pass=request.body.password;
-  let name=request.body.name;
-  let flastname=request.body.lastName;
-  let slastname=request.body.slastName;
-  console.log(request.body)
-  let data= await db.collection("users").findOne({"usuario": user});
-  if(data==null){
-      try{
-          bcrypt.genSalt(10, (error, salt)=>{
-              bcrypt.hash(pass, salt, async(error, hash)=>{
-                  let data=await db.collection('tickets').find({}).toArray();
-                  let id=data.length+1;
-                  let usuarioAgregar={"id": id, "usuario": user, "contrasena": hash, "nombre": name, "apellidoPaterno":flastname, "apellidoMaterno":slastname};
-                  data= await db.collection("users").insertOne(usuarioAgregar);
-                  response.sendStatus(201);
-              })
-          })
-      }catch{
-          response.sendStatus(401);
-      }
-  }else{
-      response.sendStatus(401)
-  }
-})
 
 app.post("/login", async (request, response) => {
   let user = request.body.username;
@@ -169,8 +143,14 @@ app.post("/login", async (request, response) => {
 
 //delete
 app.delete("/tickets/:id", async (req, res) => {
-  let data = await db.collection("tickets").deleteOne({id: Number(req.params.id)})
-  res.json(data);
+  try{
+    let token=request.get("Authentication");
+    let verifiedToken = await jwt.verify(token, "secretKey");
+    let data=await db.collection('tickets').deleteOne({"id": Number(request.params.id)});
+    response.json(data);
+  }catch{
+      response.sendStatus(401);
+  }
 })
 
 app.get("/users", async (req, res) => {
@@ -183,6 +163,99 @@ app.get("/users", async (req, res) => {
   res.set("X-Total-Count", data.length);
   res.json(data);
 });
+
+
+app.post('/users', async (request, response) => {
+    let token=request.get("Authentication");
+    let verifiedToken = await jwt.verify(token, "secretKey");
+    let addValue=request.body
+    let data=await db.collection('users').find({}).toArray();
+    let id=data.length+1;
+    addValue["id"]=id;
+    let pass = addValue["contrasena"];
+    console.log(request.body)
+    data= await db.collection("users").findOne({"usuario": addValue["usuario"]});
+    if(data==null){
+      try{
+          bcrypt.genSalt(10, (error, salt)=>{
+              bcrypt.hash(pass, salt, async(error, hash)=>{
+                  let data=await db.collection('users').find({}).toArray();
+                  addValue["contrasena"]=hash;
+                  console.log(addValue);
+                  //let usuarioAgregar={"id": id, "usuario": user, "contrasena": hash, "nombre": name, "apellidoPaterno":flastname, "apellidoMaterno":slastname};
+                  data= await db.collection("users").insertOne(addValue);
+                  response.json(data);
+              })
+          })
+      }catch{
+          response.sendStatus(401);
+      }
+    }else{
+        response.sendStatus(401)
+    }
+})
+
+
+/*
+app.post("/users", async (request, response) => {
+  let user=request.body.username;
+  let pass=request.body.password;
+  let name=request.body.name;
+  let flastname=request.body.lastName;
+  let slastname=request.body.slastName;
+  console.log(request.body)
+  let data= await db.collection("users").findOne({"usuario": user});
+  if(data==null){
+      try{
+          bcrypt.genSalt(10, (error, salt)=>{
+              bcrypt.hash(pass, salt, async(error, hash)=>{
+                  let data=await db.collection('users').find({}).toArray();
+                  let id=data.length+1;
+                  let usuarioAgregar={"id": id, "usuario": user, "contrasena": hash, "nombre": name, "apellidoPaterno":flastname, "apellidoMaterno":slastname};
+                  data= await db.collection("users").insertOne(usuarioAgregar);
+                  response.sendStatus(201);
+              })
+          })
+      }catch{
+          response.sendStatus(401);
+      }
+  }else{
+      response.sendStatus(401)
+  }
+})*/
+
+
+app.get("/users/:id", async (request, response) => {
+  try{
+    let data = await db.collection('users').find({"id": Number(request.params.id)}).project({_id:0}).toArray()
+    response.json(data[0]);
+  }catch{
+    response.sendStatus(401);
+  }
+})
+
+app.put("/users/:id", async (request, response) => {
+  try{
+    let addValue=request.body
+    addValue["id"]=Number(request.params.id);
+    let data=await db.collection("users").updateOne({"id": addValue["id"]}, {"$set": addValue});
+    data = await db.collection('users').find({"id": Number(request.params.id)}).project({_id:0}).toArray();
+    response.json(data[0]);
+  }catch{
+    response.sendStatus(401);
+  }
+})
+
+app.delete("/users/:id", async (request, response) => {
+  try{
+    let token=request.get("Authentication");
+    let verifiedToken = await jwt.verify(token, "secretKey");
+    let data=await db.collection('users').deleteOne({"id": Number(request.params.id)});
+    response.json(data);
+  }catch{
+    response.sendStatus(401);
+  }
+})
 
 app.listen(port, () => {
   connectDB();
