@@ -1,4 +1,11 @@
-import { Button, Grid, Paper, TextField, Typography, Alert } from "@mui/material";
+import {
+  Alert,
+  Button,
+  Grid,
+  Paper,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useState } from "react";
 import { useLogin } from "react-admin";
 
@@ -23,64 +30,67 @@ const MaterialUILoginPage = () => {
   };
 
   return (
-    <Grid
-      container
-      justifyContent="center"
-      alignItems="center"
-      style={{ height: "100vh" }}
-    >
-      <Grid item xs={10} sm={6} md={4}>
-        <Paper elevation={3} style={{ padding: "20px" }}>
-          <Typography variant="h5" gutterBottom>
-            Iniciar Sesión
-          </Typography>
-          <TextField
-            fullWidth
-            label="Usuario"
-            variant="outlined"
-            margin="normal"
-            value={username}
-            onChange={(e) => setusername(e.target.value)}
-          />
-          <TextField
-            fullWidth
-            label="Contraseña"
-            type="password"
-            variant="outlined"
-            margin="normal"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Button
-            variant="contained"
-            color="primary"
-            fullWidth
-            style={{ marginTop: "20px" }}
-            onClick={handleLogin}
-          >
-            Iniciar Sesión
-          </Button>
-          {showusernameError && (
-            <Alert
-              severity="error"
-              onClose={() => setShowusernameError(false)}
+    <>
+      <h1 className="text-red-500">Hola mundo</h1>
+      <Grid
+        container
+        justifyContent="center"
+        alignItems="center"
+        style={{ height: "100vh" }}
+      >
+        <Grid item xs={10} sm={6} md={4}>
+          <Paper elevation={3} style={{ padding: "20px" }}>
+            <Typography variant="h5" gutterBottom>
+              Iniciar Sesión
+            </Typography>
+            <TextField
+              fullWidth
+              label="Usuario"
+              variant="outlined"
+              margin="normal"
+              value={username}
+              onChange={(e) => setusername(e.target.value)}
+            />
+            <TextField
+              fullWidth
+              label="Contraseña"
+              type="password"
+              variant="outlined"
+              margin="normal"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
               style={{ marginTop: "20px" }}
+              onClick={handleLogin}
             >
-              Error en el usuario
-            </Alert>
-          )}
-          {showPasswordError && (
-            <Alert
-              severity="error"
-              onClose={() => setShowPasswordError(false)}
-              style={{ marginTop: "20px" }}
-            >
-              Error en la contraseña
-            </Alert>
-          )}
-        </Paper>
+              Iniciar Sesión
+            </Button>
+            {showusernameError && (
+              <Alert
+                severity="error"
+                onClose={() => setShowusernameError(false)}
+                style={{ marginTop: "20px" }}
+              >
+                Error en el usuario
+              </Alert>
+            )}
+            {showPasswordError && (
+              <Alert
+                severity="error"
+                onClose={() => setShowPasswordError(false)}
+                style={{ marginTop: "20px" }}
+              >
+                Error en la contraseña
+              </Alert>
+            )}
+          </Paper>
+        </Grid>
       </Grid>
-    </Grid>
+    </>
   );
 };
 
