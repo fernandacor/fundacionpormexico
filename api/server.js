@@ -41,47 +41,6 @@ async function log(sujeto, accion, objeto) {
 
 //getList, getMany, getManyReference
 app.get("/tickets", async (request, response) => {
-  if ("_sort" in request.query) {
-    let sortBy = request.query._sort;
-    let sortOrder = request.query._order == "ASC" ? 1 : -1;
-    let start = Number(request.query._start);
-    let end = Number(request.query._end);
-    let sorter = {};
-    sorter[sortBy] = sortOrder;
-    let data = await db
-      .collection("tickets")
-      .find({})
-      .sort(sorter)
-      .project({ _id: 0 })
-      .toArray();
-    response.set("Access-Control-Expose-Headers", "X-Total-Count");
-    response.set("X-Total-Count", data.length);
-    data = data.slice(start, end);
-    response.json(data);
-  } else if ("id" in request.query) {
-    let data = [];
-    for (let index = 0; index < request.query.id.length; index++) {
-      let dataObtain = await db
-        .collection("tickets")
-        .find({ id: Number(request.query.id[index]) })
-        .project({ _id: 0 })
-        .toArray();
-      data = await data.concat(dataObtain);
-    }
-    response.json(data);
-  } else {
-    let data = [];
-    data = await db
-      .collection("tickets")
-      .find(request.query)
-      .project({ _id: 0 })
-      .toArray();
-    response.set("Access-Control-Expose-Headers", "X-Total-Count");
-    response.set("X-Total-Count", data.length);
-    response.json(data);
-  }
-});
-app.get("/tickets", async (request, response) => {
   try {
     let token = request.get("Authentication");
     let verifiedToken = await jwt.verify(token, "secretKey");
@@ -138,14 +97,6 @@ app.get("/tickets", async (request, response) => {
 });
 
 //getOne
-app.get("/tickets/:id", async (req, res) => {
-  let data = await db
-    .collection("tickets")
-    .find({ id: Number(req.params.id) })
-    .project({ _id: 0 })
-    .toArray();
-  res.json(data[0]);
-});
 app.get("/tickets/:id", async (request, response) => {
   try {
     let token = request.get("Authentication");
@@ -170,14 +121,6 @@ app.get("/tickets/:id", async (request, response) => {
 
 //create
 app.post("/tickets", async (request, response) => {
-  let addValue = request.body;
-  let data = await db.collection("tickets").find({}).toArray();
-  let id = data.length + 1;
-  addValue["id"] = id;
-  data = await db.collection("tickets").insertOne(addValue);
-  response.json(data);
-});
-app.post("/tickets", async (request, response) => {
   try {
     let token = request.get("Authentication");
     let verifiedToken = await jwt.verify(token, "secretKey");
@@ -194,53 +137,6 @@ app.post("/tickets", async (request, response) => {
 });
 
 //update
-app.put("/tickets/:id", async (req, res) => {
-  let addValues = req.body;
-  addValues["id"] = Number(req.params.id);
-  let data = await db
-    .collection("tickets")
-    .updateOne({ id: addValues["id"] }, { $set: addValues });
-  data = await db
-    .collection("tickets")
-    .find({ id: Number(req.params.id) })
-    .project({ _id: 0 })
-    .toArray();
-  res.json(data[0]);
-});
-
-app.post("/registrarse", async (request, response) => {
-  let user = request.body.username;
-  let pass = request.body.password;
-  let name = request.body.name;
-  let flastname = request.body.lastName;
-  let slastname = request.body.slastName;
-  console.log(request.body);
-  let data = await db.collection("users").findOne({ usuario: user });
-  if (data == null) {
-    try {
-      bcrypt.genSalt(10, (error, salt) => {
-        bcrypt.hash(pass, salt, async (error, hash) => {
-          let data = await db.collection("tickets").find({}).toArray();
-          let id = data.length + 1;
-          let usuarioAgregar = {
-            id: id,
-            usuario: user,
-            contrasena: hash,
-            nombre: name,
-            apellidoPaterno: flastname,
-            apellidoMaterno: slastname,
-          };
-          data = await db.collection("users").insertOne(usuarioAgregar);
-          response.sendStatus(201);
-        });
-      });
-    } catch {
-      response.sendStatus(401);
-    }
-  } else {
-    response.sendStatus(401);
-  }
-});
 app.put("/tickets/:id", async (request, response) => {
   try {
     let token = request.get("Authentication");
@@ -275,10 +171,6 @@ app.post("/login", async (request, response) => {
         let token = jwt.sign({ usuario: data.usuario }, "secretKey", {
           expiresIn: 600,
         });
-        response.json({ token: token, id: data.usuario, name: data.name });
-        let token = jwt.sign({ usuario: data.usuario }, "secretKey", {
-          expiresIn: 600,
-        });
         response.json({ token: token, id: data.usuario, nombre: data.nombre });
       } else {
         response.sendStatus(403); // Contraseña incorrecta
@@ -289,10 +181,16 @@ app.post("/login", async (request, response) => {
 
 //delete
 app.delete("/tickets/:id", async (req, res) => {
-  let data = await db
-    .collection("tickets")
-    .deleteOne({ id: Number(req.params.id) });
-  res.json(data);
+  try {
+    let token = request.get("Authentication");
+    let verifiedToken = await jwt.verify(token, "secretKey");
+    let data = await db
+      .collection("tickets")
+      .deleteOne({ id: Number(request.params.id) });
+    response.json(data);
+  } catch {
+    response.sendStatus(401);
+  }
 });
 
 app.get("/users", async (req, res) => {
