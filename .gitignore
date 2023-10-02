@@ -1,4 +1,4 @@
 node_modules
 .vscode
 .vite/
-./client/index.css
+client/index.css
