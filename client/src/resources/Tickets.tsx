@@ -137,6 +137,18 @@ const subcategorias = [
   // ...
 ];
 
+const status = [
+  {
+    id: "Por resolver", name: "Por resolver",
+  },
+  {
+    id: "En progreso", name: "En progreso",
+  },
+  {
+    id: "Listo", name: "Listo",
+  }
+];
+
 const TicketsEdit = (props: any) => {
   const [selectedCategoria, setSelectedCategoria] = useState(null);
   const [filteredSubcategorias, setFilteredSubcategorias] =
@@ -166,7 +178,7 @@ const TicketsEdit = (props: any) => {
           source="subcategoria"
           choices={filteredSubcategorias}
         />
-        <TextInput source="status" />
+        <AutocompleteInput source="status" choices={status}/>
         <TextInput source="descripcion" />
       </SimpleForm>
     </Edit>
@@ -199,7 +211,7 @@ const TicketsCreate = (props: any) => {
           source="subcategoria"
           choices={filteredSubcategorias}
         />
-        <TextInput source="status" />
+        <AutocompleteInput source="status" choices={status}/>
         <TextInput source="descripcion" />
       </SimpleForm>
     </Create>
