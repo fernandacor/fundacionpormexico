@@ -21,6 +21,7 @@ const authProvider: AuthProvider={
             const auth = await response.json();
             console.log('Nombre de usuario:', auth.nombre); 
             localStorage.setItem('auth', auth.token);
+            localStorage.setItem('permissions', auth.permissions);
             localStorage.setItem('identity',  JSON.stringify({"id": auth.id,  "fullName":auth.nombre}));
             localStorage.setItem('permissions', auth.permissions);
             return Promise.resolve()
