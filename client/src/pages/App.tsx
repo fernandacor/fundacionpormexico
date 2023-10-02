@@ -1,8 +1,8 @@
 import { Admin, Resource } from "react-admin";
-import { TicketsCreate, TicketsEdit, TicketsList } from "../lists/tickets";
-import { UsersCreate, UsersEdit, UsersList } from "../lists/usersList";
 import authProvider from "../providers/authProvider";
 import dataProvider from "../providers/dataProvider";
+import { TicketsCreate, TicketsEdit, TicketsList } from "../resources/Tickets";
+import { UsersCreate, UsersEdit, UsersList } from "../resources/Users";
 import LoginPage from "./Login";
 
 export const App = () => (

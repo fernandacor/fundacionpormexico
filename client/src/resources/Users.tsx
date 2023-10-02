@@ -1,8 +1,17 @@
-import { Datagrid, EmailField, List, TextField, Edit, SimpleForm, TextInput, Create, useNotify, useRefresh, useRedirect } from "react-admin";
+import {
+  Create,
+  Datagrid,
+  Edit,
+  EmailField,
+  List,
+  SimpleForm,
+  TextField,
+  TextInput,
+} from "react-admin";
 
 export const UsersList = () => (
   <List>
-    <Datagrid rowClick="edit">
+    <Datagrid rowClick="edit" size="medium">
       <TextField source="usuario" />
       <TextField source="nombre" />
       <TextField source="apellidoPaterno" />
@@ -22,16 +31,16 @@ export const UsersEdit = () => (
       <TextInput source="correo" />
     </SimpleForm>
   </Edit>
-)
+);
 
-export const UsersCreate =() => (
+export const UsersCreate = () => (
   <Create>
     <SimpleForm>
-    <TextInput source="usuario" />
+      <TextInput source="usuario" />
       <TextInput source="nombre" />
       <TextInput source="contrasena" />
       <TextInput source="apellidoPaterno" />
       <TextInput source="apellidoMaterno" />
     </SimpleForm>
   </Create>
-)
+);
