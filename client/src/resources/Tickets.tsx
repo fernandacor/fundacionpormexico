@@ -4,6 +4,7 @@ import {
   Create,
   Edit,
   InfiniteList,
+  required,
   SimpleForm,
   TextInput,
   DateInput
@@ -169,7 +170,7 @@ const TicketsEdit = (props: any) => {
   return (
     <Edit {...props}>
       <SimpleForm>
-        <DateInput source="fecha" disabled/>
+        <DateInput source="fecha" disabled validate={required("Campo requerido")}/>
         <AutocompleteInput
           source="categoria"
           choices={categorias}
@@ -202,18 +203,20 @@ const TicketsCreate = (props: any) => {
   return (
     <Create {...props}>
       <SimpleForm>
-      <DateInput source="fecha" />
+      <DateInput source="fecha" validate={required("Campo requerido")}/>
         <AutocompleteInput
           source="categoria"
           choices={categorias}
           onChange={handleCategoriaChange}
+          validate={required("Campo requerido")}
         />
         <AutocompleteInput
           source="subcategoria"
           choices={filteredSubcategorias}
+          validate={required("Campo requerido")}
         />
-        <AutocompleteInput source="status" choices={status}/>
-        <TextInput source="descripcion" />
+        <AutocompleteInput source="status" choices={status} validate={required("Campo requerido")}/>
+        <TextInput source="descripcion" validate={required("Campo requerido")}/>
       </SimpleForm>
     </Create>
   );
