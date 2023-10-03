@@ -21,7 +21,9 @@ const authProvider: AuthProvider={
             const auth = await response.json();
             console.log('Nombre de usuario:', auth.nombre); 
             localStorage.setItem('auth', auth.token);
+            localStorage.setItem('permissions', auth.permissions);
             localStorage.setItem('identity',  JSON.stringify({"id": auth.id,  "fullName":auth.nombre}));
+            localStorage.setItem('permissions', auth.permissions);
             return Promise.resolve()
         } catch (error: any) {
             throw new Error(error.message);
@@ -30,6 +32,7 @@ const authProvider: AuthProvider={
     logout: ()=>{
         localStorage.removeItem("auth");
         localStorage.removeItem("identity");
+        localStorage.removeItem("permissions");
         return Promise.resolve();
     },
     checkAuth: ()=>{
@@ -40,6 +43,7 @@ const authProvider: AuthProvider={
         if(status===401|| status===403){
             localStorage.removeItem("auth");
             localStorage.removeItem("identity");
+            localStorage.removeItem("permissions");
             return Promise.reject();
         }
         return Promise.resolve();
@@ -57,7 +61,10 @@ const authProvider: AuthProvider={
             return Promise.reject("No se encontró la identidad en el almacenamiento local");
         }
     },
-    getPermissions: ()=>{return Promise.resolve()},
+    getPermissions: () => {
+        const role = localStorage.getItem('permissions');
+        return role ? Promise.resolve(role) : Promise.reject();
+    },
 };
 
 export default authProvider;

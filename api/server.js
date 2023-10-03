@@ -171,7 +171,7 @@ app.post("/login", async (request, response) => {
         let token = jwt.sign({ usuario: data.usuario }, "secretKey", {
           expiresIn: 600,
         });
-        response.json({ token: token, id: data.usuario, nombre: data.nombre });
+        response.json({ token: token, id: data.usuario, nombre: data.nombre, permissions: data.permissions });
       } else {
         response.sendStatus(403); // Contraseña incorrecta
       }
