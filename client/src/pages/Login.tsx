@@ -1,18 +1,11 @@
-import {
-  Alert,
-  Button,
-  Grid,
-  Paper,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Alert, Grid, Paper, Typography } from "@mui/material";
 import { useState } from "react";
 import { useLogin } from "react-admin";
 
-const MaterialUILoginPage = () => {
-  const [username, setusername] = useState("");
+const Login = () => {
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [showusernameError, setShowusernameError] = useState(false);
+  const [showUsernameError, setShowUsernameError] = useState(false);
   const [showPasswordError, setShowPasswordError] = useState(false);
   const login = useLogin();
 
@@ -22,7 +15,7 @@ const MaterialUILoginPage = () => {
     } catch (error: any) {
       console.error("Error al iniciar sesión:", error);
       if (error.message === "Usuario incorrecto") {
-        setShowusernameError(true);
+        setShowUsernameError(true);
       } else if (error.message === "Contraseña incorrecta") {
         setShowPasswordError(true);
       }
@@ -41,36 +34,23 @@ const MaterialUILoginPage = () => {
           <Typography variant="h5" gutterBottom>
             Iniciar Sesión
           </Typography>
-          <TextField
-            fullWidth
-            label="Usuario"
-            variant="outlined"
-            margin="normal"
+          <input
+            type="text"
+            placeholder="Usuario"
             value={username}
-            onChange={(e) => setusername(e.target.value)}
+            onChange={(e) => setUsername(e.target.value)}
           />
-          <TextField
-            fullWidth
-            label="Contraseña"
+          <input
             type="password"
-            variant="outlined"
-            margin="normal"
+            placeholder="Contraseña"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button
-            variant="contained"
-            color="primary"
-            fullWidth
-            style={{ marginTop: "20px" }}
-            onClick={handleLogin}
-          >
-            Iniciar Sesión
-          </Button>
-          {showusernameError && (
+          <button onClick={handleLogin}>Iniciar sesión</button>
+          {showUsernameError && (
             <Alert
               severity="error"
-              onClose={() => setShowusernameError(false)}
+              onClose={() => setShowUsernameError(false)}
               style={{ marginTop: "20px" }}
             >
               Error en el usuario
@@ -91,4 +71,4 @@ const MaterialUILoginPage = () => {
   );
 };
 
-export default MaterialUILoginPage;
+export default Login;
