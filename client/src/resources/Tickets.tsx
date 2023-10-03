@@ -7,6 +7,7 @@ import {
   required,
   SimpleForm,
   TextInput,
+  DateInput
 } from "react-admin";
 import Ticket from "../components/Ticket";
 
@@ -169,6 +170,7 @@ const TicketsEdit = (props: any) => {
   return (
     <Edit {...props}>
       <SimpleForm>
+        <DateInput source="fecha" disabled/>
         <AutocompleteInput
           source="categoria"
           choices={categorias}
@@ -201,6 +203,7 @@ const TicketsCreate = (props: any) => {
   return (
     <Create {...props}>
       <SimpleForm>
+      <DateInput source="fecha" />
         <AutocompleteInput
           source="categoria"
           choices={categorias}
