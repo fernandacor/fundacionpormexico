@@ -4,6 +4,7 @@ import {
   Create,
   Edit,
   InfiniteList,
+  required,
   SimpleForm,
   TextInput,
 } from "react-admin";
@@ -204,14 +205,15 @@ const TicketsCreate = (props: any) => {
           source="categoria"
           choices={categorias}
           onChange={handleCategoriaChange}
-          validate={require}
+          validate={required("Campo requerido")}
         />
         <AutocompleteInput
           source="subcategoria"
           choices={filteredSubcategorias}
+          validate={required("Campo requerido")}
         />
-        <AutocompleteInput source="status" choices={status}/>
-        <TextInput source="descripcion" />
+        <AutocompleteInput source="status" choices={status} validate={required("Campo requerido")}/>
+        <TextInput source="descripcion" validate={required("Campo requerido")}/>
       </SimpleForm>
     </Create>
   );
