@@ -204,6 +204,7 @@ const TicketsCreate = (props: any) => {
           source="categoria"
           choices={categorias}
           onChange={handleCategoriaChange}
+          validate={require}
         />
         <AutocompleteInput
           source="subcategoria"
