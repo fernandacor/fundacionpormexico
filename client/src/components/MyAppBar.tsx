@@ -1,13 +1,9 @@
-import { AppBar, TitlePortal, ToggleThemeButton, defaultTheme } from "react-admin";
+import { AppBar, ToggleThemeButton } from "react-admin";
+import { defaultDarkTheme } from "react-admin";
 
-const darkTheme = {
-    palette: { mode: 'dark' },
-};
+const darkTheme = defaultDarkTheme;
 
 export const MyAppBar = () => (
     <AppBar>
-        toolbar={<ToggleThemeButton />}
     </AppBar>
     );
-
-export default MyAppBar;

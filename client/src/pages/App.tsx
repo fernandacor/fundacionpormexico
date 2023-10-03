@@ -10,26 +10,24 @@ import { LayoutProps } from 'react-admin';
 const myLayout = (props: LayoutProps) => <Layout {...props} appBar={MyAppBar} />;
 
 export const App = () => (
-  <Admin dataProvider={dataProvider} authProvider={authProvider} loginPage={LoginPage} layout={myLayout}>
-      {permissions => (
-          <>
-              {/* Restrict access to the edit view to admin only */}
-              <Resource
-                      name="tickets"
-                      list={TicketsList}
-                      edit={TicketsEdit}
-                      create={TicketsCreate}
-                    />
-              {/* Only include the categories resource for admin users */}
-              {permissions === 'Ejecutivo'
-                  ? <Resource
-                  name="users"
-                  list={UsersList}
-                  edit={UsersEdit}
-                  create={UsersCreate}
-                />
-                  : null}
-          </>
-      )}
-  </Admin>
-);
+    <Admin
+      authProvider={authProvider}
+      dataProvider={dataProvider}
+      loginPage={LoginPage}
+      layout={myLayout}
+      darkTheme={{ palette: { mode: 'dark' } }}
+    >
+      <Resource
+        name="users"
+        list={UsersList}
+        edit={UsersEdit}
+        create={UsersCreate}
+      />
+      <Resource
+        name="tickets"
+        list={TicketsList}
+        edit={TicketsEdit}
+        create={TicketsCreate}
+      />
+    </Admin>
+  );
