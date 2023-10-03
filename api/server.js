@@ -31,7 +31,7 @@ async function connectDB() {
 }
 
 async function log(sujeto, accion, objeto) {
-  toLog = {};
+  let toLog = {};
   toLog["timestamp"] = new Date();
   toLog["sujeto"] = sujeto;
   toLog["accion"] = accion;
@@ -113,6 +113,7 @@ app.get("/tickets/:id", async (request, response) => {
       .find(parametersFind)
       .project({ _id: 0 })
       .toArray();
+    log(verifiedToken.usuario, "ver objeto", request.params.id)
     response.json(data[0]);
   } catch {
     response.sendStatus(401);
@@ -130,6 +131,7 @@ app.post("/tickets", async (request, response) => {
     addValue["id"] = id;
     addValue["usuario"] = verifiedToken.usuario;
     data = await db.collection("tickets").insertOne(addValue);
+    log(verifiedToken.usuario, "creó un ticket", request.params.id)
     response.json(data);
   } catch {
     response.sendStatus(401);
@@ -149,8 +151,12 @@ app.put("/tickets/:id", async (request, response) => {
     data = await db
       .collection("tickets")
       .find({ id: Number(request.params.id) })
-      .project({ _id: 0, id: 1, nombre: 1, materia: 1 })
+      .project({ _id: 0 })
       .toArray();
+      console.log(request.params)
+      console.log(data)
+      console.log(data[0].status)
+      log(verifiedToken.usuario, "actualizó ticket a '" + data[0].status + "'", request.params.id)
     response.json(data[0]);
   } catch {
     response.sendStatus(401);
@@ -171,6 +177,7 @@ app.post("/login", async (request, response) => {
         let token = jwt.sign({ usuario: data.usuario }, "secretKey", {
           expiresIn: 600,
         });
+        log(user, "login", "");
         response.json({ token: token, id: data.usuario, nombre: data.nombre, permissions: data.permissions });
       } else {
         response.sendStatus(403); // Contraseña incorrecta
@@ -233,34 +240,6 @@ app.post("/users", async (request, response) => {
     response.sendStatus(401);
   }
 });
-
-/*
-app.post("/users", async (request, response) => {
-  let user=request.body.username;
-  let pass=request.body.password;
-  let name=request.body.name;
-  let flastname=request.body.lastName;
-  let slastname=request.body.slastName;
-  console.log(request.body)
-  let data= await db.collection("users").findOne({"usuario": user});
-  if(data==null){
-      try{
-          bcrypt.genSalt(10, (error, salt)=>{
-              bcrypt.hash(pass, salt, async(error, hash)=>{
-                  let data=await db.collection('users').find({}).toArray();
-                  let id=data.length+1;
-                  let usuarioAgregar={"id": id, "usuario": user, "contrasena": hash, "nombre": name, "apellidoPaterno":flastname, "apellidoMaterno":slastname};
-                  data= await db.collection("users").insertOne(usuarioAgregar);
-                  response.sendStatus(201);
-              })
-          })
-      }catch{
-          response.sendStatus(401);
-      }
-  }else{
-      response.sendStatus(401)
-  }
-})*/
 
 app.get("/users/:id", async (request, response) => {
   try {
