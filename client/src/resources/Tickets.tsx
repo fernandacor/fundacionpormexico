@@ -168,7 +168,6 @@ const TicketsEdit = (props: any) => {
   return (
     <Edit {...props}>
       <SimpleForm>
-        <TextInput source="coordinador" disabled />
         <AutocompleteInput
           source="categoria"
           choices={categorias}
@@ -201,7 +200,6 @@ const TicketsCreate = (props: any) => {
   return (
     <Create {...props}>
       <SimpleForm>
-        <TextInput source="coordinador" />
         <AutocompleteInput
           source="categoria"
           choices={categorias}
