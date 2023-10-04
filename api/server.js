@@ -4,6 +4,8 @@ import cors from "cors";
 import express from "express";
 import jwt from "jsonwebtoken";
 import { MongoClient, ServerApiVersion } from "mongodb";
+import https from "https";
+import fs from "fs";
 
 const dbUser = "equipo";
 const dbPassword = "cJWGwAqOZ7lIungJ";
@@ -285,7 +287,7 @@ app.delete("/users/:id", async (request, response) => {
   }
 });
 
-app.listen(port, () => {
+https.createServer({cert: fs.readFileSync("backend.cer"),key: fs.readFileSync("backend.key") },app).listen(port, () => {
   connectDB();
   console.log(`La aplicación está escuchando en http://127.0.0.1:${port}`);
 });
