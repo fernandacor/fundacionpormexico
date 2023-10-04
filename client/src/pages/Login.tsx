@@ -23,51 +23,71 @@ const Login = () => {
   };
 
   return (
-    <Grid
-      container
-      justifyContent="center"
-      alignItems="center"
-      style={{ height: "100vh" }}
-    >
-      <Grid item xs={10} sm={6} md={4}>
-        <Paper elevation={3} style={{ padding: "20px" }}>
-          <Typography variant="h5" gutterBottom>
-            Iniciar Sesión
-          </Typography>
-          <input
-            type="text"
-            placeholder="Usuario"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="Contraseña"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button onClick={handleLogin}>Iniciar sesión</button>
-          {showUsernameError && (
-            <Alert
-              severity="error"
-              onClose={() => setShowUsernameError(false)}
-              style={{ marginTop: "20px" }}
+    <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100">
+      <main className="flex flex-col items-center justify-center flex-1 px-20 text-center">
+        <div className="bg-white rounded-2xl shadow-xl flex w-2/3 max-w-4xl">
+          <div className="w-10/15 p-5">
+            <div className="text-left font-bold">
+              <span className="text-gray-400">Fundación</span>
+              <span className="text-green-500">Por</span>
+              <span className="text-red-500">México</span>
+            </div>
+            <div className="py-10">
+              <h2 className="text-3xl font-bold text-gray-400 mb-2">
+                Iniciar Sesión
+              </h2>
+              <p className="text-gray-400 my-3">Texto prueba</p>
+            </div>
+            <input
+              type="text"
+              placeholder="Usuario"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="rounded-md bg-gray-200/50 mb-5 placeholder:text-slate-400 block w-full border border-slate-300 py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-gray-500 focus:ring-gray-500 focus:ring-1 sm:text-sm"
+            />
+            <input
+              type="password"
+              placeholder="Contraseña"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="rounded-md bg-gray-200/50 mb-5 placeholder:text-slate-400 block w-full border border-slate-300 py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-gray-500 focus:ring-gray-500 focus:ring-1 sm:text-sm"
+            />
+            <button
+              onClick={handleLogin}
+              className="bg-green-500 text-white p-2  hover:ring hover:ring-lime-400 active:bg-green-600 rounded-lg w-64 mt-8"
             >
-              Error en el usuario
-            </Alert>
-          )}
-          {showPasswordError && (
-            <Alert
-              severity="error"
-              onClose={() => setShowPasswordError(false)}
-              style={{ marginTop: "20px" }}
-            >
-              Error en la contraseña
-            </Alert>
-          )}
-        </Paper>
-      </Grid>
-    </Grid>
+              Iniciar sesión
+            </button>
+            {showUsernameError && (
+              <Alert
+                severity="error"
+                onClose={() => setShowUsernameError(false)}
+                style={{ marginTop: "20px" }}
+              >
+                Error en el usuario
+              </Alert>
+            )}
+            {showPasswordError && (
+              <Alert
+                severity="error"
+                onClose={() => setShowPasswordError(false)}
+                style={{ marginTop: "20px" }}
+              >
+                Error en la contraseña
+              </Alert>
+            )}
+          </div>
+
+          <div className="w-4/15 bg-gradient-to-b from-lime-500 to-green-600 text-white rounded-r-2xl py-36 px-12">
+            <h2 className="text-3xl font-bold">¡Bienvenido de vuelta!</h2>
+            <p className="mb-2">
+              Porfavor ingrese el usuario y contraseña proporcionada por el
+              administrador
+            </p>
+          </div>
+        </div>
+      </main>
+    </div>
   );
 };
 
