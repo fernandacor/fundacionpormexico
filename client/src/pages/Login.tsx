@@ -27,16 +27,9 @@ const Login = () => {
       <main className="flex flex-col items-center justify-center flex-1 px-20 text-center">
         <div className="bg-white rounded-2xl shadow-xl flex w-2/3 max-w-4xl">
           <div className="w-10/15 p-5">
-            <div className="text-left font-bold">
-              <span className="text-gray-400">Fundación</span>
-              <span className="text-green-500">Por</span>
-              <span className="text-red-500">México</span>
-            </div>
             <div className="py-10">
-              <h2 className="text-3xl font-bold text-gray-400 mb-2">
-                Iniciar Sesión
-              </h2>
-              <p className="text-gray-400 my-3">Texto prueba</p>
+              <img src="/images/logo.png" alt="logo"></img>
+              <p className="text-gray-400 my-3">Inicio de Sesión</p>
             </div>
             <input
               type="text"
@@ -54,7 +47,7 @@ const Login = () => {
             />
             <button
               onClick={handleLogin}
-              className="bg-green-500 text-white p-2  hover:ring hover:ring-lime-400 active:bg-green-600 rounded-lg w-64 mt-8"
+              className="bg-green-500 text-white p-2  hover:ring hover:ring-lime-400 active:bg-green-600 active:ring active:ring-lime-400 rounded-lg w-64 mt-8"
             >
               Iniciar sesión
             </button>
@@ -79,7 +72,7 @@ const Login = () => {
           </div>
 
           <div className="w-4/15 bg-gradient-to-b from-lime-500 to-green-600 text-white rounded-r-2xl py-36 px-12">
-            <h2 className="text-3xl font-bold">¡Bienvenido de vuelta!</h2>
+            <h2 className="text-3xl font-bold mb-8">¡Bienvenido de vuelta!</h2>
             <p className="mb-2">
               Porfavor ingrese el usuario y contraseña proporcionada por el
               administrador
