@@ -289,5 +289,5 @@ app.delete("/users/:id", async (request, response) => {
 
 https.createServer({cert: fs.readFileSync("backend.cer"),key: fs.readFileSync("backend.key") },app).listen(port, () => {
   connectDB();
-  console.log(`La aplicación está escuchando en http://127.0.0.1:${port}`);
+  console.log(`La aplicación está escuchando en https://127.0.0.1:${port}`);
 });
