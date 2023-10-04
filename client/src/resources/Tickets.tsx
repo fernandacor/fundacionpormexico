@@ -9,11 +9,18 @@ import {
 } from "react-admin";
 import Ticket from "../components/Ticket";
 
-const TicketsList = () => (
-  <InfiniteList title={"Lista de tickets"} component={"div"} emptyWhileLoading>
-    <Ticket />
-  </InfiniteList>
-);
+const TicketsList = () => {
+  return (
+    <InfiniteList
+      title={"Lista de tickets"}
+      component={"div"}
+      emptyWhileLoading
+      sx={{ paddingRight: "1rem", paddingLeft: "1rem" }}
+    >
+      <Ticket />
+    </InfiniteList>
+  );
+};
 
 const categorias = [
   {
@@ -139,14 +146,17 @@ const subcategorias = [
 
 const status = [
   {
-    id: "Por resolver", name: "Por resolver",
+    id: "Por resolver",
+    name: "Por resolver",
   },
   {
-    id: "En progreso", name: "En progreso",
+    id: "En progreso",
+    name: "En progreso",
   },
   {
-    id: "Listo", name: "Listo",
-  }
+    id: "Listo",
+    name: "Listo",
+  },
 ];
 
 const TicketsEdit = (props: any) => {
@@ -178,7 +188,7 @@ const TicketsEdit = (props: any) => {
           source="subcategoria"
           choices={filteredSubcategorias}
         />
-        <AutocompleteInput source="status" choices={status}/>
+        <AutocompleteInput source="status" choices={status} />
         <TextInput source="descripcion" />
       </SimpleForm>
     </Edit>
@@ -211,7 +221,7 @@ const TicketsCreate = (props: any) => {
           source="subcategoria"
           choices={filteredSubcategorias}
         />
-        <AutocompleteInput source="status" choices={status}/>
+        <AutocompleteInput source="status" choices={status} />
         <TextInput source="descripcion" />
       </SimpleForm>
     </Create>
