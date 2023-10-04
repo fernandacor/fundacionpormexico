@@ -153,8 +153,8 @@ const status = [
 
 const TicketsEdit = (props: any) => {
   const [selectedCategoria, setSelectedCategoria] = useState(null);
-  const [filteredSubcategorias, setFilteredSubcategorias] =
-    useState(subcategorias);
+  const [filteredSubcategorias, setFilteredSubcategorias] = useState(subcategorias);
+  const [showFechaResuelto, setShowFechaResuelto] = useState(false);
 
   const handleCategoriaChange = (e: any, newValue: any) => {
     setSelectedCategoria(newValue);
@@ -164,13 +164,20 @@ const TicketsEdit = (props: any) => {
     setFilteredSubcategorias(filtered);
   };
 
+  const handleStatusChange = (e: any, newValue: any) => {
+    if (newValue && newValue.id === 'Listo') {
+      setShowFechaResuelto(true);
+    } else {
+      setShowFechaResuelto(false);
+    }
+  };
+
   console.log(filteredSubcategorias);
   console.log(selectedCategoria);
 
   return (
     <Edit {...props}>
       <SimpleForm>
-        <DateInput source="fecha" disabled validate={required("Campo requerido")}/>
         <AutocompleteInput
           source="categoria"
           choices={categorias}
@@ -180,8 +187,9 @@ const TicketsEdit = (props: any) => {
           source="subcategoria"
           choices={filteredSubcategorias}
         />
-        <AutocompleteInput source="status" choices={status}/>
+        <AutocompleteInput source="status" choices={status} onChange={handleStatusChange}/>
         <TextInput source="descripcion" />
+        {showFechaResuelto && <DateInput source="fecha_resuelto" label="Fecha Resuelto" validate={required("Campo requerido")}/>}
       </SimpleForm>
     </Edit>
   );
