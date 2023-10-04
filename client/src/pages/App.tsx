@@ -1,22 +1,20 @@
-import { Admin, Layout, LayoutProps, Resource } from "react-admin";
-import { MyAppBar } from "../components/MyAppBar";
+import { Admin, Resource } from "react-admin";
+import MyLayout from "../components/MyLayout";
 import authProvider from "../providers/authProvider";
 import dataProvider from "../providers/dataProvider";
+import { darkTheme, lightTheme } from "../providers/themeProvider";
 import { TicketsCreate, TicketsEdit, TicketsList } from "../resources/Tickets";
 import { UsersCreate, UsersEdit, UsersList } from "../resources/Users";
 import LoginPage from "./Login";
-
-const myLayout = (props: LayoutProps) => (
-  <Layout {...props} appBar={MyAppBar} />
-);
 
 export const App = () => (
   <Admin
     authProvider={authProvider}
     dataProvider={dataProvider}
     loginPage={LoginPage}
-    layout={myLayout}
-    darkTheme={{ palette: { mode: "dark" } }}
+    layout={MyLayout}
+    theme={lightTheme}
+    darkTheme={darkTheme}
   >
     <Resource
       name="users"
