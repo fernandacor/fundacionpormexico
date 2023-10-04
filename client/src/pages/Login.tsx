@@ -36,18 +36,18 @@ const Login = () => {
               placeholder="Usuario"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="rounded-md bg-gray-200/50 mb-5 placeholder:text-slate-400 block w-full border border-slate-300 py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-gray-500 focus:ring-gray-500 focus:ring-1 sm:text-sm"
+              className="rounded-md bg-gray-200/50 mb-5 placeholder:text-slate-400 block w-full border border-slate-300 py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-gray-500 focus:ring-gray-500 focus:ring-1 text-base"
             />
             <input
               type="password"
               placeholder="Contraseña"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="rounded-md bg-gray-200/50 mb-5 placeholder:text-slate-400 block w-full border border-slate-300 py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-gray-500 focus:ring-gray-500 focus:ring-1 sm:text-sm"
+              className="rounded-md bg-gray-200/50 mb-5 placeholder:text-slate-400 block w-full border border-slate-300 py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-gray-500 focus:ring-gray-500 focus:ring-1 text-base"
             />
             <button
               onClick={handleLogin}
-              className="bg-green-500 text-white p-2  hover:ring hover:ring-lime-400 active:bg-green-600 active:ring active:ring-lime-400 rounded-lg w-64 mt-8"
+              className="bg-green-500 text-white p-2  hover:ring hover:ring-lime-400 active:bg-green-600 rounded-lg w-64 mt-8 focus:outline-none focus:border-lime-400 focus:ring-lime-400 focus:ring-1"
             >
               Iniciar sesión
             </button>
@@ -72,7 +72,9 @@ const Login = () => {
           </div>
 
           <div className="w-4/15 bg-gradient-to-b from-lime-500 to-green-600 text-white rounded-r-2xl py-36 px-12">
-            <h2 className="text-3xl font-bold mb-8">¡Bienvenido de vuelta!</h2>
+            <h2 className="text-3xl font-bold mb-8 mt-8">
+              ¡Bienvenido de vuelta!
+            </h2>
             <p className="mb-2">
               Porfavor ingrese el usuario y contraseña proporcionada por el
               administrador
