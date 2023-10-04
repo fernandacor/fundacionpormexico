@@ -11,7 +11,7 @@ const dbUser = "equipo";
 const dbPassword = "cJWGwAqOZ7lIungJ";
 const dbName = "fundacionPorMexico";
 const uri = `mongodb+srv://${dbUser}:${dbPassword}@cluster0.xflhwk3.mongodb.net/?retryWrites=true&w=majority&appName=AtlasApp`;
-const port = 1337;
+const port = 443;
 let db;
 
 const app = express();
@@ -189,7 +189,7 @@ app.post("/login", async (request, response) => {
 });
 
 //delete
-app.delete("/tickets/:id", async (req, res) => {
+app.delete("/tickets/:id", async (request, response) => {
   try {
     let token = request.get("Authentication");
     let verifiedToken = await jwt.verify(token, "secretKey");
