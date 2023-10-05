@@ -1,5 +1,4 @@
 import { Admin, Layout, LayoutProps, Resource, usePermissions } from "react-admin";
-import { useEffect, useState} from "react";
 import { MyAppBar } from "../components/MyAppBar";
 import authProvider from "../providers/authProvider";
 import dataProvider from "../providers/dataProvider";
