@@ -29,7 +29,6 @@ const Login = () => {
           <div className="w-10/15 p-5">
             <div className="py-10">
               <img src="/images/logo.png" alt="logo"></img>
-              <p className="text-gray-400 my-3">Inicio de Sesión</p>
             </div>
             <input
               type="text"
@@ -47,7 +46,7 @@ const Login = () => {
             />
             <button
               onClick={handleLogin}
-              className="bg-green-500 text-white p-2  hover:ring hover:ring-lime-400 active:bg-green-600 rounded-lg w-64 mt-8 focus:outline-none focus:border-lime-400 focus:ring-lime-400 focus:ring-1"
+              className="bg-green-500 text-white p-2  hover:ring hover:ring-lime-400 active:bg-green-600 rounded-lg w-64 mt-5 focus:outline-none focus:border-lime-400 focus:ring-lime-400 focus:ring-1"
             >
               Iniciar sesión
             </button>
@@ -76,7 +75,7 @@ const Login = () => {
               ¡Bienvenido de vuelta!
             </h2>
             <p className="mb-2">
-              Porfavor ingrese el usuario y contraseña proporcionada por el
+              Por favor ingrese el usuario y contraseña proporcionada por el
               administrador
             </p>
           </div>
