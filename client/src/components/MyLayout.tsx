@@ -1,35 +1,24 @@
-import {
-  AppBar,
-  Layout,
-  LayoutProps,
-  Menu,
-  ToggleThemeButton,
-} from "react-admin";
-import { darkTheme, lightTheme } from "../providers/themeProvider";
-
-const theme = lightTheme;
+import { useTheme } from "@mui/material/styles";
+import { AppBar, Layout, LayoutProps, Menu, TitlePortal } from "react-admin";
+import ThemeToggler from "../hooks/useTheme";
 
 export const MyAppBar = () => (
   <AppBar
-    toolbar={<ToggleThemeButton />}
+    toolbar={<ThemeToggler />}
+    color="transparent"
     sx={{
       boxShadow: "none",
-      backgroundColor: theme.palette?.background?.default,
     }}
-  />
+  >
+    <TitlePortal />
+  </AppBar>
 );
 
-const MyMenu = () => (
-  <Menu
-  // sx={{
-  //   height: "200%",
-  //   margin: "0px",
-  //   color: "blue",
-  // }}
-  />
-);
+const MyMenu = () => <Menu />;
 
 const MyLayout = (props: LayoutProps) => {
+  const theme = useTheme();
+
   return (
     <Layout
       {...props}
@@ -37,9 +26,11 @@ const MyLayout = (props: LayoutProps) => {
       menu={MyMenu}
       sx={{
         "& .RaLayout-content": {
-          borderRadius: "0.75rem",
-          backgroundColor: "#F5F5F5",
+          borderTopLeftRadius: "0.75rem",
+          borderTopRightRadius: "0.75rem",
+          backgroundColor: theme.palette?.background?.paper,
           marginRight: "10px",
+          marginLeft: "10px",
         },
       }}
     />
