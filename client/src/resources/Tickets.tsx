@@ -2,10 +2,12 @@ import { useState } from "react";
 import {
   AutocompleteInput,
   Create,
+  DateInput,
   Edit,
   InfiniteList,
   SimpleForm,
   TextInput,
+  required,
 } from "react-admin";
 import Ticket from "../components/Ticket";
 
@@ -163,6 +165,7 @@ const TicketsEdit = (props: any) => {
   const [selectedCategoria, setSelectedCategoria] = useState(null);
   const [filteredSubcategorias, setFilteredSubcategorias] =
     useState(subcategorias);
+  const [showFechaResuelto, setShowFechaResuelto] = useState(false);
 
   const handleCategoriaChange = (e: any, newValue: any) => {
     setSelectedCategoria(newValue);
@@ -172,13 +175,20 @@ const TicketsEdit = (props: any) => {
     setFilteredSubcategorias(filtered);
   };
 
+  const handleStatusChange = (e: any, newValue: any) => {
+    if (newValue && newValue.id === "Listo") {
+      setShowFechaResuelto(true);
+    } else {
+      setShowFechaResuelto(false);
+    }
+  };
+
   console.log(filteredSubcategorias);
   console.log(selectedCategoria);
 
   return (
     <Edit {...props}>
       <SimpleForm>
-        <TextInput source="coordinador" disabled />
         <AutocompleteInput
           source="categoria"
           choices={categorias}
@@ -188,8 +198,19 @@ const TicketsEdit = (props: any) => {
           source="subcategoria"
           choices={filteredSubcategorias}
         />
-        <AutocompleteInput source="status" choices={status} />
+        <AutocompleteInput
+          source="status"
+          choices={status}
+          onChange={handleStatusChange}
+        />
         <TextInput source="descripcion" />
+        {showFechaResuelto && (
+          <DateInput
+            source="fecha_resuelto"
+            label="Fecha Resuelto"
+            validate={required("Campo requerido")}
+          />
+        )}
       </SimpleForm>
     </Edit>
   );
@@ -211,18 +232,27 @@ const TicketsCreate = (props: any) => {
   return (
     <Create {...props}>
       <SimpleForm>
-        <TextInput source="coordinador" />
+        <DateInput source="fecha" validate={required("Campo requerido")} />
         <AutocompleteInput
           source="categoria"
           choices={categorias}
           onChange={handleCategoriaChange}
+          validate={required("Campo requerido")}
         />
         <AutocompleteInput
           source="subcategoria"
           choices={filteredSubcategorias}
+          validate={required("Campo requerido")}
         />
-        <AutocompleteInput source="status" choices={status} />
-        <TextInput source="descripcion" />
+        <AutocompleteInput
+          source="status"
+          choices={status}
+          validate={required("Campo requerido")}
+        />
+        <TextInput
+          source="descripcion"
+          validate={required("Campo requerido")}
+        />
       </SimpleForm>
     </Create>
   );
