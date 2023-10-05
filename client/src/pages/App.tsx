@@ -1,4 +1,4 @@
-import { Admin, Layout, LayoutProps, Resource } from "react-admin";
+import { Admin, Layout, LayoutProps, Resource, usePermissions } from "react-admin";
 import { MyAppBar } from "../components/MyAppBar";
 import authProvider from "../providers/authProvider";
 import dataProvider from "../providers/dataProvider";
@@ -11,35 +11,44 @@ const myLayout = (props: LayoutProps) => (
   <Layout {...props} appBar={MyAppBar} />
 );
 
-export const App = () => (
+const { isLoading, permissions } = usePermissions();
 
-  <Admin
-    authProvider={authProvider}
-    dataProvider={dataProvider}
-    i18nProvider={i18nProvider}
-    loginPage={LoginPage}
-    layout={myLayout}
-    darkTheme={{ palette: { mode: "dark" } }}
-  >
+export const App = () => {
+  const { isLoading, permissions } = usePermissions();
+
+  if (isLoading) {
+    return <div>Waiting for permissions...</div>;
+  }
+
+  return (
+    <Admin
+      authProvider={authProvider}
+      dataProvider={dataProvider}
+      i18nProvider={i18nProvider}
+      loginPage={LoginPage}
+      layout={myLayout}
+      darkTheme={{ palette: { mode: "dark" } }}
+    >
       {permissions => (
-          <>
-              {/* Restrict access to the edit view to admin only */}
-              <Resource
-                      name="tickets"
-                      list={TicketsList}
-                      edit={TicketsEdit}
-                      create={TicketsCreate}
-                    />
-              {/* Only include the categories resource for admin users */}
-              {permissions === 'Ejecutivo'
-                  ? <Resource
-                  name="users"
-                  list={UsersList}
-                  edit={UsersEdit}
-                  create={UsersCreate}
-                />
-                  : null}
-          </>
+        <>
+          {/* Restrict access to the edit view to admin only */}
+          <Resource
+            name="tickets"
+            list={TicketsList}
+            edit={TicketsEdit}
+            create={TicketsCreate}
+          />
+          {/* Only include the categories resource for admin users */}
+          {permissions === 'Ejecutivo' && (
+            <Resource
+              name="users"
+              list={UsersList}
+              edit={UsersEdit}
+              create={UsersCreate}
+            />
+          )}
+        </>
       )}
-  </Admin>
-);
+    </Admin>
+  );
+};
