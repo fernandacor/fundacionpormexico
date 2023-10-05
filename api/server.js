@@ -178,7 +178,7 @@ app.post("/login", async (request, response) => {
           expiresIn: 600,
         });
         log(user, "login", "");
-        response.json({ token: token, id: data.usuario, nombre: data.nombre, permissions: data.permissions });
+        response.json({ token: token, id: data.usuario, nombre: data.nombre, permissions: data.permissions, avatar: data.avatar });
       } else {
         response.sendStatus(403); // Contraseña incorrecta
       }
