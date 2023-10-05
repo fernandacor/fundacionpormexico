@@ -1,10 +1,24 @@
 import { useTheme } from "@mui/material/styles";
-import { AppBar, Layout, LayoutProps, Menu, TitlePortal } from "react-admin";
+import {
+  AppBar,
+  Layout,
+  LayoutProps,
+  LocalesMenuButton,
+  Menu,
+  RefreshIconButton,
+  TitlePortal,
+} from "react-admin";
 import ThemeToggler from "../hooks/useTheme";
 
 export const MyAppBar = () => (
   <AppBar
-    toolbar={<ThemeToggler />}
+    toolbar={
+      <>
+        <LocalesMenuButton />
+        <ThemeToggler />
+        <RefreshIconButton />
+      </>
+    }
     color="transparent"
     sx={{
       boxShadow: "none",
