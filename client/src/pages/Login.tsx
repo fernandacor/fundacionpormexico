@@ -1,4 +1,4 @@
-import { Alert, Grid, Paper, Typography } from "@mui/material";
+import { Alert } from "@mui/material";
 import { useState } from "react";
 import { useLogin } from "react-admin";
 
@@ -23,7 +23,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100">
+    <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100 font-sans">
       <main className="flex flex-col items-center justify-center flex-1 px-20 text-center">
         <div className="bg-white rounded-2xl shadow-xl flex w-2/3 max-w-4xl">
           <div className="w-10/15 p-5">
