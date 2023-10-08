@@ -1,12 +1,12 @@
 import { Admin, Resource } from "react-admin";
-import MyLayout from "../components/MyLayout";
-import authProvider from "../providers/authProvider";
-import dataProvider from "../providers/dataProvider";
-import i18nProvider from "../providers/i18nProvider";
-import { darkTheme, lightTheme } from "../providers/themeProvider";
-import { TicketsCreate, TicketsEdit, TicketsList } from "../resources/Tickets";
-import { UsersCreate, UsersEdit, UsersList } from "../resources/Users";
-import LoginPage from "./Login";
+import LoginPage from "./pages/Login";
+import MyLayout from "./pages/MyLayout";
+import authProvider from "./providers/authProvider";
+import dataProvider from "./providers/dataProvider";
+import i18nProvider from "./providers/i18nProvider";
+import { darkTheme, lightTheme } from "./providers/themeProvider";
+import { TicketsCreate, TicketsEdit, TicketsList } from "./resources/Tickets";
+import { UsersCreate, UsersEdit, UsersList } from "./resources/Users";
 
 const userRole = localStorage.getItem("permissions");
 
