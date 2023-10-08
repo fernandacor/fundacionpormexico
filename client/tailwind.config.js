@@ -1,9 +1,10 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   darkMode: "class",
-  content: ["./src/**/*.{html,js,jsx,ts,tsx}", "./index.html"],
+  content: ["./index.html", "./src/**/*.{html,js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: { fontFamily: { sans: "Montserrat" } },
   },
   plugins: [],
 };

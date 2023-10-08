@@ -38,6 +38,7 @@ const MyLayout = (props: LayoutProps) => {
       {...props}
       appBar={MyAppBar}
       menu={MyMenu}
+      className="font-sans"
       sx={{
         "& .RaLayout-content": {
           borderTopLeftRadius: "0.75rem",
