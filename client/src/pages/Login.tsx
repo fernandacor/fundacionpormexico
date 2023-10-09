@@ -1,6 +1,6 @@
 import { Alert } from "@mui/material";
 import { useState } from "react";
-import { useLogin } from "react-admin";
+import { useLogin, useRefresh } from "react-admin";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -8,10 +8,12 @@ const Login = () => {
   const [showUsernameError, setShowUsernameError] = useState(false);
   const [showPasswordError, setShowPasswordError] = useState(false);
   const login = useLogin();
+  const refresh = useRefresh();
 
   const handleLogin = async () => {
     try {
       await login({ username, password });
+      window.location.reload();
     } catch (error: any) {
       console.error("Error al iniciar sesión:", error);
       if (error.message === "Usuario incorrecto") {
