@@ -1,22 +1,26 @@
-import { useTheme } from "react-admin";
+import { useTheme, Logout } from "react-admin";
 
 const ThemeToggler = () => {
-  const [, setTheme] = useTheme("dark");
-  const bodyTheme = document.getElementById("body").className;
+  const [, setTheme] = useTheme();
+  // const bodyTheme = document.getElementById("body").className;
 
   const changeTheme = () => {
-    if (bodyTheme == "light") {
-      document.getElementById("body").className = "dark";
+    if (localStorage.theme == "light") {
+      document.documentElement.className = "dark";
+      localStorage.theme = "dark";
       setTheme("dark");
     } else {
-      document.getElementById("body").className = "light";
+      document.documentElement.className = "light";
+      localStorage.theme = "light";
       setTheme("light");
     }
   };
 
   return (
     <button onClick={changeTheme}>
-      {bodyTheme === "light" ? "Switch to dark theme" : "Switch to light theme"}
+      {localStorage.theme == "light"
+        ? "Switch to dark theme"
+        : "Switch to light theme"}
     </button>
   );
 };
