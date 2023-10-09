@@ -1,6 +1,6 @@
 import { Admin, Resource } from "react-admin";
+import Layout from "./pages/Layout";
 import LoginPage from "./pages/Login";
-import MyLayout from "./pages/MyLayout";
 import authProvider from "./providers/authProvider";
 import dataProvider from "./providers/dataProvider";
 import i18nProvider from "./providers/i18nProvider";
@@ -16,7 +16,7 @@ export const App = () => (
     dataProvider={dataProvider}
     i18nProvider={i18nProvider}
     loginPage={LoginPage}
-    layout={MyLayout}
+    layout={Layout}
     theme={lightTheme}
     darkTheme={darkTheme}
   >

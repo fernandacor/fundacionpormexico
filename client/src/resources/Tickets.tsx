@@ -17,7 +17,6 @@ const TicketsList = () => {
       title={"Lista de tickets"}
       component={"div"}
       emptyWhileLoading
-      sx={{ paddingRight: "1rem", paddingLeft: "1rem" }}
     >
       <Ticket />
     </InfiniteList>

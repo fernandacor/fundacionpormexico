@@ -1,34 +1,6 @@
 import { useTheme } from "@mui/material/styles";
-import {
-  AppBar,
-  Layout,
-  LayoutProps,
-  LocalesMenuButton,
-  Menu,
-  RefreshIconButton,
-  TitlePortal,
-} from "react-admin";
-import ThemeToggler from "../hooks/useTheme";
-
-export const MyAppBar = () => (
-  <AppBar
-    toolbar={
-      <>
-        <LocalesMenuButton />
-        <ThemeToggler />
-        <RefreshIconButton />
-      </>
-    }
-    color="transparent"
-    sx={{
-      boxShadow: "none",
-    }}
-  >
-    <TitlePortal />
-  </AppBar>
-);
-
-const MyMenu = () => <Menu />;
+import { Layout, LayoutProps, Menu } from "react-admin";
+import { MyAppBar } from "../components/AppBar";
 
 const MyLayout = (props: LayoutProps) => {
   const theme = useTheme();
@@ -37,7 +9,7 @@ const MyLayout = (props: LayoutProps) => {
     <Layout
       {...props}
       appBar={MyAppBar}
-      menu={MyMenu}
+      menu={Menu}
       className="font-sans"
       sx={{
         "& .RaLayout-content": {
