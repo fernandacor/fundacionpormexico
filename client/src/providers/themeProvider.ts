@@ -13,7 +13,7 @@ export const lightTheme: ThemeOptions = {
     text: { primary: "#000" },
   },
   typography: {
-    fontFamily: "sans-serif",
+    fontFamily: '"Montserrat", sans-serif',
   },
 };
 
@@ -25,6 +25,6 @@ export const darkTheme: ThemeOptions = {
     background: { default: "#121212", paper: "#272727" },
   },
   typography: {
-    fontFamily: "sans-serif",
+    fontFamily: '"Montserrat", sans-serif',
   },
 };
