@@ -1,30 +1,42 @@
-import { ThemeOptions } from "@mui/material/styles";
-import { defaultDarkTheme, defaultTheme } from "react-admin";
+import { RaThemeOptions, defaultDarkTheme, defaultTheme } from "react-admin";
 
-export const lightTheme: ThemeOptions = {
+const basicTheme: RaThemeOptions = {
+  typography: {
+    fontFamily: '"Montserrat", sans-serif',
+  },
+  // components: {
+  //   ...defaultTheme.components,
+  //   RaList: {
+  //     styleOverrides: {
+  //       root: {
+  //         margin: "1rem",
+  //       },
+  //     },
+  //   },
+  // },
+};
+
+// console.log(themeMode);
+
+export const lightTheme: RaThemeOptions = {
   ...defaultTheme,
+  ...basicTheme,
   palette: {
     mode: "light",
-    // primary: { main: "#4ade80" },
     background: {
       default: "#fff",
       paper: "#f9fafb",
     },
     text: { primary: "#000" },
   },
-  typography: {
-    fontFamily: '"Montserrat", sans-serif',
-  },
 };
 
-export const darkTheme: ThemeOptions = {
+export const darkTheme: RaThemeOptions = {
   ...defaultDarkTheme,
+  ...basicTheme,
   palette: {
-    mode: "dark",
-    // primary: { main: "#22c55e" },
+    mode: "light",
     background: { default: "#121212", paper: "#272727" },
-  },
-  typography: {
-    fontFamily: '"Montserrat", sans-serif',
+    text: { primary: "#fff" },
   },
 };
