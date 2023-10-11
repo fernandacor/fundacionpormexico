@@ -17,7 +17,7 @@ const Layout: LayoutComponent = (props: LayoutProps) => {
     //   <div className="absolute overscroll-auto w-fit">
     //   </div>
     // </main>
-    <main className="ml-[20%] px-2 scroll-smooth bg-white dark:bg-slate-800">
+    <main className="ml-[20%] px-2 scroll-smooth bg-white dark:bg-slate-800 min-h-[100vh]">
       <Menu />
       <AppBar />
       <div className="p-3">{children}</div>
