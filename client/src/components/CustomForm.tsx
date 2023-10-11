@@ -201,10 +201,10 @@ const CustomForm = () => {
           </label>
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="fecha"
-            type="date"
-            value={formData.fecha}
-            onChange={(e) => handleInputChange('fecha', e.target.value)}
+            id="fecha" // Importante no quitarlo
+            type="date" // Importante no quitarlo
+            value={formData.fecha} // Importante no quitarlo
+            onChange={(e) => handleInputChange('fecha', e.target.value)} // Importante no quitarlo
           />
         </div>
   
@@ -214,15 +214,16 @@ const CustomForm = () => {
           </label>
           <select
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="categoria"
-            value={formData.categoria}
-            onChange={(e) => {
-              handleInputChange('categoria', e.target.value);
-              handleCategoriaChange({ id: e.target.value });
+            id="categoria" // Importante no quitarlo
+            value={formData.categoria} // Importante no quitarlo
+            onChange={(e) => { // Importante no quitarlo
+              handleInputChange('categoria', e.target.value); // Importante no quitarlo
+              handleCategoriaChange({ id: e.target.value }); // Importante no quitarlo
             }}
           >
-            {categorias.map(categoria => (
-              <option key={categoria.id} value={categoria.id}>{categoria.name}</option>
+            <option value="">Selecciona una categoría</option>
+            {categorias.map(categoria => ( // Importante no quitarlo
+              <option key={categoria.id} value={categoria.id}>{categoria.name}</option> // Importante no quitarlo
             ))}
           </select>
         </div>
@@ -233,12 +234,13 @@ const CustomForm = () => {
           </label>
           <select
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="subcategoria"
-            value={formData.subcategoria}
-            onChange={(e) => handleInputChange('subcategoria', e.target.value)}
+            id="subcategoria" // Importante no quitarlo
+            value={formData.subcategoria}// Importante no quitarlo
+            onChange={(e) => handleInputChange('subcategoria', e.target.value)} // Importante no quitarlo
           >
-            {filteredSubcategorias.map(subcategoria => (
-              <option key={subcategoria.id} value={subcategoria.id}>{subcategoria.name}</option>
+            <option value="">Selecciona una subcategoría</option>
+            {filteredSubcategorias.map(subcategoria => ( // Importante no quitarlo
+              <option key={subcategoria.id} value={subcategoria.id}>{subcategoria.name}</option> // Importante no quitarlo
             ))}
           </select>
         </div>
@@ -249,15 +251,15 @@ const CustomForm = () => {
           </label>
           <select
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="status"
-            value={formData.status}
-            onChange={(e) => {
-              handleInputChange('status', e.target.value);
-              handleStatusChange(e, { id: e.target.value });
+            id="status" // Importante no quitarlo
+            value={formData.status} // Importante no quitarlo
+            onChange={(e) => { // Importante no quitarlo
+              handleInputChange('status', e.target.value); // Importante no quitarlo
+              handleStatusChange(e, { id: e.target.value }); // Importante no quitarlo
             }}
           >
             {estatus.map(status => (
-              <option key={status.id} value={status.id}>{status.name}</option>
+              <option key={status.id} value={status.id}>{status.name}</option> // Importante no quitarlo
             ))}
           </select>
         </div>
@@ -269,10 +271,10 @@ const CustomForm = () => {
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="fecha_resuelto"
-              type="date"
-              value={formData.fecha_resuelto}
-              onChange={(e) => handleInputChange('fecha_resuelto', e.target.value)}
+              id="fecha_resuelto" // Importante no quitarlo
+              type="date" // Importante no quitarlo
+              value={formData.fecha_resuelto} // Importante no quitarlo
+              onChange={(e) => handleInputChange('fecha_resuelto', e.target.value)} // Importante no quitarlo
             />
           </div>
         )}
@@ -282,10 +284,10 @@ const CustomForm = () => {
         </label>
         <textarea
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="descripcion"
-          placeholder="Ingrese la descripción"
-          value={formData.descripcion}
-          onChange={(e) => handleInputChange('descripcion', e.target.value)}
+          id="descripcion" // Importante no quitarlo
+          placeholder="Ingrese la descripción"  // Importante no quitarlo
+          value={formData.descripcion}  // Importante no quitarlo
+          onChange={(e) => handleInputChange('descripcion', e.target.value)} // Importante no quitarlo
         />
         </div>
         <div className="flex items-center justify-between">
