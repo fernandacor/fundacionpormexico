@@ -285,6 +285,37 @@ app.delete("/users/:id", async (request, response) => {
   }
 });
 
+app.get("/reports", async (request, response) => {
+  try{
+    let data = await db
+    .collection("reports")
+    .find()
+    //.project({ _id: 0, id: 1, nombre: 1, apellidoMaterno: 1 })
+    .toArray();
+    response.set("Access-Control-Expose-Headers", "X-Total-Count");
+    response.set("X-Total-Count", data.length);
+    response.json(data);
+  }catch{
+    response.sendStatus(401);
+  }
+})
+
+app.get("/reports/:id", async (request, response) => {
+  try{
+    let data = await db
+    .collection("reports")
+    .find({ id: Number(request.params.id) })
+    //.project({ _id: 0, id: 1, nombre: 1, apellidoMaterno: 1 })
+    .toArray();
+    response.set("Access-Control-Expose-Headers", "X-Total-Count");
+    response.set("X-Total-Count", data.length);
+    response.json(data);
+  }catch{
+    response.sendStatus(401);
+  }
+})
+
+
 app.listen(port, () => {
   connectDB();
   console.log(`La aplicación está escuchando en http://127.0.0.1:${port}`);
