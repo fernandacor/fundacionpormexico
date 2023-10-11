@@ -1,8 +1,8 @@
 import { LayoutComponent, LayoutProps } from "react-admin";
 // import resolveConfig from "tailwindcss/resolveConfig";
 // import myConfig from "../../tailwind.config";
-import AppBar from "../components/AppBar";
 import Menu from "../components/Menu";
+import AppBar from "../components/NavBar";
 
 const Layout: LayoutComponent = (props: LayoutProps) => {
   const { children, dashboard } = props;

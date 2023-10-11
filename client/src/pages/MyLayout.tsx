@@ -1,6 +1,6 @@
 import { useTheme } from "@mui/material/styles";
 import { Layout, LayoutProps, Menu } from "react-admin";
-import { MyAppBar } from "../components/AppBar";
+import { MyAppBar } from "../components/NavBar";
 
 const MyLayout = (props: LayoutProps) => {
   const theme = useTheme();
