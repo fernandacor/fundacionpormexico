@@ -1,23 +1,20 @@
-import { LayoutComponent, LayoutProps } from "react-admin";
-// import resolveConfig from "tailwindcss/resolveConfig";
-// import myConfig from "../../tailwind.config";
+import { useEffect } from "react";
+import { LayoutComponent, LayoutProps, useTheme } from "react-admin";
 import Menu from "../components/Menu";
 import AppBar from "../components/NavBar";
 
 const Layout: LayoutComponent = (props: LayoutProps) => {
   const { children, dashboard } = props;
-  // const tailwindConfig = resolveConfig(myConfig);
-  console.log(dashboard);
+  const [, setTheme] = useTheme();
 
-  // console.log(tailwindConfig.theme.colors.blue[500]);
+  useEffect(() => {
+    document.documentElement.className == "dark"
+      ? setTheme("dark")
+      : setTheme("light");
+  }, [setTheme]);
 
   return (
-    // <main className="flex flex-row bg-white dark:bg-slate-800">
-    // <main className="relative">
-    //   <div className="absolute overscroll-auto w-fit">
-    //   </div>
-    // </main>
-    <main className="ml-[20%] px-2 scroll-smooth bg-white dark:bg-slate-800 min-h-[100vh]">
+    <main className="ml-[20%] px-2 scroll-smooth bg-neutral-100 dark:bg-neutral-950 min-h-[100vh]">
       <Menu />
       <AppBar />
       <div className="p-3">{children}</div>

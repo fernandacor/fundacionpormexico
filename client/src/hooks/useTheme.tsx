@@ -4,7 +4,6 @@ import Sun from "../svgs/Sun";
 
 const ThemeToggler = () => {
   const [theme, setTheme] = useTheme();
-  // const bodyTheme = document.getElementById("body").className;
 
   const changeTheme = () => {
     if (theme == "light") {
