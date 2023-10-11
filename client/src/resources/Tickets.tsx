@@ -189,19 +189,23 @@ const TicketsEdit = (props: any) => {
   return (
     <Edit {...props}>
       <SimpleForm>
+        <DateInput source="fecha" validate={required("Campo requerido")} />
         <AutocompleteInput
           source="categoria"
           choices={categorias}
           onChange={handleCategoriaChange}
+          validate={required("Campo requerido")}
         />
         <AutocompleteInput
           source="subcategoria"
           choices={filteredSubcategorias}
+          validate={required("Campo requerido")}
         />
         <AutocompleteInput
           source="status"
           choices={status}
           onChange={handleStatusChange}
+          validate={required("Campo requerido")}
         />
         <TextInput source="descripcion" />
         {showFechaResuelto && (
