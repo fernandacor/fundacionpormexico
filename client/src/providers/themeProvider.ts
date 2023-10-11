@@ -1,6 +1,6 @@
 import { RaThemeOptions, defaultDarkTheme, defaultTheme } from "react-admin";
 
-const basicTheme: RaThemeOptions = {
+const fontTheme: RaThemeOptions = {
   typography: {
     fontFamily: '"Montserrat", sans-serif',
   },
@@ -16,27 +16,24 @@ const basicTheme: RaThemeOptions = {
   // },
 };
 
-// console.log(themeMode);
-
 export const lightTheme: RaThemeOptions = {
   ...defaultTheme,
-  ...basicTheme,
+  ...fontTheme,
   palette: {
     mode: "light",
-    background: {
-      default: "#fff",
-      paper: "#f9fafb",
-    },
+    primary: { main: "#16a34a" },
+    background: { default: "#fff", paper: "#fff" },
     text: { primary: "#000" },
   },
 };
 
 export const darkTheme: RaThemeOptions = {
   ...defaultDarkTheme,
-  ...basicTheme,
+  ...fontTheme,
   palette: {
-    mode: "light",
-    background: { default: "#121212", paper: "#272727" },
+    mode: "dark",
+    primary: { main: "#22c55e" },
+    background: { default: "#171717", paper: "#171717" },
     text: { primary: "#fff" },
   },
 };
