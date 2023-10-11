@@ -1,4 +1,5 @@
 import { Link } from "react-admin";
+const userRole = localStorage.getItem("permissions");
 
 const Menu = () => (
   <div className="fixed top-0 left-0 w-[20%] h-[100vh] overflow-auto overscroll-auto scroll-smooth flex flex-col p-2 gap-2 shadow-xl min-h-screen bg-blue-100">
@@ -7,7 +8,7 @@ const Menu = () => (
       <p>Fundación por México</p>
     </div>
     <Link to={"/tickets/"}>Tickets</Link>
-    <Link to={"/users/"}>Users</Link>
+    {userRole === "Ejecutivo" && <Link to={"/users/"}>Users</Link>}
   </div>
 );
 
