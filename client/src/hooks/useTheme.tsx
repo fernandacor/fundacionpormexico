@@ -1,6 +1,6 @@
 import { useTheme } from "react-admin";
+import Moon from "../svgs/Moon";
 import Sun from "../svgs/Sun";
-import Moon from "../svgs/moon";
 
 const ThemeToggler = () => {
   const [theme, setTheme] = useTheme();
