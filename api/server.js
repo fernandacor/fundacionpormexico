@@ -287,9 +287,6 @@ app.delete("/users/:id", async (request, response) => {
   }
 });
 
-<<<<<<< HEAD
-https.createServer({cert: fs.readFileSync("backend.cer"),key: fs.readFileSync("backend.key") },app).listen(port, () => {
-=======
 app.get("/reports", async (request, response) => {
   try{
     let data = await db
@@ -321,8 +318,7 @@ app.get("/reports/:id", async (request, response) => {
 })
 
 
-app.listen(port, () => {
->>>>>>> main
+https.createServer({cert: fs.readFileSync("backend.cer"),key: fs.readFileSync("backend.key") },app).listen(port, () => {
   connectDB();
   console.log(`La aplicación está escuchando en https://127.0.0.1:${port}`);
 });
