@@ -177,10 +177,10 @@ app.post("/login", async (request, response) => {
     bcrypt.compare(pass, data.contrasena, (error, result) => {
       if (result) {
         let token = jwt.sign({ usuario: data.usuario }, "secretKey", {
-          expiresIn: 600,
+          expiresIn: '24hr',
         });
         log(user, "login", "");
-        response.json({ token: token, id: data.usuario, nombre: data.nombre, permissions: data.permissions });
+        response.json({ token: token, id: data.usuario, nombre: data.nombre, permissions: data.permissions, avatar: data.avatar });
       } else {
         response.sendStatus(403); // Contraseña incorrecta
       }
@@ -287,7 +287,42 @@ app.delete("/users/:id", async (request, response) => {
   }
 });
 
+<<<<<<< HEAD
 https.createServer({cert: fs.readFileSync("backend.cer"),key: fs.readFileSync("backend.key") },app).listen(port, () => {
+=======
+app.get("/reports", async (request, response) => {
+  try{
+    let data = await db
+    .collection("reports")
+    .find()
+    //.project({ _id: 0, id: 1, nombre: 1, apellidoMaterno: 1 })
+    .toArray();
+    response.set("Access-Control-Expose-Headers", "X-Total-Count");
+    response.set("X-Total-Count", data.length);
+    response.json(data);
+  }catch{
+    response.sendStatus(401);
+  }
+})
+
+app.get("/reports/:id", async (request, response) => {
+  try{
+    let data = await db
+    .collection("reports")
+    .find({ id: Number(request.params.id) })
+    //.project({ _id: 0, id: 1, nombre: 1, apellidoMaterno: 1 })
+    .toArray();
+    response.set("Access-Control-Expose-Headers", "X-Total-Count");
+    response.set("X-Total-Count", data.length);
+    response.json(data);
+  }catch{
+    response.sendStatus(401);
+  }
+})
+
+
+app.listen(port, () => {
+>>>>>>> main
   connectDB();
   console.log(`La aplicación está escuchando en https://127.0.0.1:${port}`);
 });

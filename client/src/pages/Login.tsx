@@ -1,6 +1,6 @@
-import { Alert, Grid, Paper, Typography } from "@mui/material";
+import { Alert } from "@mui/material";
 import { useState } from "react";
-import { useLogin } from "react-admin";
+import { useLogin} from "react-admin";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -12,6 +12,9 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       await login({ username, password });
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
     } catch (error: any) {
       console.error("Error al iniciar sesión:", error);
       if (error.message === "Usuario incorrecto") {
@@ -23,13 +26,12 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100">
+    <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100 font-sans">
       <main className="flex flex-col items-center justify-center flex-1 px-20 text-center">
         <div className="bg-white rounded-2xl shadow-xl flex w-2/3 max-w-4xl">
           <div className="w-10/15 p-5">
             <div className="py-10">
               <img src="/images/logo.png" alt="logo"></img>
-              <p className="text-gray-400 my-3">Inicio de Sesión</p>
             </div>
             <input
               type="text"
@@ -47,7 +49,7 @@ const Login = () => {
             />
             <button
               onClick={handleLogin}
-              className="bg-green-500 text-white p-2  hover:ring hover:ring-lime-400 active:bg-green-600 rounded-lg w-64 mt-8 focus:outline-none focus:border-lime-400 focus:ring-lime-400 focus:ring-1"
+              className="bg-green-500 text-white p-2  hover:ring hover:ring-lime-400 active:bg-green-600 rounded-lg w-64 mt-5 focus:outline-none focus:border-lime-400 focus:ring-lime-400 focus:ring-1"
             >
               Iniciar sesión
             </button>
@@ -76,7 +78,7 @@ const Login = () => {
               ¡Bienvenido de vuelta!
             </h2>
             <p className="mb-2">
-              Porfavor ingrese el usuario y contraseña proporcionada por el
+              Por favor ingrese el usuario y contraseña proporcionada por el
               administrador
             </p>
           </div>

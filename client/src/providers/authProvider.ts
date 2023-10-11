@@ -22,8 +22,8 @@ const authProvider: AuthProvider={
             console.log('Nombre de usuario:', auth.nombre); 
             localStorage.setItem('auth', auth.token);
             localStorage.setItem('permissions', auth.permissions);
-            localStorage.setItem('identity',  JSON.stringify({"id": auth.id,  "fullName":auth.nombre}));
-            localStorage.setItem('permissions', auth.permissions);
+            console.log(localStorage.getItem('permissions'));
+            localStorage.setItem('identity',  JSON.stringify({"id": auth.id,  "fullName":auth.nombre, "avatar": auth.avatar}));
             return Promise.resolve()
         } catch (error: any) {
             throw new Error(error.message);

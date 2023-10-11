@@ -3,14 +3,14 @@ import {
   Datagrid,
   Edit,
   EmailField,
-  List,
+  InfiniteList,
   SimpleForm,
   TextField,
   TextInput,
 } from "react-admin";
 
 export const UsersList = () => (
-  <List>
+  <InfiniteList>
     <Datagrid rowClick="edit" size="medium">
       <TextField source="usuario" />
       <TextField source="nombre" />
@@ -18,7 +18,7 @@ export const UsersList = () => (
       <TextField source="apellidoMaterno" />
       <EmailField source="correo" />
     </Datagrid>
-  </List>
+  </InfiniteList>
 );
 
 export const UsersEdit = () => (

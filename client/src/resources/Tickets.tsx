@@ -2,20 +2,27 @@ import { useState } from "react";
 import {
   AutocompleteInput,
   Create,
+  DateInput,
   Edit,
   InfiniteList,
-  required,
   SimpleForm,
   TextInput,
-  DateInput
+  required,
 } from "react-admin";
 import Ticket from "../components/Ticket";
 
-const TicketsList = () => (
-  <InfiniteList title={"Lista de tickets"} component={"div"} emptyWhileLoading>
-    <Ticket />
-  </InfiniteList>
-);
+const TicketsList = () => {
+  return (
+    <InfiniteList
+      title={"Lista de tickets"}
+      component={"div"}
+      emptyWhileLoading
+      sx={{ paddingRight: "1rem", paddingLeft: "1rem" }}
+    >
+      <Ticket />
+    </InfiniteList>
+  );
+};
 
 const categorias = [
   {
@@ -141,19 +148,23 @@ const subcategorias = [
 
 const status = [
   {
-    id: "Por resolver", name: "Por resolver",
+    id: "Por resolver",
+    name: "Por resolver",
   },
   {
-    id: "En progreso", name: "En progreso",
+    id: "En progreso",
+    name: "En progreso",
   },
   {
-    id: "Listo", name: "Listo",
-  }
+    id: "Listo",
+    name: "Listo",
+  },
 ];
 
 const TicketsEdit = (props: any) => {
   const [selectedCategoria, setSelectedCategoria] = useState(null);
-  const [filteredSubcategorias, setFilteredSubcategorias] = useState(subcategorias);
+  const [filteredSubcategorias, setFilteredSubcategorias] =
+    useState(subcategorias);
   const [showFechaResuelto, setShowFechaResuelto] = useState(false);
 
   const handleCategoriaChange = (e: any, newValue: any) => {
@@ -165,7 +176,7 @@ const TicketsEdit = (props: any) => {
   };
 
   const handleStatusChange = (e: any, newValue: any) => {
-    if (newValue && newValue.id === 'Listo') {
+    if (newValue && newValue.id === "Listo") {
       setShowFechaResuelto(true);
     } else {
       setShowFechaResuelto(false);
@@ -178,18 +189,32 @@ const TicketsEdit = (props: any) => {
   return (
     <Edit {...props}>
       <SimpleForm>
+        <DateInput source="fecha" validate={required("Campo requerido")} />
         <AutocompleteInput
           source="categoria"
           choices={categorias}
           onChange={handleCategoriaChange}
+          validate={required("Campo requerido")}
         />
         <AutocompleteInput
           source="subcategoria"
           choices={filteredSubcategorias}
+          validate={required("Campo requerido")}
         />
-        <AutocompleteInput source="status" choices={status} onChange={handleStatusChange}/>
+        <AutocompleteInput
+          source="status"
+          choices={status}
+          onChange={handleStatusChange}
+          validate={required("Campo requerido")}
+        />
         <TextInput source="descripcion" />
-        {showFechaResuelto && <DateInput source="fecha_resuelto" label="Fecha Resuelto" validate={required("Campo requerido")}/>}
+        {showFechaResuelto && (
+          <DateInput
+            source="fecha_resuelto"
+            label="Fecha Resuelto"
+            validate={required("Campo requerido")}
+          />
+        )}
       </SimpleForm>
     </Edit>
   );
@@ -211,7 +236,7 @@ const TicketsCreate = (props: any) => {
   return (
     <Create {...props}>
       <SimpleForm>
-      <DateInput source="fecha" validate={required("Campo requerido")}/>
+        <DateInput source="fecha" validate={required("Campo requerido")} />
         <AutocompleteInput
           source="categoria"
           choices={categorias}
@@ -223,8 +248,15 @@ const TicketsCreate = (props: any) => {
           choices={filteredSubcategorias}
           validate={required("Campo requerido")}
         />
-        <AutocompleteInput source="status" choices={status} validate={required("Campo requerido")}/>
-        <TextInput source="descripcion" validate={required("Campo requerido")}/>
+        <AutocompleteInput
+          source="status"
+          choices={status}
+          validate={required("Campo requerido")}
+        />
+        <TextInput
+          source="descripcion"
+          validate={required("Campo requerido")}
+        />
       </SimpleForm>
     </Create>
   );
