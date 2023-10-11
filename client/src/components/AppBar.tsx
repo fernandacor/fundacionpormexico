@@ -8,7 +8,7 @@ import ThemeToggler from "../hooks/useTheme";
 import Logout from "./Logout";
 
 const Appbar = () => (
-  <div className="flex flex-row">
+  <nav className="flex flex-row mx-2 gap-2">
     <TitlePortal />
     <LocalesMenuButton />
     <ThemeToggler />
@@ -16,7 +16,7 @@ const Appbar = () => (
     <UserMenu>
       <Logout />
     </UserMenu>
-  </div>
+  </nav>
 );
 
 export default Appbar;
