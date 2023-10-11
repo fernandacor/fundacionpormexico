@@ -14,7 +14,7 @@ const Logout = forwardRef((props, ref) => {
 
   return (
     <MenuItem onClick={handleClick} ref={ref} {...props}>
-      Logout
+      Cerrar sesión
     </MenuItem>
   );
 });

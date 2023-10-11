@@ -12,12 +12,15 @@ const Layout: LayoutComponent = (props: LayoutProps) => {
   // console.log(tailwindConfig.theme.colors.blue[500]);
 
   return (
-    <main className="flex flex-row bg-white dark:bg-slate-800">
+    // <main className="flex flex-row bg-white dark:bg-slate-800">
+    // <main className="relative">
+    //   <div className="absolute overscroll-auto w-fit">
+    //   </div>
+    // </main>
+    <main className="ml-[20%] px-2 scroll-smooth bg-white dark:bg-slate-800">
       <Menu />
-      <div className="w-full flex flex-col">
-        <AppBar />
-        <div className="p-3">{children}</div>
-      </div>
+      <AppBar />
+      <div className="p-3">{children}</div>
     </main>
   );
 };
