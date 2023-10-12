@@ -6,7 +6,10 @@ export default {
   content: ["./index.html", "./src/**/*.{html,js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      fontFamily: { sans: ["Montserrat", ...defaultTheme.fontFamily.sans] },
+      fontFamily: {
+        sans: ["Montserrat", ...defaultTheme.fontFamily.sans],
+        title: ["Dosis", "Montserrat", ...defaultTheme.fontFamily.sans],
+      },
     },
   },
   plugins: [],
