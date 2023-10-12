@@ -200,49 +200,61 @@ app.delete("/tickets/:id", async (req, res) => {
   }
 });
 
-app.get("/users", async (req, res) => {
-  let data = await db
+app.get("/users", async (request, response) => {
+  try{
+    let token = request.get("Authentication");
+    let verifiedToken = await jwt.verify(token, "secretKey");
+    let data = await db
     .collection("users")
     .find()
     //.project({ _id: 0, id: 1, nombre: 1, apellidoMaterno: 1 })
     .toArray();
-  res.set("Access-Control-Expose-Headers", "X-Total-Count");
-  res.set("X-Total-Count", data.length);
-  res.json(data);
+    response.set("Access-Control-Expose-Headers", "X-Total-Count");
+    response.set("X-Total-Count", data.length);
+    response.json(data);
+  }catch{
+    response.sendStatus(401);
+  }
 });
 
 app.post("/users", async (request, response) => {
-  let token = request.get("Authentication");
-  let verifiedToken = await jwt.verify(token, "secretKey");
-  let addValue = request.body;
-  let data = await db.collection("users").find({}).toArray();
-  let id = data.length + 1;
-  addValue["id"] = id;
-  let pass = addValue["contrasena"];
-  console.log(request.body);
-  data = await db.collection("users").findOne({ usuario: addValue["usuario"] });
-  if (data == null) {
-    try {
-      bcrypt.genSalt(10, (error, salt) => {
-        bcrypt.hash(pass, salt, async (error, hash) => {
-          let data = await db.collection("users").find({}).toArray();
-          addValue["contrasena"] = hash;
-          console.log(addValue);
-          //let usuarioAgregar={"id": id, "usuario": user, "contrasena": hash, "nombre": name, "apellidoPaterno":flastname, "apellidoMaterno":slastname};
-          data = await db.collection("users").insertOne(addValue);
-          response.json(data);
+  try{
+    let token = request.get("Authentication");
+    let verifiedToken = await jwt.verify(token, "secretKey");
+    let addValue = request.body;
+    let data = await db.collection("users").find({}).toArray();
+    let id = data.length + 1;
+    addValue["id"] = id;
+    let pass = addValue["contrasena"];
+    console.log(request.body);
+    data = await db.collection("users").findOne({ usuario: addValue["usuario"] });
+    if (data == null) {
+      try {
+        bcrypt.genSalt(10, (error, salt) => {
+          bcrypt.hash(pass, salt, async (error, hash) => {
+            let data = await db.collection("users").find({}).toArray();
+            addValue["contrasena"] = hash;
+            console.log(addValue);
+            //let usuarioAgregar={"id": id, "usuario": user, "contrasena": hash, "nombre": name, "apellidoPaterno":flastname, "apellidoMaterno":slastname};
+            data = await db.collection("users").insertOne(addValue);
+            response.json(data);
+          });
         });
-      });
-    } catch {
+      } catch {
+        response.sendStatus(401);
+      }
+    } else {
       response.sendStatus(401);
     }
-  } else {
+  }catch{
     response.sendStatus(401);
   }
 });
 
 app.get("/users/:id", async (request, response) => {
   try {
+    let token = request.get("Authentication");
+    let verifiedToken = await jwt.verify(token, "secretKey");
     let data = await db
       .collection("users")
       .find({ id: Number(request.params.id) })
@@ -256,6 +268,8 @@ app.get("/users/:id", async (request, response) => {
 
 app.put("/users/:id", async (request, response) => {
   try {
+    let token = request.get("Authentication");
+    let verifiedToken = await jwt.verify(token, "secretKey");
     let addValue = request.body;
     addValue["id"] = Number(request.params.id);
     let data = await db
@@ -287,6 +301,8 @@ app.delete("/users/:id", async (request, response) => {
 
 app.get("/reports", async (request, response) => {
   try{
+    let token = request.get("Authentication");
+    let verifiedToken = await jwt.verify(token, "secretKey");
     let data = await db
     .collection("reports")
     .find()
@@ -302,6 +318,8 @@ app.get("/reports", async (request, response) => {
 
 app.get("/reports/:id", async (request, response) => {
   try{
+    let token = request.get("Authentication");
+    let verifiedToken = await jwt.verify(token, "secretKey");
     let data = await db
     .collection("reports")
     .find({ id: Number(request.params.id) })
@@ -315,6 +333,22 @@ app.get("/reports/:id", async (request, response) => {
   }
 })
 
+app.post("/reports", async (request, response) => {
+  try {
+    let token = request.get("Authentication");
+    let verifiedToken = await jwt.verify(token, "secretKey");
+    let addValue = request.body;
+    let data = await db.collection("reports").find({}).toArray();
+    let id = data.length + 1;
+    addValue["id"] = id;
+    addValue["usuario"] = verifiedToken.usuario;
+    data = await db.collection("reports").insertOne(addValue);
+    log(verifiedToken.usuario, "creó un reporte", request.params.id)
+    response.json(data);
+  } catch {
+    response.sendStatus(401);
+  }
+});
 
 app.listen(port, () => {
   connectDB();
