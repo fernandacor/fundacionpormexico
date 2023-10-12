@@ -25,7 +25,7 @@ const Menu: FC<MenuProps> = ({ className, isOpen }) => {
 
   return (
     <div className={styles.menu}>
-      <div className={`flex flex-row gap-4 mb-5`}>
+      <div className={`flex flex-row justify-center gap-4 mb-5`}>
         <img src="./images/logo.png" alt="" className="w-9" />
         <p className={`font-title text-lg ${!isOpen && "hidden"}`}>
           Fundación por México
