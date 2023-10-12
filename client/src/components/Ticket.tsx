@@ -17,7 +17,7 @@ const Ticket = () => {
                 <p className="leading-tight">Mar</p>
               </div>
               <div className="h-full flex flex-col justify-center overflow-hidden">
-                <h1 className="uppercase font-bold tracking-tight truncate">
+                <h1 className="uppercase font-bold tracking-tight line-clamp-2">
                   {ticket.categoria}
                 </h1>
                 <h2 className="truncate">{ticket.subcategoria}</h2>

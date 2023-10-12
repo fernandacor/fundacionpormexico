@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { LayoutComponent, LayoutProps, useTheme } from "react-admin";
 import Menu from "../components/Menu";
 import NavBar from "../components/NavBar";
-import LeftArrow from "../svgs/LeftArrow";
-import RightArrow from "../svgs/RightArrow";
+import ThreeBars from "../svgs/ThreeBars";
 
 const Layout: LayoutComponent = (props: LayoutProps) => {
   const { children, dashboard } = props;
@@ -33,15 +32,15 @@ const Layout: LayoutComponent = (props: LayoutProps) => {
       <Menu className={menuClasses} />
       <button
         onClick={menuBehavior}
-        className={`${buttonClasses} transition fixed top-0 ml-6 mt-3 z-50`}
+        className={`${buttonClasses} transition fixed top-0 ml-6 mt-4 z-50`}
       >
-        {isOpen ? <LeftArrow /> : <RightArrow />}
+        {isOpen ? <ThreeBars /> : <ThreeBars />}
       </button>
       <main
-        className={`${mainClasses} transition px-2 scroll-smooth bg-neutral-100 dark:bg-neutral-950 min-h-[100vh]`}
+        className={`${mainClasses} transition scroll-smooth bg-neutral-100 dark:bg-neutral-950 min-h-[100vh]`}
       >
         <NavBar />
-        <div className="p-3">{children}</div>
+        <div className="p-3 px-5">{children}</div>
       </main>
     </>
   );

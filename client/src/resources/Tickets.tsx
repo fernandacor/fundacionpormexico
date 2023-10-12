@@ -9,17 +9,22 @@ import {
   TextInput,
   required,
 } from "react-admin";
+import ListActions from "../components/ListActions";
 import Ticket from "../components/Ticket";
 
 const TicketsList = () => {
   return (
-    <InfiniteList
-      title={"Lista de tickets"}
-      component={"div"}
-      emptyWhileLoading
-    >
-      <Ticket />
-    </InfiniteList>
+    <>
+      <ListActions />
+      <InfiniteList
+        title={"Lista de tickets"}
+        component={"div"}
+        emptyWhileLoading
+        actions={<></>}
+      >
+        <Ticket />
+      </InfiniteList>
+    </>
   );
 };
 
