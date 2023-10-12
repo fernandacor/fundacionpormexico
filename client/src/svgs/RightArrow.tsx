@@ -4,8 +4,7 @@ const RightArrow = () => (
     fill="none"
     viewBox="0 0 24 24"
     strokeWidth={1.5}
-    stroke="#22c55e"
-    className="w-5 h-5"
+    className="w-5 h-5 stroke-green-600 dark:stroke-green-400"
   >
     <path
       strokeLinecap="round"

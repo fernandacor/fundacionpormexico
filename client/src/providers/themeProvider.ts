@@ -32,7 +32,7 @@ export const darkTheme: RaThemeOptions = {
   ...fontTheme,
   palette: {
     mode: "dark",
-    primary: { main: "#22c55e" },
+    primary: { main: "#4ade80" },
     background: { default: "#171717", paper: "#171717" },
     text: { primary: "#fff" },
   },

@@ -32,7 +32,7 @@ const Layout: LayoutComponent = (props: LayoutProps) => {
       <Menu className={menuClasses} />
       <button
         onClick={menuBehavior}
-        className={`${buttonClasses} transition fixed top-0 ml-6 mt-4 z-50`}
+        className={`${buttonClasses} transition fixed top-0 ml-5 mt-4 z-50`}
       >
         {isOpen ? <ThreeBars /> : <ThreeBars />}
       </button>
