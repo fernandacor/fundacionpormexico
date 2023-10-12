@@ -12,7 +12,8 @@ type MenuProps = {
 const Menu: FC<MenuProps> = ({ className, isOpen }) => {
   const location = useLocation();
 
-  const pageName = location.pathname.split("/").pop();
+  const pageName = location.pathname;
+  console.log(pageName);
 
   const styles = {
     menu: `${className} fixed top-0 left-0 w-64 h-[100vh] transition overflow-auto overscroll-auto scroll-smooth flex flex-col py-3 gap-2 gap-y-5 shadow-xl min-h-screen bg-neutral-50 dark:bg-neutral-900 z-50`,
@@ -35,7 +36,7 @@ const Menu: FC<MenuProps> = ({ className, isOpen }) => {
         <Link
           to={"/users"}
           className={`${styles.link} ${
-            pageName === "users"
+            pageName?.includes("users")
               ? styles.activePageClasses
               : styles.disabledPageClasses
           }`}
@@ -48,7 +49,7 @@ const Menu: FC<MenuProps> = ({ className, isOpen }) => {
         to={"/tickets"}
         color="inherit"
         className={`${styles.link} ${
-          pageName === "tickets"
+          pageName?.includes("tickets")
             ? styles.activePageClasses
             : styles.disabledPageClasses
         }`}
