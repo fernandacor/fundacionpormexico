@@ -19,20 +19,20 @@ const Layout: LayoutComponent = (props: LayoutProps) => {
   // Abrir y cerrar el menú
   const [isOpen, setIsOpen] = useState(true);
   const menuClasses = isOpen
-    ? "translate-x-0"
-    : "translate-x-[-100%] scale-100";
-  const buttonClasses = isOpen ? "left-[20%]" : "translate-x-[-20%]";
-  const mainClasses = isOpen ? "ml-[20%]" : "ml-0";
+    ? "translate-x-0 px-3"
+    : "-translate-x-48 pl-48 items-center";
+  const buttonClasses = isOpen ? "translate-x-0" : "-translate-x-48";
+  const mainClasses = isOpen ? "ml-64" : "ml-16";
   const menuBehavior = () => {
     isOpen ? setIsOpen(false) : setIsOpen(true);
   };
 
   return (
     <>
-      <Menu className={menuClasses} />
+      <Menu className={menuClasses} isOpen={isOpen} />
       <button
         onClick={menuBehavior}
-        className={`${buttonClasses} transition fixed top-0 ml-5 mt-4 z-50`}
+        className={`${buttonClasses} fixed left-64 top-0 ml-4 mt-4 z-50 transition`}
       >
         {isOpen ? <ThreeBars /> : <ThreeBars />}
       </button>
