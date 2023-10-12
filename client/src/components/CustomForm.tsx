@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useEditContext } from 'react-admin';
+import { useEditContext, useCreateContext } from 'react-admin';
 
 const categorias = [
     {
@@ -161,6 +161,7 @@ const CustomForm = () => {
       }
     };
     const { record, save } = useEditContext(); // Para edición
+    const { save: saveCreate } = useCreateContext(); // Para creación
   
     const [formData, setFormData] = useState({
       fecha: record ? record.fecha || '' : '',
@@ -191,6 +192,9 @@ const CustomForm = () => {
       if (save) {
         save(formData);
       }
+      if (saveCreate) {
+        saveCreate(formData);
+    }
     };
   
     return (
