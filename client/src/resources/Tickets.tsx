@@ -9,19 +9,23 @@ import {
   TextInput,
   required,
 } from "react-admin";
+import ListActions from "../components/ListActions";
 import Ticket from "../components/Ticket";
 import CustomForm from "../components/CustomForm";
 
 const TicketsList = () => {
   return (
-    <InfiniteList
-      title={"Lista de tickets"}
-      component={"div"}
-      emptyWhileLoading
-      sx={{ paddingRight: "1rem", paddingLeft: "1rem" }}
-    >
-      <Ticket />
-    </InfiniteList>
+    <>
+      <ListActions />
+      <InfiniteList
+        title={"Lista de tickets"}
+        component={"div"}
+        emptyWhileLoading
+        actions={<></>}
+      >
+        <Ticket />
+      </InfiniteList>
+    </>
   );
 };
 
