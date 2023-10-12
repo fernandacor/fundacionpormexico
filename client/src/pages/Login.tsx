@@ -49,8 +49,8 @@ const Login = () => {
             />
             <button
               onClick={handleLogin}
-              className="bg-green-500 text-white p-2  hover:ring hover:ring-lime-400 active:bg-green-600 rounded-lg w-64 mt-5 focus:outline-none focus:border-lime-400 focus:ring-lime-400 focus:ring-1"
-            >
+              className="bg-green-500 text-white p-2  hover:shadow-lg hover:shadow-green-500/50 active:bg-green-600 rounded-lg w-64 mt-5 focus:outline-none focus:border-lime-400 focus:ring-lime-400 focus:ring-1"
+              >
               Iniciar sesión
             </button>
             {showUsernameError && (
