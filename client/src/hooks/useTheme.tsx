@@ -1,22 +1,23 @@
 import { useTheme } from "react-admin";
+import Moon from "../svgs/Moon";
+import Sun from "../svgs/Sun";
 
 const ThemeToggler = () => {
-  const [, setTheme] = useTheme("dark");
-  const bodyTheme = document.getElementById("body").className;
+  const [theme, setTheme] = useTheme();
 
   const changeTheme = () => {
-    if (bodyTheme == "light") {
-      document.getElementById("body").className = "dark";
+    if (theme == "light") {
+      document.documentElement.className = "dark";
       setTheme("dark");
     } else {
-      document.getElementById("body").className = "light";
+      document.documentElement.className = "light";
       setTheme("light");
     }
   };
 
   return (
     <button onClick={changeTheme}>
-      {bodyTheme === "light" ? "Switch to dark theme" : "Switch to light theme"}
+      {theme == "light" ? <Moon /> : <Sun />}
     </button>
   );
 };

@@ -8,17 +8,21 @@ import {
   TextField,
   TextInput,
 } from "react-admin";
+import ListActions from "../components/ListActions";
 
 export const UsersList = () => (
-  <InfiniteList>
-    <Datagrid rowClick="edit" size="medium">
-      <TextField source="usuario" />
-      <TextField source="nombre" />
-      <TextField source="apellidoPaterno" />
-      <TextField source="apellidoMaterno" />
-      <EmailField source="correo" />
-    </Datagrid>
-  </InfiniteList>
+  <>
+    <ListActions />
+    <InfiniteList actions={<></>}>
+      <Datagrid rowClick="edit" size="medium">
+        <TextField source="usuario" />
+        <TextField source="nombre" />
+        <TextField source="apellidoPaterno" />
+        <TextField source="apellidoMaterno" />
+        <EmailField source="correo" />
+      </Datagrid>
+    </InfiniteList>
+  </>
 );
 
 export const UsersEdit = () => (
