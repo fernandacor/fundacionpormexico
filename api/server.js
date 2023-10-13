@@ -346,15 +346,28 @@ app.post("/reports", async (request, response) => {
 
     // Calcular sumatoria de tickets por categoría
     let categorySummaries = await calculateCategorySummaries(startDate, endDate);
+    categorySummaries = categorySummaries.map(item => {
+      return {
+        categoria: limpiarNombre(item.categoria),
+        tickets: item.tickets
+      };
+    });
 
     // Calcular sumatoria de tickets por aula
     let classroomSummaries = await calculateClassroomSummaries(startDate, endDate);
 
     // Calcular sumatoria de tickets por estatus
     let statusSummaries = await calculateStatusSummaries(startDate, endDate);
+    statusSummaries = statusSummaries.map(item => {
+      return {
+        estatus: limpiarNombre(item.estatus),
+        tickets: item.tickets
+      };
+    });
 
     let data = await db.collection("reports").find({}).toArray();
     let id = data.length;
+    console.log(id);
     // Insertar el informe en la colección de reports
     let reportData = {
       promedioDiasResolucion: averageResolutionDays,
@@ -371,6 +384,21 @@ app.post("/reports", async (request, response) => {
     response.sendStatus(401);
   }
 });
+
+function limpiarNombre(string) {
+  return string
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .split(' ')
+    .map((word, index) => {
+      if (index === 0) {
+        return word.toLowerCase();
+      } else {
+        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+      }
+    })
+    .join('');
+}
 
 async function calculateAverageResolutionDays(startDate, endDate) {
   const tickets = await db.collection("tickets").find({
@@ -414,7 +442,7 @@ async function calculateClassroomSummaries(startDate, endDate) {
   const classroomCounts = {};
 
   tickets.forEach(ticket => {
-    const aula = ticket.aula;
+    const aula = ticket.usuario;
     classroomCounts[aula] = (classroomCounts[aula] || 0) + 1;
   });
 
