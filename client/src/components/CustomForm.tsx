@@ -205,7 +205,6 @@ const CustomForm = () => {
           </label>
           <input
             className="block w-full py-2 px-3 leading-tight text-gray-900 border border-gray-300 rounded-lg focus:outline-none bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
-            //shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="fecha" // Importante no quitarlo
             type="date" // Importante no quitarlo
             value={formData.fecha} // Importante no quitarlo
@@ -219,7 +218,6 @@ const CustomForm = () => {
           </label>
           <select
             className="block w-full py-2 px-3 leading-tight focus:outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
-            // shadow appearance-none border rounded w-full  text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="categoria" // Importante no quitarlo
             value={formData.categoria} // Importante no quitarlo
             onChange={(e) => { // Importante no quitarlo
@@ -240,7 +238,6 @@ const CustomForm = () => {
           </label> }
           <select
             className="block w-full py-2 px-3 leading-tight focus:outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
-            //shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="subcategoria" // Importante no quitarlo
             value={formData.subcategoria}// Importante no quitarlo
             placeholder='Subcategoria'
@@ -259,7 +256,6 @@ const CustomForm = () => {
           </label>
           <select
             className="block w-full py-2 px-3 leading-tight focus:outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
-            //shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="status" // Importante no quitarlo
             value={formData.status} // Importante no quitarlo
             onChange={(e) => { // Importante no quitarlo
@@ -280,7 +276,6 @@ const CustomForm = () => {
             </label>
             <input
               className="block w-full py-2 px-3 leading-tight focus:outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
-              //shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="fecha_resuelto" // Importante no quitarlo
               type="date" // Importante no quitarlo
               value={formData.fecha_resuelto} // Importante no quitarlo
@@ -294,7 +289,6 @@ const CustomForm = () => {
         </label>
         <textarea
           className="block w-full py-2 px-3 leading-tight focus:outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
-          //shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="descripcion" // Importante no quitarlo
           placeholder="Ingrese la descripción"  // Importante no quitarlo
           value={formData.descripcion}  // Importante no quitarlo
@@ -303,7 +297,7 @@ const CustomForm = () => {
         </div>
         <div className="flex items-center justify-between">
           <button
-            className="mb-4 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="mb-4 dark:bg-green-500 dark:hover:bg-green-600 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
           >
             Guardar
