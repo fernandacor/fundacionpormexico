@@ -4,6 +4,10 @@ import { Link } from "react-router-dom";
 const Report = () => {
   const { data } = useListContext();
 
+  if (!data) {
+    return null; // O cualquier otro indicador de carga que prefieras
+  }
+
   return (
     <div className="grid md:grid-cols-3 sm:grid-cols-2 gap-6">
       {data.map((report) => (

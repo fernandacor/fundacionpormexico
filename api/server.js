@@ -339,18 +339,106 @@ app.post("/reports", async (request, response) => {
   try {
     let token = request.get("Authentication");
     let verifiedToken = await jwt.verify(token, "secretKey");
-    let addValue = request.body;
-    let data = await db.collection("reports").find({}).project({ _id: 0 }).toArray();
-    let id = data.length + 1;
-    addValue["id"] = id;
-    addValue["usuario"] = verifiedToken.usuario;
-    data = await db.collection("reports").insertOne(addValue);
-    log(verifiedToken.usuario, "creó un reporte", request.params.id)
+    let { startDate, endDate } = request.body; // Fechas de inicio y fin desde el frontend
+    console.log(startDate, endDate);
+    // Calcular promedio de días de resolución
+    let averageResolutionDays = await calculateAverageResolutionDays(startDate, endDate);
+
+    // Calcular sumatoria de tickets por categoría
+    let categorySummaries = await calculateCategorySummaries(startDate, endDate);
+
+    // Calcular sumatoria de tickets por aula
+    let classroomSummaries = await calculateClassroomSummaries(startDate, endDate);
+
+    // Calcular sumatoria de tickets por estatus
+    let statusSummaries = await calculateStatusSummaries(startDate, endDate);
+
+    let data = await db.collection("reports").find({}).toArray();
+    let id = data.length;
+    // Insertar el informe en la colección de reports
+    let reportData = {
+      promedioDiasResolucion: averageResolutionDays,
+      categorias: categorySummaries,
+      aulas: classroomSummaries,
+      estatuses: statusSummaries,
+      id: id // Aquí deberías determinar cómo obtener el ID apropiado
+    };
+    data = await db.collection("reports").insertOne(reportData);
+
     response.json(data);
-  } catch {
+  } catch (error) {
+    console.error(error);
     response.sendStatus(401);
   }
 });
+
+async function calculateAverageResolutionDays(startDate, endDate) {
+  const tickets = await db.collection("tickets").find({
+    fecha_resuelto: {
+      $gte: startDate,
+      $lte: endDate
+    }
+  }).toArray();
+
+  const totalDias = tickets.reduce((total, ticket) => total + ticket.dias_resolucion, 0);
+
+  return totalDias / tickets.length;
+}
+
+async function calculateCategorySummaries(startDate, endDate) {
+  const tickets = await db.collection("tickets").find({
+    fecha_resuelto: {
+      $gte: startDate,
+      $lte: endDate
+    }
+  }).toArray();
+
+  const categoryCounts = {};
+
+  tickets.forEach(ticket => {
+    const categoria = ticket.categoria;
+    categoryCounts[categoria] = (categoryCounts[categoria] || 0) + 1;
+  });
+
+  return Object.keys(categoryCounts).map(categoria => ({ categoria, tickets: categoryCounts[categoria] }));
+}
+
+async function calculateClassroomSummaries(startDate, endDate) {
+  const tickets = await db.collection("tickets").find({
+    fecha_resuelto: {
+      $gte: startDate,
+      $lte: endDate
+    }
+  }).toArray();
+
+  const classroomCounts = {};
+
+  tickets.forEach(ticket => {
+    const aula = ticket.aula;
+    classroomCounts[aula] = (classroomCounts[aula] || 0) + 1;
+  });
+
+  return Object.keys(classroomCounts).map(aula => ({ aula, tickets: classroomCounts[aula] }));
+}
+
+async function calculateStatusSummaries(startDate, endDate) {
+  const tickets = await db.collection("tickets").find({
+    fecha_resuelto: {
+      $gte: startDate,
+      $lte: endDate
+    }
+  }).toArray();
+
+  const statusCounts = {};
+
+  tickets.forEach(ticket => {
+    const status = ticket.status;
+    statusCounts[status] = (statusCounts[status] || 0) + 1;
+  });
+
+  return Object.keys(statusCounts).map(status => ({ estatus: status, tickets: statusCounts[status] }));
+}
+
 
 https.createServer({cert: fs.readFileSync("backend.cer"),key: fs.readFileSync("backend.key") },app).listen(port, () => {
   connectDB();

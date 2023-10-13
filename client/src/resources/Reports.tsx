@@ -7,6 +7,7 @@ import {
     SimpleForm,
     TextField,
     TextInput,
+    DateInput
   } from "react-admin";
   import ListActions from "../components/ListActions";
   import Report from "../components/Report";
@@ -19,3 +20,13 @@ import {
       </InfiniteList>
     </>
   );
+
+  export const ReportsCreate = () => (
+    <Create>
+      <SimpleForm>
+        <DateInput source="startDate" />
+        <DateInput source="endDate" />
+      </SimpleForm>
+    </Create>
+  );
+  

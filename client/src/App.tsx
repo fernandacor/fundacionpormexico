@@ -7,7 +7,7 @@ import i18nProvider from "./providers/i18nProvider";
 import { darkTheme, lightTheme } from "./providers/themeProvider";
 import { TicketsCreate, TicketsEdit, TicketsList } from "./resources/Tickets";
 import { UsersCreate, UsersEdit, UsersList } from "./resources/Users";
-import {ReportsList} from "./resources/Reports";
+import {ReportsList, ReportsCreate} from "./resources/Reports";
 
 const userRole = localStorage.getItem("permissions");
 
@@ -38,6 +38,7 @@ export const App = () => (
     <Resource
       name="reports"
       list={ReportsList}
+      create={ReportsCreate}
     />
   </Admin>
 );
