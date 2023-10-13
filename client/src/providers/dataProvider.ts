@@ -9,5 +9,5 @@ const fetchJsonUtil = (url: any, options: any = {}) => {
   return fetchUtils.fetchJson(url, options);
 };
 
-const dataProvider = jsonServerProvider("http://127.0.0.1:1337", fetchJsonUtil);
+const dataProvider = jsonServerProvider("https://fass:443", fetchJsonUtil);
 export default dataProvider;

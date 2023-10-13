@@ -4,12 +4,14 @@ import cors from "cors";
 import express from "express";
 import jwt from "jsonwebtoken";
 import { MongoClient, ServerApiVersion } from "mongodb";
+import https from "https";
+import fs from "fs";
 
 const dbUser = "equipo";
 const dbPassword = "cJWGwAqOZ7lIungJ";
 const dbName = "fundacionPorMexico";
 const uri = `mongodb+srv://${dbUser}:${dbPassword}@cluster0.xflhwk3.mongodb.net/?retryWrites=true&w=majority&appName=AtlasApp`;
-const port = 1337;
+const port = 443;
 let db;
 
 const app = express();
@@ -187,7 +189,7 @@ app.post("/login", async (request, response) => {
 });
 
 //delete
-app.delete("/tickets/:id", async (req, res) => {
+app.delete("/tickets/:id", async (request, response) => {
   try {
     let token = request.get("Authentication");
     let verifiedToken = await jwt.verify(token, "secretKey");
@@ -350,7 +352,7 @@ app.post("/reports", async (request, response) => {
   }
 });
 
-app.listen(port, () => {
+https.createServer({cert: fs.readFileSync("backend.cer"),key: fs.readFileSync("backend.key") },app).listen(port, () => {
   connectDB();
-  console.log(`La aplicación está escuchando en http://127.0.0.1:${port}`);
+  console.log(`La aplicación está escuchando en https://fass:${port}`);
 });
