@@ -303,8 +303,8 @@ app.delete("/users/:id", async (request, response) => {
 
 app.get("/reports", async (request, response) => {
   try{
-    let token = request.get("Authentication");
-    let verifiedToken = await jwt.verify(token, "secretKey");
+    //let token = request.get("Authentication");
+    //let verifiedToken = await jwt.verify(token, "secretKey");
     let data = await db
     .collection("reports")
     .find()
@@ -340,7 +340,7 @@ app.post("/reports", async (request, response) => {
     let token = request.get("Authentication");
     let verifiedToken = await jwt.verify(token, "secretKey");
     let addValue = request.body;
-    let data = await db.collection("reports").find({}).toArray();
+    let data = await db.collection("reports").find({}).project({ _id: 0 }).toArray();
     let id = data.length + 1;
     addValue["id"] = id;
     addValue["usuario"] = verifiedToken.usuario;

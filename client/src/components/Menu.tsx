@@ -56,6 +56,18 @@ const Menu: FC<MenuProps> = ({ className, isOpen }) => {
       >
         <Ticket /> {isOpen && "Tickets"}
       </Link>
+
+      <Link
+        to={"/reports"}
+        color="inherit"
+        className={`${styles.link} ${
+          pageName?.includes("reports")
+            ? styles.activePageClasses
+            : styles.disabledPageClasses
+        }`}
+      >
+        <Ticket /> {isOpen && "Reports"}
+      </Link>
     </div>
   );
 };
