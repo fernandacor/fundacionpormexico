@@ -1,17 +1,7 @@
-import { useState } from "react";
-import {
-  AutocompleteInput,
-  Create,
-  DateInput,
-  Edit,
-  InfiniteList,
-  SimpleForm,
-  TextInput,
-  required,
-} from "react-admin";
+import { Create, Edit, InfiniteList } from "react-admin";
+import CustomForm from "../components/CustomForm";
 import ListActions from "../components/ListActions";
 import Ticket from "../components/Ticket";
-import CustomForm from "../components/CustomForm";
 
 const TicketsList = () => {
   return (
@@ -29,9 +19,7 @@ const TicketsList = () => {
   );
 };
 
-
 const TicketsEdit = (props: any) => {
-
   return (
     <Edit {...props}>
       <CustomForm />
