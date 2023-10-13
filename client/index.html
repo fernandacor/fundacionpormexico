@@ -17,15 +17,11 @@
   <body>
     <noscript> You need to enable JavaScript to run this app. </noscript>
     <script>
-      if (
-        localStorage.theme === "dark" ||
-        (!("theme" in localStorage) &&
-          window.matchMedia("(prefers-color-scheme: dark)").matches)
-      ) {
-        document.documentElement.className = "dark";
-      } else {
-        document.documentElement.className = "light";
-      }
+      localStorage.theme === "dark" ||
+      (!("theme" in localStorage) &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+        ? (document.documentElement.className = "dark")
+        : (document.documentElement.className = "light");
     </script>
     <div id="root">
       <div class="loader-container">

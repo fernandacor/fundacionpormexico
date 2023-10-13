@@ -1,6 +1,6 @@
 import { Alert } from "@mui/material";
-import { useState } from "react";
-import { useLogin} from "react-admin";
+import { useEffect, useState } from "react";
+import { useLogin, useTheme } from "react-admin";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -9,7 +9,20 @@ const Login = () => {
   const [showPasswordError, setShowPasswordError] = useState(false);
   const login = useLogin();
 
+  const [, setTheme] = useTheme();
+  useEffect(() => {
+    document.documentElement.className == "dark"
+      ? setTheme("dark")
+      : setTheme("light");
+  }, [setTheme]);
+
   const handleLogin = async () => {
+    // localStorage.theme === "dark" ||
+    // (!("theme" in localStorage) &&
+    //   window.matchMedia("(prefers-color-scheme: dark)").matches)
+    //   ? (document.documentElement.className = "dark")
+    //   : (document.documentElement.className = "light");
+
     try {
       await login({ username, password });
       setTimeout(() => {
@@ -50,7 +63,7 @@ const Login = () => {
             <button
               onClick={handleLogin}
               className="bg-green-500 text-white p-2  hover:shadow-lg hover:shadow-green-500/50 active:bg-green-600 rounded-lg w-64 mt-5 focus:outline-none focus:border-lime-400 focus:ring-lime-400 focus:ring-1"
-              >
+            >
               Iniciar sesión
             </button>
             {showUsernameError && (
