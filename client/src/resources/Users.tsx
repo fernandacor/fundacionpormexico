@@ -13,7 +13,7 @@ import ListActions from "../components/ListActions";
 export const UsersList = () => (
   <>
     <ListActions />
-    <InfiniteList actions={<></>}>
+    <InfiniteList actions={<></>} title={"Usuarios"}>
       <Datagrid rowClick="edit" size="medium">
         <TextField source="usuario" />
         <TextField source="nombre" />

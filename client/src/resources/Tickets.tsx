@@ -8,7 +8,7 @@ const TicketsList = () => {
     <>
       <ListActions />
       <InfiniteList
-        title={"Lista de tickets"}
+        title={"Tickets"}
         component={"div"}
         emptyWhileLoading
         actions={<></>}
