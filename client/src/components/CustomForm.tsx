@@ -137,6 +137,25 @@ const categorias = [
       name: "Listo",
     },
   ];
+
+  const prioridades = [
+    {
+      id: "Alto",
+      name: "Alto",
+    },
+    {
+      id: "Media",
+      name: "Media",
+    },
+    {
+      id: "Bajo",
+      name: "Bajo",
+    },
+    {
+      id: "Critico",
+      name: "Critico",
+    },
+  ];
   
 
 const CustomForm = () => {
