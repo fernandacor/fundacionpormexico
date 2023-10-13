@@ -11,7 +11,6 @@ const Logout = forwardRef((props, ref) => {
       : (document.documentElement.className = "light");
     setTimeout(() => {
       logout();
-      window.location.reload();
     }, 1);
   };
 
