@@ -303,6 +303,26 @@ const CustomForm = () => {
             />
           </div>
         )}
+         <div className="mb-4">
+          <label className="block  text-gray-700 text-sm font-bold mb-2 dark:text-white" htmlFor="categoria">
+            Prioridad:
+          </label>
+          <select
+            className="block w-full py-2 px-3 leading-tight focus:outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
+            id="prioridad" // Importante no quitarlo
+            value={formData.prioridad} // Importante no quitarlo
+            onChange={(e) => { // Importante no quitarlo
+              handleInputChange('prioridad', e.target.value); // Importante no quitarlo
+              handleCategoriaChange({ id: e.target.value }); // Importante no quitarlo
+            }}
+          >
+            <option value="">Selecciona una categoría</option>
+            {categorias.map(categoria => ( // Importante no quitarlo
+              <option key={categoria.id} value={categoria.id}>{categoria.name}</option> // Importante no quitarlo
+            ))}
+          </select>
+        </div>
+
         <div className="mb-4">
         <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-white" htmlFor="descripcion">
           Descripción:
