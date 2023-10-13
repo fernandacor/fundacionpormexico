@@ -295,6 +295,24 @@ const CustomForm = () => {
           )}
         </select>
       </div>
+
+      <div className="mb-4">
+        <label
+          className="block text-gray-700 text-sm font-bold mb-2 dark:text-white"
+          //htmlFor="descripcion"
+        >
+          Responsable:
+        </label>
+        <input
+          type="text"
+          className="block w-full py-2 px-3 leading-tight focus:outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
+          //id="responsable" // Importante no quitarlo
+          placeholder="Ingrese el nombre del responsable " // Importante no quitarlo
+          //value={formData.responsable} // Importante no quitarlo
+          // onChange={(e) => handleInputChange("responsable", e.target.value)} // Importante no quitarlo
+        />
+      </div>
+
       <div className="mb-4">
         <label
           className="block text-gray-700 text-sm font-bold mb-2 dark:text-white"
@@ -367,38 +385,6 @@ const CustomForm = () => {
         </select>
       </div>
 
-      <div className="flex items-start mb-4 mt-5">
-        <div className="flex items-center h-5">
-          <input
-            id="remember"
-            type="checkbox"
-            value=""
-            className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-green-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-green-600 dark:ring-offset-gray-800"
-            required
-          />
-        </div>
-        <label className="ml-3 block text-gray-700 text-sm font-bold mb-2 dark:text-white">
-          Incluir Folio{" "}
-        </label>
-      </div>
-
-      <div className="mb-4">
-        <label
-          className="block text-gray-700 text-sm font-bold mb-2 dark:text-white"
-          //htmlFor="descripcion"
-        >
-          Folio:
-        </label>
-        <input
-          type="text"
-          className="block w-full py-2 px-3 leading-tight focus:outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
-          //id="folio" // Importante no quitarlo
-          placeholder="Ingrese el folio" // Importante no quitarlo
-          //value={formData.folio} // Importante no quitarlo
-          // onChange={(e) => handleInputChange("folio", e.target.value)} // Importante no quitarlo
-        />
-      </div>
-
       <div className="mb-4">
         <label
           className="block text-gray-700 text-sm font-bold mb-2 dark:text-white"
@@ -428,6 +414,38 @@ const CustomForm = () => {
           placeholder="Ingrese la descripción" // Importante no quitarlo
           value={formData.descripcion} // Importante no quitarlo
           onChange={(e) => handleInputChange("descripcion", e.target.value)} // Importante no quitarlo
+        />
+      </div>
+
+      <div className="flex items-start mb-4 mt-5">
+        <div className="flex items-center h-5">
+          <input
+            id="remember"
+            type="checkbox"
+            value=""
+            className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-green-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-green-600 dark:ring-offset-gray-800"
+            required
+          />
+        </div>
+        <label className="ml-3 block text-gray-700 text-sm font-bold mb-2 dark:text-white">
+          Incluir Folio{" "}
+        </label>
+      </div>
+
+      <div className="mb-4">
+        <label
+          className="block text-gray-700 text-sm font-bold mb-2 dark:text-white"
+          //htmlFor="descripcion"
+        >
+          Folio:
+        </label>
+        <input
+          type="text"
+          className="block w-full py-2 px-3 leading-tight focus:outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
+          //id="folio" // Importante no quitarlo
+          placeholder="Ingrese el folio" // Importante no quitarlo
+          //value={formData.folio} // Importante no quitarlo
+          // onChange={(e) => handleInputChange("folio", e.target.value)} // Importante no quitarlo
         />
       </div>
 
