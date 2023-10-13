@@ -378,8 +378,25 @@ const CustomForm = () => {
           />
         </div>
         <label className="ml-3 block text-gray-700 text-sm font-bold mb-2 dark:text-white">
-          Folio{" "}
+          Incluir Folio{" "}
         </label>
+      </div>
+
+      <div className="mb-4">
+        <label
+          className="block text-gray-700 text-sm font-bold mb-2 dark:text-white"
+          //htmlFor="descripcion"
+        >
+          Folio:
+        </label>
+        <input
+          type="text"
+          className="block w-full py-2 px-3 leading-tight focus:outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
+          //id="folio" // Importante no quitarlo
+          placeholder="Ingrese el folio" // Importante no quitarlo
+          //value={formData.folio} // Importante no quitarlo
+          // onChange={(e) => handleInputChange("folio", e.target.value)} // Importante no quitarlo
+        />
       </div>
 
       <div className="mb-4">
