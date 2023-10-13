@@ -199,12 +199,13 @@ const CustomForm = () => {
   
     return (
       <form className="max-w-md mx-auto" onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="fecha">
+        <div className="mb-4 mt-5">
+          <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-white" htmlFor="fecha">
             Fecha:
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="block w-full py-2 px-3 leading-tight text-gray-900 border border-gray-300 rounded-lg focus:outline-none bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
+            //shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="fecha" // Importante no quitarlo
             type="date" // Importante no quitarlo
             value={formData.fecha} // Importante no quitarlo
@@ -213,11 +214,12 @@ const CustomForm = () => {
         </div>
   
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="categoria">
+          <label className="block  text-gray-700 text-sm font-bold mb-2 dark:text-white" htmlFor="categoria">
             Categoría:
           </label>
           <select
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="block w-full py-2 px-3 leading-tight focus:outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
+            // shadow appearance-none border rounded w-full  text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="categoria" // Importante no quitarlo
             value={formData.categoria} // Importante no quitarlo
             onChange={(e) => { // Importante no quitarlo
@@ -233,13 +235,15 @@ const CustomForm = () => {
         </div>
   
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="subcategoria">
+          { <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-white" htmlFor="subcategoria">
             Subcategoría:
-          </label>
+          </label> }
           <select
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="block w-full py-2 px-3 leading-tight focus:outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
+            //shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="subcategoria" // Importante no quitarlo
             value={formData.subcategoria}// Importante no quitarlo
+            placeholder='Subcategoria'
             onChange={(e) => handleInputChange('subcategoria', e.target.value)} // Importante no quitarlo
           >
             <option value="">Selecciona una subcategoría</option>
@@ -250,11 +254,12 @@ const CustomForm = () => {
         </div>
   
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="status">
+          <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-white" htmlFor="status">
             Estado:
           </label>
           <select
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="block w-full py-2 px-3 leading-tight focus:outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
+            //shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="status" // Importante no quitarlo
             value={formData.status} // Importante no quitarlo
             onChange={(e) => { // Importante no quitarlo
@@ -270,11 +275,12 @@ const CustomForm = () => {
   
         {showFechaResuelto && (
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="fecha_resuelto">
+            <label className="block dark:text-white text-gray-700 text-sm font-bold mb-2" htmlFor="fecha_resuelto">
               Fecha Resuelto:
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="block w-full py-2 px-3 leading-tight focus:outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
+              //shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="fecha_resuelto" // Importante no quitarlo
               type="date" // Importante no quitarlo
               value={formData.fecha_resuelto} // Importante no quitarlo
@@ -283,11 +289,12 @@ const CustomForm = () => {
           </div>
         )}
         <div className="mb-4">
-        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="descripcion">
+        <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-white" htmlFor="descripcion">
           Descripción:
         </label>
         <textarea
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="block w-full py-2 px-3 leading-tight focus:outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
+          //shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="descripcion" // Importante no quitarlo
           placeholder="Ingrese la descripción"  // Importante no quitarlo
           value={formData.descripcion}  // Importante no quitarlo
@@ -296,7 +303,7 @@ const CustomForm = () => {
         </div>
         <div className="flex items-center justify-between">
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="mb-4 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
           >
             Guardar
