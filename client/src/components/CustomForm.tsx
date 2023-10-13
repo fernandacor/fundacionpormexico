@@ -187,6 +187,7 @@ const CustomForm = () => {
       categoria: record ? record.categoria || '' : '',
       subcategoria: record ? record.subcategoria || '' : '',
       status: record ? record.status || '' : '',
+      prioridad: record ? record.prioridad || '' : '',
       descripcion: record ? record.descripcion || '' : '',
       fecha_resuelto: record ? record.fecha_resuelto || '' : '',
     });
