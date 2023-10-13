@@ -137,6 +137,25 @@ const categorias = [
       name: "Listo",
     },
   ];
+
+  const prioridades = [
+    {
+      id: "Alto",
+      name: "Alto",
+    },
+    {
+      id: "Media",
+      name: "Media",
+    },
+    {
+      id: "Bajo",
+      name: "Bajo",
+    },
+    {
+      id: "Critico",
+      name: "Critico",
+    },
+  ];
   
 
 const CustomForm = () => {
@@ -168,6 +187,7 @@ const CustomForm = () => {
       categoria: record ? record.categoria || '' : '',
       subcategoria: record ? record.subcategoria || '' : '',
       status: record ? record.status || '' : '',
+      prioridad: record ? record.prioridad || '' : '',
       descripcion: record ? record.descripcion || '' : '',
       fecha_resuelto: record ? record.fecha_resuelto || '' : '',
     });
