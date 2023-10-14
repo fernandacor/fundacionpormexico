@@ -222,15 +222,16 @@ const CustomForm = () => {
   };
 
   return (
-    <form className="max-w-md mx-auto" onSubmit={handleSubmit}>
+    <form className="max-w-xl mx-auto" onSubmit={handleSubmit}>
       <div className="mb-4 mt-5">
         <label
           className="block text-gray-700 text-sm font-bold mb-2 dark:text-white"
           htmlFor="fecha"
         >
-          Fecha:
+          Fecha: <span className="text-red-500">*</span>
         </label>
         <input
+          required
           className="block w-full py-2 px-3 leading-tight text-gray-900 border border-gray-300 rounded-lg focus:outline-none bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
           id="fecha" // Importante no quitarlo
           type="date" // Importante no quitarlo
@@ -238,62 +239,66 @@ const CustomForm = () => {
           onChange={(e) => handleInputChange("fecha", e.target.value)} // Importante no quitarlo
         />
       </div>
-      <div className="mb-4">
-        <label
-          className="block  text-gray-700 text-sm font-bold mb-2 dark:text-white"
-          htmlFor="categoria"
-        >
-          Categoría:
-        </label>
-        <select
-          className="block w-full py-2 px-3 leading-tight focus:outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
-          id="categoria" // Importante no quitarlo
-          value={formData.categoria} // Importante no quitarlo
-          onChange={(e) => {
-            // Importante no quitarlo
-            handleInputChange("categoria", e.target.value); // Importante no quitarlo
-            handleCategoriaChange({ id: e.target.value }); // Importante no quitarlo
-          }}
-        >
-          <option value="">Selecciona una categoría</option>
-          {categorias.map(
-            (
-              categoria // Importante no quitarlo
-            ) => (
-              <option key={categoria.id} value={categoria.id}>
-                {categoria.name}
-              </option> // Importante no quitarlo
-            )
-          )}
-        </select>
-      </div>
-      <div className="mb-4">
-        {
+      <div className="columns-2 gap-8">
+        <div className="mb-4">
           <label
-            className="block text-gray-700 text-sm font-bold mb-2 dark:text-white"
-            htmlFor="subcategoria"
+            className="block  text-gray-700 text-sm font-bold mb-2 dark:text-white"
+            htmlFor="categoria"
           >
-            Subcategoría:
+            Categoría: <span className="text-red-500">*</span>
           </label>
-        }
-        <select
-          className="block w-full py-2 px-3 leading-tight focus:outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
-          id="subcategoria" // Importante no quitarlo
-          value={formData.subcategoria} // Importante no quitarlo
-          placeholder="Subcategoria"
-          onChange={(e) => handleInputChange("subcategoria", e.target.value)} // Importante no quitarlo
-        >
-          <option value="">Selecciona una subcategoría</option>
-          {filteredSubcategorias.map(
-            (
-              subcategoria // Importante no quitarlo
-            ) => (
-              <option key={subcategoria.id} value={subcategoria.id}>
-                {subcategoria.name}
-              </option> // Importante no quitarlo
-            )
-          )}
-        </select>
+          <select
+            required
+            className="block w-full py-2 px-3 leading-tight focus:outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
+            id="categoria" // Importante no quitarlo
+            value={formData.categoria} // Importante no quitarlo
+            onChange={(e) => {
+              // Importante no quitarlo
+              handleInputChange("categoria", e.target.value); // Importante no quitarlo
+              handleCategoriaChange({ id: e.target.value }); // Importante no quitarlo
+            }}
+          >
+            <option value="">Selecciona una categoría</option>
+            {categorias.map(
+              (
+                categoria // Importante no quitarlo
+              ) => (
+                <option key={categoria.id} value={categoria.id}>
+                  {categoria.name}
+                </option> // Importante no quitarlo
+              )
+            )}
+          </select>
+        </div>
+        <div className="mb-4">
+          {
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2 dark:text-white"
+              htmlFor="subcategoria"
+            >
+              Subcategoría: <span className="text-red-500">*</span>
+            </label>
+          }
+          <select
+            required
+            className="block w-full py-2 px-3 leading-tight focus:outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
+            id="subcategoria" // Importante no quitarlo
+            value={formData.subcategoria} // Importante no quitarlo
+            placeholder="Subcategoria"
+            onChange={(e) => handleInputChange("subcategoria", e.target.value)} // Importante no quitarlo
+          >
+            <option value="">Selecciona una subcategoría</option>
+            {filteredSubcategorias.map(
+              (
+                subcategoria // Importante no quitarlo
+              ) => (
+                <option key={subcategoria.id} value={subcategoria.id}>
+                  {subcategoria.name}
+                </option> // Importante no quitarlo
+              )
+            )}
+          </select>
+        </div>
       </div>
 
       <div className="mb-4">
@@ -301,9 +306,10 @@ const CustomForm = () => {
           className="block text-gray-700 text-sm font-bold mb-2 dark:text-white"
           //htmlFor="descripcion"
         >
-          Responsable:
+          Responsable: <span className="text-red-500">*</span>
         </label>
         <input
+          required
           type="text"
           className="block w-full py-2 px-3 leading-tight focus:outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
           //id="responsable" // Importante no quitarlo
@@ -390,9 +396,10 @@ const CustomForm = () => {
           className="block text-gray-700 text-sm font-bold mb-2 dark:text-white"
           htmlFor="descripcion"
         >
-          Descripción:
+          Descripción: <span className="text-red-500">*</span>
         </label>
         <textarea
+          required
           className="block w-full py-2 px-3 leading-tight focus:outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
           id="descripcion" // Importante no quitarlo
           placeholder="Ingrese la descripción" // Importante no quitarlo
@@ -423,7 +430,7 @@ const CustomForm = () => {
             id="remember"
             type="checkbox"
             value=""
-            className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-green-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-green-600 dark:ring-offset-gray-800"
+            className="w-4 h-4 border accent-green-600 dark:accent-green-300 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-green-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-green-600 dark:ring-offset-gray-800"
             required
           />
         </div>
