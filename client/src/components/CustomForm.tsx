@@ -194,6 +194,8 @@ const CustomForm = () => {
     prioridad: record ? record.prioridad || "" : "",
     descripcion: record ? record.descripcion || "" : "",
     fecha_resuelto: record ? record.fecha_resuelto || "" : "",
+    notas: record ? record.notas || "" : "",
+    responsable: record ? record.responsable || "" : "",
   });
 
   const handleInputChange = (field: string, value: string) => {
@@ -312,10 +314,10 @@ const CustomForm = () => {
           required
           type="text"
           className="block w-full py-2 px-3 leading-tight focus:outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
-          //id="responsable" // Importante no quitarlo
+          id="responsable" // Importante no quitarlo
           placeholder="Ingrese el nombre del responsable " // Importante no quitarlo
-          //value={formData.responsable} // Importante no quitarlo
-          // onChange={(e) => handleInputChange("responsable", e.target.value)} // Importante no quitarlo
+          value={formData.responsable} // Importante no quitarlo
+          onChange={(e) => handleInputChange("responsable", e.target.value)} // Importante no quitarlo
         />
       </div>
 
@@ -417,25 +419,24 @@ const CustomForm = () => {
         </label>
         <textarea
           className="block w-full py-2 px-3 leading-tight focus:outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
-          id="descripcion" // Importante no quitarlo
-          placeholder="Ingrese la descripción" // Importante no quitarlo
-          value={formData.descripcion} // Importante no quitarlo
-          onChange={(e) => handleInputChange("descripcion", e.target.value)} // Importante no quitarlo
+          id="notas" // Importante no quitarlo
+          placeholder="Ingrese notas en caso de ser necesario" // Importante no quitarlo
+          value={formData.notas} // Importante no quitarlo
+          onChange={(e) => handleInputChange("notas", e.target.value)} // Importante no quitarlo
         />
       </div>
 
       <div className="flex items-start mb-4 mt-5">
         <div className="flex items-center h-5">
           <input
-            id="remember"
+            //id="remember"
             type="checkbox"
             value=""
             className="w-4 h-4 border accent-green-600 dark:accent-green-300 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-green-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-green-600 dark:ring-offset-gray-800"
-            required
           />
         </div>
         <label className="ml-3 block text-gray-700 text-sm font-bold mb-2 dark:text-white">
-          Incluir Folio{" "}
+          Incluir Folio
         </label>
       </div>
 
