@@ -340,7 +340,11 @@ app.post("/reports", async (request, response) => {
     let token = request.get("Authentication");
     let verifiedToken = await jwt.verify(token, "secretKey");
     let { startDate, endDate } = request.body; // Fechas de inicio y fin desde el frontend
-    console.log(startDate, endDate);
+    
+    // Validar las fechas
+    if (new Date(startDate) > new Date(endDate)) {
+      throw new Error('La fecha de inicio no puede ser mayor que la fecha final');
+    }
     // Calcular promedio de días de resolución
     let averageResolutionDays = await calculateAverageResolutionDays(startDate, endDate);
 
