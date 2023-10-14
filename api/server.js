@@ -387,39 +387,42 @@ app.post("/reports", async (request, response) => {
 
 function limpiarNombre(string) {
   return string
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .split(' ')
-    .map((word, index) => {
+    .normalize("NFD") // Esto normaliza los caracteres diacríticos (como tildes) en caracteres separados. Por ejemplo, "á" se convierte en "a".
+    .replace(/[\u0300-\u036f]/g, "") // Esto elimina cualquier caracter diacrítico restante.
+    .split(' ') // Divide el string en un array de palabras.
+    .map((word, index) => { // Busca sobre cada palabra en el array.
       if (index === 0) {
-        return word.toLowerCase();
+        return word.toLowerCase(); // Si es la primera palabra (índice 0), la convierte a minúsculas.
       } else {
-        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase(); // Si no es la primera palabra, convierte la primera letra a mayúscula y el resto a minúsculas.
       }
     })
-    .join('');
+    .join(''); //  Une las palabras del array de nuevo en un solo string.
 }
 
 async function calculateAverageResolutionDays(startDate, endDate) {
-  const tickets = await db.collection("tickets").find({
+  const tickets = await db.collection("tickets").find({ // Esto busca en la colección de "tickets" de la base de datos los documentos que tienen una fecha de resolución dentro del rango especificado
     fecha_resuelto: {
       $gte: startDate,
       $lte: endDate
     }
-  }).toArray();
+  }).toArray(); // convierte el resultado en un arreglo.
 
+  //Esto utiliza el método reduce para sumar los días de resolución de todos los tickets. 
+  // La función de reducción toma dos argumentos: total (el acumulador) y ticket (el elemento actual). 
+  // La función flecha => simplemente suma el valor de ticket.dias_resolucion al total.
   const totalDias = tickets.reduce((total, ticket) => total + ticket.dias_resolucion, 0);
 
-  return totalDias / tickets.length;
+  return totalDias / tickets.length; // Devuelve el promedio de días de resolución, dividiendo la suma total de los días de resolución entre el número total de tickets.
 }
 
 async function calculateCategorySummaries(startDate, endDate) {
-  const tickets = await db.collection("tickets").find({
+  const tickets = await db.collection("tickets").find({ // Esto busca en la colección de "tickets" de la base de datos los documentos que tienen una fecha de resolución dentro del rango especificado
     fecha: {
       $gte: startDate,
       $lte: endDate
     }
-  }).toArray();
+  }).toArray(); // convierte el resultado en un arreglo.
 
   const categoryCounts = {};
 
