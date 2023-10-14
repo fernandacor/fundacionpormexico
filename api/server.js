@@ -366,7 +366,7 @@ app.post("/reports", async (request, response) => {
     });
 
     let data = await db.collection("reports").find({}).toArray();
-    let id = data.length;
+    let id = data.length + 1;
     console.log(id);
     // Insertar el informe en la colección de reports
     let reportData = {
@@ -374,7 +374,7 @@ app.post("/reports", async (request, response) => {
       categorias: categorySummaries,
       aulas: classroomSummaries,
       estatuses: statusSummaries,
-      id: id // Aquí deberías determinar cómo obtener el ID apropiado
+      id: id// Aquí deberías determinar cómo obtener el ID apropiado
     };
     data = await db.collection("reports").insertOne(reportData);
 
@@ -415,7 +415,7 @@ async function calculateAverageResolutionDays(startDate, endDate) {
 
 async function calculateCategorySummaries(startDate, endDate) {
   const tickets = await db.collection("tickets").find({
-    fecha_resuelto: {
+    fecha: {
       $gte: startDate,
       $lte: endDate
     }
@@ -433,7 +433,7 @@ async function calculateCategorySummaries(startDate, endDate) {
 
 async function calculateClassroomSummaries(startDate, endDate) {
   const tickets = await db.collection("tickets").find({
-    fecha_resuelto: {
+    fecha: {
       $gte: startDate,
       $lte: endDate
     }
@@ -451,7 +451,7 @@ async function calculateClassroomSummaries(startDate, endDate) {
 
 async function calculateStatusSummaries(startDate, endDate) {
   const tickets = await db.collection("tickets").find({
-    fecha_resuelto: {
+    fecha: {
       $gte: startDate,
       $lte: endDate
     }
