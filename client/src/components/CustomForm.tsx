@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useEditContext, useCreateContext } from "react-admin";
+import { useEditContext, useCreateContext, Show } from "react-admin";
 
 const categorias = [
   {
@@ -303,7 +303,6 @@ const CustomForm = () => {
           </select>
         </div>
       </div>
-
       <div className="mb-4">
         <label
           className="block text-gray-700 text-sm font-bold mb-2 dark:text-white"
@@ -321,7 +320,6 @@ const CustomForm = () => {
           onChange={(e) => handleInputChange("responsable", e.target.value)} // Importante no quitarlo
         />
       </div>
-
       <div className="mb-4">
         <label
           className="block text-gray-700 text-sm font-bold mb-2 dark:text-white"
@@ -393,7 +391,6 @@ const CustomForm = () => {
           )}
         </select>
       </div>
-
       <div className="mb-4">
         <label
           className="block text-gray-700 text-sm font-bold mb-2 dark:text-white"
@@ -410,7 +407,6 @@ const CustomForm = () => {
           onChange={(e) => handleInputChange("descripcion", e.target.value)} // Importante no quitarlo
         />
       </div>
-
       <div className="mb-4">
         <label
           className="block text-gray-700 text-sm font-bold mb-2 dark:text-white"
@@ -426,14 +422,14 @@ const CustomForm = () => {
           onChange={(e) => handleInputChange("notas", e.target.value)} // Importante no quitarlo
         />
       </div>
-
       <div className="flex items-start mb-4 mt-5">
         <div className="flex items-center h-5">
           <input
-            //id="remember"
+            //id="incFolio"
             type="checkbox"
             value=""
             className="w-4 h-4 border accent-green-600 dark:accent-green-300 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-green-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-green-600 dark:ring-offset-gray-800"
+            //onClick={showFolio()}
           />
         </div>
         <label className="ml-3 block text-gray-700 text-sm font-bold mb-2 dark:text-white">
@@ -441,11 +437,8 @@ const CustomForm = () => {
         </label>
       </div>
 
-      <div className="mb-4">
-        <label
-          className="block text-gray-700 text-sm font-bold mb-2 dark:text-white"
-          //htmlFor="descripcion"
-        >
+      <div className="mb-4 hidden">
+        <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-white">
           Folio:
         </label>
         <input
