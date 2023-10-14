@@ -196,6 +196,7 @@ const CustomForm = () => {
     fecha_resuelto: record ? record.fecha_resuelto || "" : "",
     notas: record ? record.notas || "" : "",
     responsable: record ? record.responsable || "" : "",
+    folio: record ? record.folio || "" : "",
   });
 
   const handleInputChange = (field: string, value: string) => {
@@ -450,10 +451,10 @@ const CustomForm = () => {
         <input
           type="text"
           className="block w-full py-2 px-3 leading-tight focus:outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
-          //id="folio" // Importante no quitarlo
+          id="folio" // Importante no quitarlo
           placeholder="Ingrese el folio" // Importante no quitarlo
-          //value={formData.folio} // Importante no quitarlo
-          // onChange={(e) => handleInputChange("folio", e.target.value)} // Importante no quitarlo
+          value={formData.folio} // Importante no quitarlo
+          onChange={(e) => handleInputChange("folio", e.target.value)} // Importante no quitarlo
         />
       </div>
 
