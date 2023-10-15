@@ -11,8 +11,7 @@
     "start": "set HTTPS=true&& react-scripts start"
   },
   "dependencies": {
-    "@syncfusion/ej2-react-charts": "^23.1.40",
-    "@syncfusion/ej2-react-grids": "^23.1.40",
+    "@tremor/react": "^3.9.2",
     "ra-data-json-server": "^4.13.0",
     "react": "^18.2.0",
     "react-admin": "^4.13.0",
