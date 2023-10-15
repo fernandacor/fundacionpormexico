@@ -1,4 +1,4 @@
-const Sun = () => (
+const SunSvg = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -14,4 +14,4 @@ const Sun = () => (
   </svg>
 );
 
-export default Sun;
+export default SunSvg;
