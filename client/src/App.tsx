@@ -1,4 +1,5 @@
 import { Admin, Resource } from "react-admin";
+import Dashboard from "./components/Dashboard";
 import Layout from "./pages/Layout";
 import LoginPage from "./pages/Login";
 import authProvider from "./providers/authProvider";
@@ -34,5 +35,6 @@ export const App = () => (
       edit={TicketsEdit}
       create={TicketsCreate}
     />
+    <Resource name="reports" list={Dashboard} />
   </Admin>
 );
