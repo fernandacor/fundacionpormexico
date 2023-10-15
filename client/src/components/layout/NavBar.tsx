@@ -1,5 +1,5 @@
 import { UserMenu } from "react-admin";
-import ThemeToggler from "../hooks/useTheme";
+import ThemeToggler from "../../hooks/useTheme";
 import Logout from "./Logout";
 
 const NavBar = () => {

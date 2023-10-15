@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Link, useLocation } from "react-router-dom";
-import Ticket from "../svgs/Ticket";
-import Users from "../svgs/Users";
+import Ticket from "../../svgs/Ticket";
+import Users from "../../svgs/Users";
 const userRole = localStorage.getItem("permissions");
 
 type MenuProps = {
@@ -31,6 +31,17 @@ const Menu: FC<MenuProps> = ({ className, isOpen }) => {
           Fundación por México
         </p>
       </div>
+
+      <Link
+        to={"/reports"}
+        className={`${styles.link} ${
+          pageName?.includes("reports")
+            ? styles.activePageClasses
+            : styles.disabledPageClasses
+        }`}
+      >
+        <Users /> {isOpen && "Dashboard"}
+      </Link>
 
       {userRole === "Ejecutivo" && (
         <Link

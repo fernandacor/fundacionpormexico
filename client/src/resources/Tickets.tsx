@@ -1,7 +1,7 @@
 import { Create, Edit, InfiniteList } from "react-admin";
 import CustomForm from "../components/CustomForm";
-import ListActions from "../components/ListActions";
 import Ticket from "../components/Ticket";
+import ListActions from "../components/layout/ListActions";
 
 const TicketsList = () => {
   return (

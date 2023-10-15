@@ -8,7 +8,7 @@ import {
   TextField,
   TextInput,
 } from "react-admin";
-import ListActions from "../components/ListActions";
+import ListActions from "../components/layout/ListActions";
 
 export const UsersList = () => (
   <>

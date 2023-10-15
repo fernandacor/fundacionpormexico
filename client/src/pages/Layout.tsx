@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { LayoutComponent, LayoutProps, useTheme } from "react-admin";
-import Menu from "../components/Menu";
-import NavBar from "../components/NavBar";
+import Menu from "../components/layout/Menu";
+import NavBar from "../components/layout/NavBar";
 import ThreeBars from "../svgs/ThreeBars";
 
 const Layout: LayoutComponent = (props: LayoutProps) => {
