@@ -1,12 +1,12 @@
 import { Create, Edit, InfiniteList } from "react-admin";
 import CustomForm from "../components/CustomForm";
 import Ticket from "../components/Ticket";
-import ListActions from "../components/layout/ListActions";
+import ListTitle from "../components/layout/ListTitle";
 
 const TicketsList = () => {
   return (
     <>
-      <ListActions />
+      <ListTitle />
       <InfiniteList
         title={"Tickets"}
         component={"div"}

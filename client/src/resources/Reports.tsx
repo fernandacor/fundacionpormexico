@@ -1,11 +1,16 @@
 import { Create, DateInput, InfiniteList, SimpleForm } from "react-admin";
-import Report from "../components/Report";
-import ListActions from "../components/layout/ListActions";
+import Report from "../components/Report copy";
+import ListTitle from "../components/layout/ListTitle";
 
 export const ReportsList = () => (
   <>
-    <ListActions />
-    <InfiniteList actions={<></>}>
+    <ListTitle />
+    <InfiniteList
+      actions={<></>}
+      title={"Reportes"}
+      component={"div"}
+      emptyWhileLoading
+    >
       <Report />
     </InfiniteList>
   </>

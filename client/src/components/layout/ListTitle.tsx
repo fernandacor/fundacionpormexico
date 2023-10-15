@@ -5,7 +5,7 @@ import {
   TopToolbar,
 } from "react-admin";
 
-const ListActions = () => (
+const ListTitle = () => (
   <div className="flex flex-row justify-between content-center items-center mb-5">
     <TitlePortal
       sx={{ fontSize: "2rem", fontWeight: 700 }}
@@ -21,4 +21,4 @@ const ListActions = () => (
   </div>
 );
 
-export default ListActions;
+export default ListTitle;
