@@ -426,51 +426,57 @@ async function calculateCategorySummaries(startDate, endDate) {
       $gte: startDate,
       $lte: endDate
     }
-  }).toArray(); // convierte el resultado en un arreglo.
+  }).toArray(); // Convierte el resultado en un arreglo.
 
   const categoryCounts = {};
 
-  tickets.forEach(ticket => {
-    const categoria = ticket.categoria;
-    categoryCounts[categoria] = (categoryCounts[categoria] || 0) + 1;
+  tickets.forEach(ticket => { //  Esto busca sobre cada ticket en el arreglo tickets.
+    const categoria = ticket.categoria; // Obtiene la categoría del ticket actual.
+    categoryCounts[categoria] = (categoryCounts[categoria] || 0) + 1; // Esto incrementa el contador de la categoría actual en el objeto categoryCounts. 
+    //Si la categoría no existe en categoryCounts, se inicializa con 0 antes de incrementarla en 1.
   });
 
+  // Devuelve un arreglo de objetos. Cada objeto tiene una propiedad categoria y una propiedad tickets
   return Object.keys(categoryCounts).map(categoria => ({ categoria, tickets: categoryCounts[categoria] }));
 }
 
 async function calculateClassroomSummaries(startDate, endDate) {
-  const tickets = await db.collection("tickets").find({
+  const tickets = await db.collection("tickets").find({ // Lo mismo que la de arriba
     fecha: {
       $gte: startDate,
       $lte: endDate
     }
-  }).toArray();
+  }).toArray(); // Convierte el resultado en un arreglo.
 
   const classroomCounts = {};
 
-  tickets.forEach(ticket => {
-    const aula = ticket.usuario;
-    classroomCounts[aula] = (classroomCounts[aula] || 0) + 1;
+  tickets.forEach(ticket => { //  Esto busca sobre cada ticket en el arreglo tickets.
+    const aula = ticket.usuario; // Obtiene el usuario (hay que cambiarlo a aula) del ticket actual.
+    classroomCounts[aula] = (classroomCounts[aula] || 0) + 1; // Esto incrementa el contador del usuario actual en el objeto classroomCounts. 
+    //Si el usuario no existe en classroomCounts, se inicializa con 0 antes de incrementarla en 1.
   });
 
+  // Devuelve un arreglo de objetos. Cada objeto tiene una propiedad aula y una propiedad tickets
   return Object.keys(classroomCounts).map(aula => ({ aula, tickets: classroomCounts[aula] }));
 }
 
 async function calculateStatusSummaries(startDate, endDate) {
-  const tickets = await db.collection("tickets").find({
+  const tickets = await db.collection("tickets").find({ // Lo mismo que la de arriba
     fecha: {
       $gte: startDate,
       $lte: endDate
     }
-  }).toArray();
+  }).toArray(); // Convierte el resultado en un arreglo.
 
   const statusCounts = {};
 
-  tickets.forEach(ticket => {
-    const status = ticket.status;
-    statusCounts[status] = (statusCounts[status] || 0) + 1;
+  tickets.forEach(ticket => { //  Esto busca sobre cada ticket en el arreglo tickets.
+    const status = ticket.status; // Obtiene el estatus del ticket actual.
+    statusCounts[status] = (statusCounts[status] || 0) + 1;  // Esto incrementa el contador del usuario actual en el objeto statusCounts.
+    //Si el status no existe en statusCounts, se inicializa con 0 antes de incrementarla en 1.
   });
 
+  // Devuelve un arreglo de objetos. Cada objeto tiene una propiedad status y una propiedad tickets
   return Object.keys(statusCounts).map(status => ({ estatus: status, tickets: statusCounts[status] }));
 }
 
