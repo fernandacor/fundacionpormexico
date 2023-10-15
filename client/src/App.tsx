@@ -1,4 +1,4 @@
-import { Admin, Resource } from "react-admin";
+import { Admin, ListGuesser, Resource } from "react-admin";
 import Dashboard from "./components/Dashboard";
 import Layout from "./pages/Layout";
 import LoginPage from "./pages/Login";
@@ -6,6 +6,7 @@ import authProvider from "./providers/authProvider";
 import dataProvider from "./providers/dataProvider";
 import i18nProvider from "./providers/i18nProvider";
 import { darkTheme, lightTheme } from "./providers/themeProvider";
+import { ReportsCreate, ReportsList } from "./resources/Reports";
 import { TicketsCreate, TicketsEdit, TicketsList } from "./resources/Tickets";
 import { UsersCreate, UsersEdit, UsersList } from "./resources/Users";
 
@@ -35,6 +36,6 @@ export const App = () => (
       edit={TicketsEdit}
       create={TicketsCreate}
     />
-    <Resource name="reports" list={Dashboard} />
+    <Resource name="reports" list={ReportsList} create={ReportsCreate} />
   </Admin>
 );

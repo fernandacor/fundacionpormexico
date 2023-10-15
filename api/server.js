@@ -303,8 +303,8 @@ app.delete("/users/:id", async (request, response) => {
 
 app.get("/reports", async (request, response) => {
   try{
-    let token = request.get("Authentication");
-    let verifiedToken = await jwt.verify(token, "secretKey");
+    //let token = request.get("Authentication");
+    //let verifiedToken = await jwt.verify(token, "secretKey");
     let data = await db
     .collection("reports")
     .find()
@@ -339,18 +339,147 @@ app.post("/reports", async (request, response) => {
   try {
     let token = request.get("Authentication");
     let verifiedToken = await jwt.verify(token, "secretKey");
-    let addValue = request.body;
+    let { startDate, endDate } = request.body; // Fechas de inicio y fin desde el frontend
+    
+    // Validar las fechas
+    if (new Date(startDate) > new Date(endDate)) {
+      throw new Error('La fecha de inicio no puede ser mayor que la fecha final');
+    }
+    // Calcular promedio de días de resolución
+    let averageResolutionDays = await calculateAverageResolutionDays(startDate, endDate);
+
+    // Calcular sumatoria de tickets por categoría
+    let categorySummaries = await calculateCategorySummaries(startDate, endDate);
+    categorySummaries = categorySummaries.map(item => {
+      return {
+        categoria: limpiarNombre(item.categoria),
+        tickets: item.tickets
+      };
+    });
+
+    // Calcular sumatoria de tickets por aula
+    let classroomSummaries = await calculateClassroomSummaries(startDate, endDate);
+
+    // Calcular sumatoria de tickets por estatus
+    let statusSummaries = await calculateStatusSummaries(startDate, endDate);
+    statusSummaries = statusSummaries.map(item => {
+      return {
+        estatus: limpiarNombre(item.estatus),
+        tickets: item.tickets
+      };
+    });
+
     let data = await db.collection("reports").find({}).toArray();
     let id = data.length + 1;
-    addValue["id"] = id;
-    addValue["usuario"] = verifiedToken.usuario;
-    data = await db.collection("reports").insertOne(addValue);
-    log(verifiedToken.usuario, "creó un reporte", request.params.id)
+    console.log(id);
+    // Insertar el informe en la colección de reports
+    let reportData = {
+      promedioDiasResolucion: averageResolutionDays,
+      categorias: categorySummaries,
+      aulas: classroomSummaries,
+      estatuses: statusSummaries,
+      id: id// Aquí deberías determinar cómo obtener el ID apropiado
+    };
+    data = await db.collection("reports").insertOne(reportData);
+
     response.json(data);
-  } catch {
+  } catch (error) {
+    console.error(error);
     response.sendStatus(401);
   }
 });
+
+function limpiarNombre(string) {
+  return string
+    .normalize("NFD") // Esto normaliza los caracteres diacríticos (como tildes) en caracteres separados. Por ejemplo, "á" se convierte en "a".
+    .replace(/[\u0300-\u036f]/g, "") // Esto elimina cualquier caracter diacrítico restante.
+    .split(' ') // Divide el string en un array de palabras.
+    .map((word, index) => { // Busca sobre cada palabra en el array.
+      if (index === 0) {
+        return word.toLowerCase(); // Si es la primera palabra (índice 0), la convierte a minúsculas.
+      } else {
+        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase(); // Si no es la primera palabra, convierte la primera letra a mayúscula y el resto a minúsculas.
+      }
+    })
+    .join(''); //  Une las palabras del array de nuevo en un solo string.
+}
+
+async function calculateAverageResolutionDays(startDate, endDate) {
+  const tickets = await db.collection("tickets").find({ // Esto busca en la colección de "tickets" de la base de datos los documentos que tienen una fecha de resolución dentro del rango especificado
+    fecha_resuelto: {
+      $gte: startDate,
+      $lte: endDate
+    }
+  }).toArray(); // convierte el resultado en un arreglo.
+
+  //Esto utiliza el método reduce para sumar los días de resolución de todos los tickets. 
+  // La función de reducción toma dos argumentos: total (el acumulador) y ticket (el elemento actual). 
+  // La función flecha => simplemente suma el valor de ticket.dias_resolucion al total.
+  const totalDias = tickets.reduce((total, ticket) => total + ticket.dias_resolucion, 0);
+
+  return totalDias / tickets.length; // Devuelve el promedio de días de resolución, dividiendo la suma total de los días de resolución entre el número total de tickets.
+}
+
+async function calculateCategorySummaries(startDate, endDate) {
+  const tickets = await db.collection("tickets").find({ // Esto busca en la colección de "tickets" de la base de datos los documentos que tienen una fecha de resolución dentro del rango especificado
+    fecha: {
+      $gte: startDate,
+      $lte: endDate
+    }
+  }).toArray(); // Convierte el resultado en un arreglo.
+
+  const categoryCounts = {};
+
+  tickets.forEach(ticket => { //  Esto busca sobre cada ticket en el arreglo tickets.
+    const categoria = ticket.categoria; // Obtiene la categoría del ticket actual.
+    categoryCounts[categoria] = (categoryCounts[categoria] || 0) + 1; // Esto incrementa el contador de la categoría actual en el objeto categoryCounts. 
+    //Si la categoría no existe en categoryCounts, se inicializa con 0 antes de incrementarla en 1.
+  });
+
+  // Devuelve un arreglo de objetos. Cada objeto tiene una propiedad categoria y una propiedad tickets
+  return Object.keys(categoryCounts).map(categoria => ({ categoria, tickets: categoryCounts[categoria] }));
+}
+
+async function calculateClassroomSummaries(startDate, endDate) {
+  const tickets = await db.collection("tickets").find({ // Lo mismo que la de arriba
+    fecha: {
+      $gte: startDate,
+      $lte: endDate
+    }
+  }).toArray(); // Convierte el resultado en un arreglo.
+
+  const classroomCounts = {};
+
+  tickets.forEach(ticket => { //  Esto busca sobre cada ticket en el arreglo tickets.
+    const aula = ticket.usuario; // Obtiene el usuario (hay que cambiarlo a aula) del ticket actual.
+    classroomCounts[aula] = (classroomCounts[aula] || 0) + 1; // Esto incrementa el contador del usuario actual en el objeto classroomCounts. 
+    //Si el usuario no existe en classroomCounts, se inicializa con 0 antes de incrementarla en 1.
+  });
+
+  // Devuelve un arreglo de objetos. Cada objeto tiene una propiedad aula y una propiedad tickets
+  return Object.keys(classroomCounts).map(aula => ({ aula, tickets: classroomCounts[aula] }));
+}
+
+async function calculateStatusSummaries(startDate, endDate) {
+  const tickets = await db.collection("tickets").find({ // Lo mismo que la de arriba
+    fecha: {
+      $gte: startDate,
+      $lte: endDate
+    }
+  }).toArray(); // Convierte el resultado en un arreglo.
+
+  const statusCounts = {};
+
+  tickets.forEach(ticket => { //  Esto busca sobre cada ticket en el arreglo tickets.
+    const status = ticket.status; // Obtiene el estatus del ticket actual.
+    statusCounts[status] = (statusCounts[status] || 0) + 1;  // Esto incrementa el contador del usuario actual en el objeto statusCounts.
+    //Si el status no existe en statusCounts, se inicializa con 0 antes de incrementarla en 1.
+  });
+
+  // Devuelve un arreglo de objetos. Cada objeto tiene una propiedad status y una propiedad tickets
+  return Object.keys(statusCounts).map(status => ({ estatus: status, tickets: statusCounts[status] }));
+}
+
 
 https.createServer({cert: fs.readFileSync("backend.cer"),key: fs.readFileSync("backend.key") },app).listen(port, () => {
   connectDB();
