@@ -1,26 +1,17 @@
-import { FC } from "react";
-import { Link, useLocation } from "react-router-dom";
-import Ticket from "../../svgs/Ticket";
-import Users from "../../svgs/Users";
+import MoonSvg from "../../svgs/Moon";
+import TicketSvg from "../../svgs/Ticket";
+import UsersSvg from "../../svgs/Users";
+import MenuLink from "./MenuLink";
 const userRole = localStorage.getItem("permissions");
 
 type MenuProps = {
   className?: string;
-  isOpen?: boolean;
+  isOpen: boolean;
 };
 
-const Menu: FC<MenuProps> = ({ className, isOpen }) => {
-  const location = useLocation();
-
-  const pageName = location.pathname;
-  console.log(pageName);
-
+const Menu = ({ className, isOpen }: MenuProps) => {
   const styles = {
     menu: `${className} fixed top-0 left-0 w-64 h-[100vh] transition overflow-auto overscroll-auto scroll-smooth flex flex-col py-3 gap-2 gap-y-5 shadow-xl min-h-screen bg-neutral-50 dark:bg-neutral-900 z-50`,
-    link: "flex flex-row gap-4 items-center p-2 px-3 pl-4 rounded-lg hover:bg-green-600 hover:text-white dark:hover:bg-green-400 dark:hover:text-black",
-    activePageClasses:
-      "bg-green-600 text-white shadow-lg dark:bg-green-400 dark:text-black dark:shadow-lg dark:shadow-green-400/25",
-    disabledPageClasses: "text-black dark:text-white",
   };
 
   return (
@@ -32,53 +23,26 @@ const Menu: FC<MenuProps> = ({ className, isOpen }) => {
         </p>
       </div>
 
-      <Link
-        to={"/reports"}
-        className={`${styles.link} ${
-          pageName?.includes("reports")
-            ? styles.activePageClasses
-            : styles.disabledPageClasses
-        }`}
-      >
-        <Users /> {isOpen && "Dashboard"}
-      </Link>
-
       {userRole === "Ejecutivo" && (
-        <Link
-          to={"/users"}
-          className={`${styles.link} ${
-            pageName?.includes("users")
-              ? styles.activePageClasses
-              : styles.disabledPageClasses
-          }`}
-        >
-          <Users /> {isOpen && "Users"}
-        </Link>
+        <MenuLink
+          endpoint="users"
+          title="Usuarios"
+          isOpen={isOpen}
+          Icon={UsersSvg}
+        />
       )}
-
-      <Link
-        to={"/tickets"}
-        color="inherit"
-        className={`${styles.link} ${
-          pageName?.includes("tickets")
-            ? styles.activePageClasses
-            : styles.disabledPageClasses
-        }`}
-      >
-        <Ticket /> {isOpen && "Tickets"}
-      </Link>
-
-      <Link
-        to={"/reports"}
-        color="inherit"
-        className={`${styles.link} ${
-          pageName?.includes("reports")
-            ? styles.activePageClasses
-            : styles.disabledPageClasses
-        }`}
-      >
-        <Ticket /> {isOpen && "Reports"}
-      </Link>
+      <MenuLink
+        endpoint="tickets"
+        title="Tickets"
+        isOpen={isOpen}
+        Icon={TicketSvg}
+      />
+      <MenuLink
+        endpoint="reports"
+        title="Reportes"
+        isOpen={isOpen}
+        Icon={MoonSvg}
+      />
     </div>
   );
 };
