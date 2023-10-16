@@ -1,5 +1,4 @@
-import { Admin, ListGuesser, Resource } from "react-admin";
-import Dashboard from "./components/Dashboard";
+import { Admin, Resource } from "react-admin";
 import Layout from "./pages/Layout";
 import LoginPage from "./pages/Login";
 import authProvider from "./providers/authProvider";
@@ -30,12 +29,14 @@ export const App = () => (
         create={UsersCreate}
       />
     )}
+    {(userRole === "Ejecutivo" || userRole === "Nacional") && (
+      <Resource name="reports" list={ReportsList} create={ReportsCreate} />
+    )}
     <Resource
       name="tickets"
       list={TicketsList}
       edit={TicketsEdit}
       create={TicketsCreate}
     />
-    <Resource name="reports" list={ReportsList} create={ReportsCreate} />
   </Admin>
 );

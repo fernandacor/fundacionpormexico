@@ -1,4 +1,4 @@
-import MoonSvg from "../../svgs/Moon";
+import ChartSvg from "../../svgs/Chart";
 import TicketSvg from "../../svgs/Ticket";
 import UsersSvg from "../../svgs/Users";
 import MenuLink from "./MenuLink";
@@ -23,6 +23,14 @@ const Menu = ({ className, isOpen }: MenuProps) => {
         </p>
       </div>
 
+      {(userRole === "Ejecutivo" || userRole === "Nacional") && (
+        <MenuLink
+          endpoint="reports"
+          title="Reportes"
+          isOpen={isOpen}
+          Icon={ChartSvg}
+        />
+      )}
       {userRole === "Ejecutivo" && (
         <MenuLink
           endpoint="users"
@@ -36,12 +44,6 @@ const Menu = ({ className, isOpen }: MenuProps) => {
         title="Tickets"
         isOpen={isOpen}
         Icon={TicketSvg}
-      />
-      <MenuLink
-        endpoint="reports"
-        title="Reportes"
-        isOpen={isOpen}
-        Icon={MoonSvg}
       />
     </div>
   );

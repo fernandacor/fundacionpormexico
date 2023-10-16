@@ -10,25 +10,25 @@ interface StatusesChartProps {
 }
 
 const StatusesChart = ({ statuses }: StatusesChartProps) => {
-  const total = statuses.reduce((acc, curr) => acc + curr.value, 0);
-  const statusesLegend = statuses.map((e) => `${e.name}: ${e.value}`);
-  const values = statuses.map((status) =>
-    Math.round((status.value * 100) / total)
+  const totalTickets = statuses.reduce((acc, curr) => acc + curr.value, 0);
+  const colors: any = [];
+  const statusesLegend = statuses.map((e) => {
+    colors.push(e.color);
+    return `${e.name}: ${e.value}`;
+  });
+  const percentages = statuses.map((status) =>
+    Math.round((status.value * 100) / totalTickets)
   );
 
   return (
     <>
       <CategoryBar
-        values={values}
-        colors={["emerald", "yellow", "rose"]}
+        values={percentages}
+        colors={colors}
         showAnimation
         showLabels={false}
       />
-      <Legend
-        className="mt-3"
-        categories={statusesLegend}
-        colors={["emerald", "yellow", "rose"]}
-      />
+      <Legend className="mt-3" categories={statusesLegend} colors={colors} />
     </>
   );
 };

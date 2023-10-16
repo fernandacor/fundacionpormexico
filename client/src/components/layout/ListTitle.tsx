@@ -6,13 +6,17 @@ import {
 } from "react-admin";
 
 const ListTitle = () => (
-  <div className="flex flex-row justify-between content-center items-center mb-5">
+  <div className="flex flex-row justify-between content-center items-center mb-5 pl-8">
     <TitlePortal
-      sx={{ fontSize: "2rem", fontWeight: 700 }}
-      className="font-title"
+      sx={{
+        fontSize: "2.5rem",
+        fontWeight: 800,
+        fontFamily: " Montserrat, sans",
+        // letterSpacing: "0.25rem",
+      }}
     />
 
-    <TopToolbar className="mb-1.5">
+    <TopToolbar className="mt-1">
       {/* <SelectColumnsButton /> */}
       {/* <FilterButton /> */}
       <CreateButton />

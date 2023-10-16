@@ -10,7 +10,7 @@ interface ClassroomsChartProps {
 }
 
 const ClassroomsChart = ({ classrooms }: ClassroomsChartProps) => (
-  <BarList data={classrooms} color={"green"} />
+  <BarList data={classrooms} color={"slate"} />
 );
 
 export default ClassroomsChart;
