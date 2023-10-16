@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useEditContext, useCreateContext, Show } from "react-admin";
+import { useCreateContext, useEditContext } from "react-admin";
 
 const categorias = [
   {
@@ -144,6 +144,10 @@ const estatus = [
 
 const prioridades = [
   {
+    id: "Critico",
+    name: "Crítico",
+  },
+  {
     id: "Alto",
     name: "Alto",
   },
@@ -155,17 +159,14 @@ const prioridades = [
     id: "Bajo",
     name: "Bajo",
   },
-  {
-    id: "Critico",
-    name: "Critico",
-  },
 ];
 
 const CustomForm = () => {
-  const [selectedCategoria, setSelectedCategoria] = useState(null);
+  const [, setSelectedCategoria] = useState(null);
   const [filteredSubcategorias, setFilteredSubcategorias] =
     useState(subcategorias);
   const [showFechaResuelto, setShowFechaResuelto] = useState(false);
+  const [isFolioHidden, setIsFolioHidden] = useState(true);
 
   const handleCategoriaChange = (newValue: any) => {
     console.log(`Categoría seleccionada:`, newValue);
@@ -190,8 +191,8 @@ const CustomForm = () => {
     fecha: record ? record.fecha || "" : "",
     categoria: record ? record.categoria || "" : "",
     subcategoria: record ? record.subcategoria || "" : "",
-    status: record ? record.status || "" : "",
-    prioridad: record ? record.prioridad || "" : "",
+    status: record ? record.status || "" : estatus[0].name,
+    prioridad: record ? record.prioridad || "" : prioridades[0].name,
     descripcion: record ? record.descripcion || "" : "",
     fecha_resuelto: record ? record.fecha_resuelto || "" : "",
     notas: record ? record.notas || "" : "",
@@ -224,35 +225,40 @@ const CustomForm = () => {
     }
   };
 
+  // Estilos que se repiten
+  const className = {
+    form: "max-w-xl mx-auto py-5",
+    questionContainer: "mb-4",
+    label: "block text-gray-700 text-sm font-bold mb-2 dark:text-white",
+    requiredField: "text-red-500",
+    questionField:
+      "block w-full py-2 px-3 leading-tight text-gray-900 border border-gray-300 rounded-lg focus:outline-none bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none",
+    doubleQuestions: "columns-2 gap-8",
+  };
+
   return (
-    <form className="max-w-xl mx-auto" onSubmit={handleSubmit}>
-      <div className="mb-4 mt-5">
-        <label
-          className="block text-gray-700 text-sm font-bold mb-2 dark:text-white"
-          htmlFor="fecha"
-        >
-          Fecha: <span className="text-red-500">*</span>
+    <form className={className.form} onSubmit={handleSubmit}>
+      <div className={className.questionContainer}>
+        <label className={className.label} htmlFor="fecha">
+          Fecha: <span className={className.requiredField}>*</span>
         </label>
         <input
           required
-          className="block w-full py-2 px-3 leading-tight text-gray-900 border border-gray-300 rounded-lg focus:outline-none bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
+          className={className.questionField}
           id="fecha" // Importante no quitarlo
           type="date" // Importante no quitarlo
           value={formData.fecha} // Importante no quitarlo
           onChange={(e) => handleInputChange("fecha", e.target.value)} // Importante no quitarlo
         />
       </div>
-      <div className="columns-2 gap-8">
-        <div className="mb-4">
-          <label
-            className="block  text-gray-700 text-sm font-bold mb-2 dark:text-white"
-            htmlFor="categoria"
-          >
-            Categoría: <span className="text-red-500">*</span>
+      <div className={className.doubleQuestions}>
+        <div className={className.questionContainer}>
+          <label className={className.label} htmlFor="categoria">
+            Categoría: <span className={className.requiredField}>*</span>
           </label>
           <select
             required
-            className="block w-full py-2 px-3 leading-tight focus:outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
+            className={className.questionField}
             id="categoria" // Importante no quitarlo
             value={formData.categoria} // Importante no quitarlo
             onChange={(e) => {
@@ -263,97 +269,99 @@ const CustomForm = () => {
           >
             <option value="">Selecciona una categoría</option>
             {categorias.map(
-              (
-                categoria // Importante no quitarlo
-              ) => (
+              (categoria) => (
                 <option key={categoria.id} value={categoria.id}>
                   {categoria.name}
-                </option> // Importante no quitarlo
-              )
+                </option>
+              ) // Importante no quitarlo
             )}
           </select>
         </div>
-        <div className="mb-4">
-          {
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2 dark:text-white"
-              htmlFor="subcategoria"
-            >
-              Subcategoría: <span className="text-red-500">*</span>
-            </label>
-          }
+        <div className={className.questionContainer}>
+          <label className={className.label} htmlFor="subcategoria">
+            Subcategoría: <span className="text-red-500">*</span>
+          </label>
           <select
             required
-            className="block w-full py-2 px-3 leading-tight focus:outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
+            className={className.questionField}
             id="subcategoria" // Importante no quitarlo
             value={formData.subcategoria} // Importante no quitarlo
             placeholder="Subcategoria"
             onChange={(e) => handleInputChange("subcategoria", e.target.value)} // Importante no quitarlo
           >
             <option value="">Selecciona una subcategoría</option>
-            {filteredSubcategorias.map(
-              (
-                subcategoria // Importante no quitarlo
-              ) => (
-                <option key={subcategoria.id} value={subcategoria.id}>
-                  {subcategoria.name}
-                </option> // Importante no quitarlo
-              )
-            )}
+            {filteredSubcategorias.map((subcategoria) => (
+              <option key={subcategoria.id} value={subcategoria.id}>
+                {subcategoria.name}
+              </option> // Importante no quitarlo
+            ))}
           </select>
         </div>
       </div>
-      <div className="mb-4">
-        <label
-          className="block text-gray-700 text-sm font-bold mb-2 dark:text-white"
-          //htmlFor="descripcion"
-        >
-          Responsable: <span className="text-red-500">*</span>
+      <div className={className.questionContainer}>
+        <label className={className.label} htmlFor="responsable">
+          Responsable: <span className={className.requiredField}>*</span>
         </label>
         <input
           required
           type="text"
-          className="block w-full py-2 px-3 leading-tight focus:outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
+          className={className.questionField}
           id="responsable" // Importante no quitarlo
           placeholder="Ingrese el nombre del responsable " // Importante no quitarlo
           value={formData.responsable} // Importante no quitarlo
           onChange={(e) => handleInputChange("responsable", e.target.value)} // Importante no quitarlo
         />
       </div>
-      <div className="mb-4">
-        <label
-          className="block text-gray-700 text-sm font-bold mb-2 dark:text-white"
-          htmlFor="status"
-        >
-          Estado:
-        </label>
-        <select
-          className="block w-full py-2 px-3 leading-tight focus:outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
-          id="status" // Importante no quitarlo
-          value={formData.status} // Importante no quitarlo
-          onChange={(e) => {
-            // Importante no quitarlo
-            handleInputChange("status", e.target.value); // Importante no quitarlo
-            handleStatusChange(e, { id: e.target.value }); // Importante no quitarlo
-          }}
-        >
-          {estatus.map((status) => (
-            <option key={status.id} value={status.id}>
-              {status.name}
-            </option> // Importante no quitarlo
-          ))}
-        </select>
+      <div className={className.doubleQuestions}>
+        <div className={className.questionContainer}>
+          <label className={className.label} htmlFor="status">
+            Estado: <span className="text-red-500">*</span>
+          </label>
+          <select
+            className={className.questionField}
+            id="status" // Importante no quitarlo
+            value={formData.status} // Importante no quitarlo
+            onChange={(e) => {
+              // Importante no quitarlo
+              handleInputChange("status", e.target.value); // Importante no quitarlo
+              handleStatusChange(e, { id: e.target.value }); // Importante no quitarlo
+            }}
+          >
+            {estatus.map((status) => (
+              <option key={status.id} value={status.id}>
+                {status.name}
+              </option> // Importante no quitarlo
+            ))}
+          </select>
+        </div>
+        <div className={className.questionContainer}>
+          <label className={className.label} htmlFor="categoria">
+            Prioridad: <span className="text-red-500">*</span>
+          </label>
+          <select
+            className={className.questionField}
+            id="prioridad" // Importante no quitarlo
+            value={formData.prioridad} // Importante no quitarlo
+            onChange={(e) => {
+              // Importante no quitarlo
+              handleInputChange("prioridad", e.target.value); // Importante no quitarlo
+            }}
+          >
+            {prioridades.map((prioridad) => (
+              <option key={prioridad.id} value={prioridad.id}>
+                {prioridad.name}
+              </option> // Importante no quitarlo
+            ))}
+          </select>
+        </div>
       </div>
       {showFechaResuelto && (
-        <div className="mb-4">
-          <label
-            className="block dark:text-white text-gray-700 text-sm font-bold mb-2"
-            htmlFor="fecha_resuelto"
-          >
+        <div className={className.questionContainer}>
+          <label className={className.label} htmlFor="fecha_resuelto">
             Fecha Resuelto:
           </label>
           <input
-            className="block w-full py-2 px-3 leading-tight focus:outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
+            className={className.questionField}
             id="fecha_resuelto" // Importante no quitarlo
             type="date" // Importante no quitarlo
             value={formData.fecha_resuelto} // Importante no quitarlo
@@ -363,87 +371,54 @@ const CustomForm = () => {
           />
         </div>
       )}
-      <div className="mb-4">
-        <label
-          className="block  text-gray-700 text-sm font-bold mb-2 dark:text-white"
-          htmlFor="categoria"
-        >
-          Prioridad:
-        </label>
-        <select
-          className="block w-full py-2 px-3 leading-tight focus:outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
-          id="prioridad" // Importante no quitarlo
-          value={formData.prioridad} // Importante no quitarlo
-          onChange={(e) => {
-            // Importante no quitarlo
-            handleInputChange("prioridad", e.target.value); // Importante no quitarlo
-          }}
-        >
-          <option value="">Selecciona una prioridad</option>
-          {prioridades.map(
-            (
-              prioridad // Importante no quitarlo
-            ) => (
-              <option key={prioridad.id} value={prioridad.id}>
-                {prioridad.name}
-              </option> // Importante no quitarlo
-            )
-          )}
-        </select>
-      </div>
-      <div className="mb-4">
-        <label
-          className="block text-gray-700 text-sm font-bold mb-2 dark:text-white"
-          htmlFor="descripcion"
-        >
-          Descripción: <span className="text-red-500">*</span>
+
+      <div className={className.questionContainer}>
+        <label className={className.label} htmlFor="descripcion">
+          Descripción: <span className={className.requiredField}>*</span>
         </label>
         <textarea
           required
-          className="block w-full py-2 px-3 leading-tight focus:outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
+          className={className.questionField}
           id="descripcion" // Importante no quitarlo
           placeholder="Ingrese la descripción" // Importante no quitarlo
           value={formData.descripcion} // Importante no quitarlo
           onChange={(e) => handleInputChange("descripcion", e.target.value)} // Importante no quitarlo
         />
       </div>
-      <div className="mb-4">
-        <label
-          className="block text-gray-700 text-sm font-bold mb-2 dark:text-white"
-          htmlFor="descripcion"
-        >
+      <div className={className.questionContainer}>
+        <label className={className.label} htmlFor="descripcion">
           Notas:
         </label>
         <textarea
-          className="block w-full py-2 px-3 leading-tight focus:outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
+          className={className.questionField}
           id="notas" // Importante no quitarlo
           placeholder="Ingrese notas en caso de ser necesario" // Importante no quitarlo
           value={formData.notas} // Importante no quitarlo
           onChange={(e) => handleInputChange("notas", e.target.value)} // Importante no quitarlo
         />
       </div>
-      <div className="flex items-start mb-4 mt-5">
+      <div className="flex items-start gap-3 mb-4 mt-5">
         <div className="flex items-center h-5">
           <input
-            //id="incFolio"
             type="checkbox"
-            value=""
             className="w-4 h-4 border accent-green-600 dark:accent-green-300 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-green-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-green-600 dark:ring-offset-gray-800"
-            //onClick={showFolio()}
+            onClick={() =>
+              isFolioHidden ? setIsFolioHidden(false) : setIsFolioHidden(true)
+            }
           />
         </div>
-        <label className="ml-3 block text-gray-700 text-sm font-bold mb-2 dark:text-white">
-          Incluir Folio
-        </label>
+        <label className={className.label}>Incluir Folio</label>
       </div>
 
-      <div className="mb-4 hidden">
-        <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-white">
-          Folio:
-        </label>
+      <div
+        className={`${className.questionContainer} ${
+          isFolioHidden && "hidden"
+        }`}
+      >
+        <label className={className.label}>Folio:</label>
         <input
           type="text"
-          className="block w-full py-2 px-3 leading-tight focus:outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none"
+          className={className.questionField}
           id="folio" // Importante no quitarlo
           placeholder="Ingrese el folio" // Importante no quitarlo
           value={formData.folio} // Importante no quitarlo

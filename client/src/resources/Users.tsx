@@ -8,12 +8,12 @@ import {
   TextField,
   TextInput,
 } from "react-admin";
-import ListActions from "../components/ListActions";
+import ListTitle from "../components/layout/ListTitle";
 
 export const UsersList = () => (
   <>
-    <ListActions />
-    <InfiniteList actions={<></>}>
+    <ListTitle />
+    <InfiniteList actions={<></>} title={"Usuarios"}>
       <Datagrid rowClick="edit" size="medium">
         <TextField source="usuario" />
         <TextField source="nombre" />

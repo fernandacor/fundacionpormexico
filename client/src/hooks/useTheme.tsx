@@ -8,9 +8,11 @@ const ThemeToggler = () => {
   const changeTheme = () => {
     if (theme == "light") {
       document.documentElement.className = "dark";
+      localStorage.theme = "dark";
       setTheme("dark");
     } else {
       document.documentElement.className = "light";
+      localStorage.theme = "light";
       setTheme("light");
     }
   };

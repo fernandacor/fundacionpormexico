@@ -1,4 +1,4 @@
-const Ticket = () => (
+const TicketSvg = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -15,4 +15,4 @@ const Ticket = () => (
   </svg>
 );
 
-export default Ticket;
+export default TicketSvg;

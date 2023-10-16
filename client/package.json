@@ -11,6 +11,7 @@
     "start": "set HTTPS=true&& react-scripts start"
   },
   "dependencies": {
+    "@tremor/react": "^3.9.2",
     "ra-data-json-server": "^4.13.0",
     "react": "^18.2.0",
     "react-admin": "^4.13.0",
@@ -18,7 +19,7 @@
   },
   "devDependencies": {
     "@blackbox-vision/ra-language-spanish": "^4.11.2",
-    "@types/node": "^18.16.1",
+    "@types/node": "^18.18.5",
     "@types/react": "^18.0.22",
     "@types/react-dom": "^18.0.7",
     "@typescript-eslint/eslint-plugin": "^5.60.1",

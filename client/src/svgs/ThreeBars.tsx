@@ -1,4 +1,4 @@
-const ThreeBars = () => (
+const ThreeBarsSvg = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -14,4 +14,4 @@ const ThreeBars = () => (
   </svg>
 );
 
-export default ThreeBars;
+export default ThreeBarsSvg;

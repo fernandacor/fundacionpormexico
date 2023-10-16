@@ -6,10 +6,12 @@ import { useLogout } from "react-admin";
 const Logout = forwardRef((props, ref) => {
   const logout = useLogout();
   const handleClick = () => {
-    logout();
-    localStorage.theme === "dark"
+    localStorage.theme == "dark"
       ? (document.documentElement.className = "dark")
       : (document.documentElement.className = "light");
+    setTimeout(() => {
+      logout();
+    }, 1);
   };
 
   return (

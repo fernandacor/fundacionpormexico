@@ -1,24 +1,14 @@
-import { useState } from "react";
-import {
-  AutocompleteInput,
-  Create,
-  DateInput,
-  Edit,
-  InfiniteList,
-  SimpleForm,
-  TextInput,
-  required,
-} from "react-admin";
-import ListActions from "../components/ListActions";
-import Ticket from "../components/Ticket";
+import { Create, Edit, InfiniteList } from "react-admin";
 import CustomForm from "../components/CustomForm";
+import Ticket from "../components/Ticket";
+import ListTitle from "../components/layout/ListTitle";
 
 const TicketsList = () => {
   return (
     <>
-      <ListActions />
+      <ListTitle />
       <InfiniteList
-        title={"Lista de tickets"}
+        title={"Tickets"}
         component={"div"}
         emptyWhileLoading
         actions={<></>}
@@ -29,9 +19,7 @@ const TicketsList = () => {
   );
 };
 
-
 const TicketsEdit = (props: any) => {
-
   return (
     <Edit {...props}>
       <CustomForm />

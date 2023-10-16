@@ -1,4 +1,4 @@
-const LeftArrow = () => (
+const LeftArrowSvg = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -14,4 +14,4 @@ const LeftArrow = () => (
   </svg>
 );
 
-export default LeftArrow;
+export default LeftArrowSvg;
