@@ -19,7 +19,7 @@ const Report = () => {
           className="bg-neutral-100 dark:bg-neutral-950 border-0 mb-5 p-0"
           defaultOpen={index == 0}
         >
-          <AccordionHeader>
+          <AccordionHeader className="px-8">
             Desde {report.fechaInicio} hasta {report.fechaFin}
           </AccordionHeader>
           <AccordionBody>
