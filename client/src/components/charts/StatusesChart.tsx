@@ -3,6 +3,7 @@ import { CategoryBar, Legend } from "@tremor/react";
 interface Status {
   name: string;
   value: number;
+  color: string;
 }
 
 interface StatusesChartProps {

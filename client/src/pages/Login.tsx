@@ -17,12 +17,6 @@ const Login = () => {
   }, [setTheme]);
 
   const handleLogin = async () => {
-    // localStorage.theme === "dark" ||
-    // (!("theme" in localStorage) &&
-    //   window.matchMedia("(prefers-color-scheme: dark)").matches)
-    //   ? (document.documentElement.className = "dark")
-    //   : (document.documentElement.className = "light");
-
     try {
       await login({ username, password });
       setTimeout(() => {
@@ -39,7 +33,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100  dark:bg-zinc-700 font-sans">
+    <form className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100  dark:bg-zinc-700 font-sans">
       <main className="flex flex-col items-center justify-center flex-1 px-20 text-center">
         <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-xl flex w-2/3 max-w-4xl">
           <div className="w-10/15 p-5">
@@ -62,7 +56,7 @@ const Login = () => {
             />
             <button
               onClick={handleLogin}
-              className="bg-green-500 text-white p-2  hover:shadow-lg hover:shadow-green-500/50 active:bg-green-600 rounded-lg w-64 mt-5 focus:outline-none focus:border-lime-400 focus:ring-lime-400 focus:ring-1"
+              className="bg-green-600 text-white p-2 shadow-lg rounded-lg w-64 mt-5 hover:scale-[103%] focus:outline-none focus:outline-green-500 dark:text-black dark:bg-green-400 dark:hover:shadow-green-400/30"
             >
               Iniciar sesión
             </button>
@@ -97,7 +91,7 @@ const Login = () => {
           </div>
         </div>
       </main>
-    </div>
+    </form>
   );
 };
 
