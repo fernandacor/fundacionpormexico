@@ -14,7 +14,7 @@ const Layout: LayoutComponent = ({ children }: LayoutProps) => {
   }, [setTheme]);
 
   // Abrir y cerrar el menú
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const menuClasses = isOpen
     ? "translate-x-0 px-3"
     : "-translate-x-48 pl-48 items-center";
