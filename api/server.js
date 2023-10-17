@@ -333,16 +333,16 @@ app.get("/reports", async (request, response) => {
 
 app.get("/reports/:id", async (request, response) => {
   try {
-    let token = request.get("Authentication");
-    let verifiedToken = await jwt.verify(token, "secretKey");
+    //let token = request.get("Authentication");
+    //let verifiedToken = await jwt.verify(token, "secretKey");
     let data = await db
       .collection("reports")
       .find({ id: Number(request.params.id) })
       .toArray();
     response.set("Access-Control-Expose-Headers", "X-Total-Count");
     response.set("X-Total-Count", data.length);
-    console.log(data);
-    response.json(data);
+    console.log(data[0]);
+    response.json(data[0]);
   } catch {
     response.sendStatus(401);
   }
@@ -551,13 +551,80 @@ async function calculateStatusSummaries(startDate, endDate) {
   }));
 }
 
-app.put('/reports', async (request, response) => {
+app.put('/reports/:id', async (request, response) => {
   try{
     let token = request.get("Authentication");
     let verifiedToken = await jwt.verify(token, "secretKey");
-    
-  }catch{
+    let { startDate, endDate } = request.body; // Fechas de inicio y fin desde el frontend
+    console.log(startDate, endDate);
+    // Calcular promedio de días de resolución
+    let averageResolutionDays = await calculateAverageResolutionDays(
+      startDate,
+      endDate
+    );
 
+    // Calcular sumatoria de tickets por categoría
+    let categorySummaries = await calculateCategorySummaries(
+      startDate,
+      endDate
+    );
+    categorySummaries = categorySummaries.map((item) => {
+      return {
+        name: item.categoria,
+        value: item.tickets,
+      };
+    });
+
+    // Calcular sumatoria de tickets por aula
+    let classroomSummaries = await calculateClassroomSummaries(
+      startDate,
+      endDate
+    );
+    classroomSummaries = classroomSummaries.map((item) => {
+      return {
+        name: item.aula,
+        value: item.tickets,
+      };
+    });
+
+    // Calcular sumatoria de tickets por estatus
+    let statusSummaries = await calculateStatusSummaries(startDate, endDate);
+    statusSummaries = statusSummaries.map((item) => {
+      let color;
+      item.estatus == "Listo"
+        ? (color = "emerald")
+        : item.estatus == "En progreso"
+        ? (color = "yellow")
+        : (color = "rose");
+      return {
+        name: item.estatus,
+        value: item.tickets,
+        color: color,
+      };
+    });
+
+    // Insertar el informe en la colección de reports
+    const reportData = {
+      fechaInicio: startDate,
+      fechaFin: endDate,
+      promedioDiasResolucion: averageResolutionDays,
+      categorias: categorySummaries,
+      aulas: classroomSummaries,
+      estatuses: statusSummaries,
+    };
+
+    console.log(reportData);
+
+    let data = await db.collection("reports").updateOne({ id: Number(request.params.id)}, { $set: reportData });
+    console.log(data);
+    data = await db
+      .collection("reports")
+      .find({ id: Number(request.params.id) })
+      .project({ _id: 0 })
+      .toArray();
+      response.json(data[0]);
+  }catch{
+    response.sendStatus(401);
   }
 })
 
