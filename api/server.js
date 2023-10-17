@@ -338,10 +338,10 @@ app.get("/reports/:id", async (request, response) => {
     let data = await db
       .collection("reports")
       .find({ id: Number(request.params.id) })
-      //.project({ _id: 0, id: 1, nombre: 1, apellidoMaterno: 1 })
       .toArray();
     response.set("Access-Control-Expose-Headers", "X-Total-Count");
     response.set("X-Total-Count", data.length);
+    console.log(data);
     response.json(data);
   } catch {
     response.sendStatus(401);
@@ -550,6 +550,16 @@ async function calculateStatusSummaries(startDate, endDate) {
     tickets: statusCounts[status],
   }));
 }
+
+app.put('/reports', async (request, response) => {
+  try{
+    let token = request.get("Authentication");
+    let verifiedToken = await jwt.verify(token, "secretKey");
+    
+  }catch{
+
+  }
+})
 
 https
   .createServer(
