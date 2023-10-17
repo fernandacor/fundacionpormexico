@@ -5,7 +5,7 @@ const Pencil = () => (
     viewBox="0 0 24 24"
     strokeWidth={1.5}
     stroke="currentColor"
-    className="w-6 h-6"
+    className="w-6 h-6 stroke-green-600 dark:stroke-green-400"
   >
     <path
       strokeLinecap="round"
