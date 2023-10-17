@@ -227,24 +227,19 @@ const CustomForm = () => {
 
   // Estilos que se repiten
   const className = {
-    form: "max-w-xl mx-auto py-5",
     questionContainer: "mb-4",
-    label: "block text-gray-700 text-sm font-bold mb-2 dark:text-white",
-    requiredField: "text-red-500",
-    questionField:
-      "block w-full py-2 px-3 leading-tight text-gray-900 border border-gray-300 rounded-lg focus:outline-none bg-gray-50 sm:text-md focus:ring-zinc-700 focus:border-zinc-700 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500 dark:focus:outline-none",
     doubleQuestions: "columns-2 gap-8",
   };
 
   return (
-    <form className={className.form} onSubmit={handleSubmit}>
+    <form className="max-w-xl mx-auto py-5" onSubmit={handleSubmit}>
       <div className={className.questionContainer}>
-        <label className={className.label} htmlFor="fecha">
-          Fecha: <span className={className.requiredField}>*</span>
+        <label className="inputLabel" htmlFor="fecha">
+          Fecha: <span className="requiredField">*</span>
         </label>
         <input
           required
-          className={className.questionField}
+          className="questionField"
           id="fecha" // Importante no quitarlo
           type="date" // Importante no quitarlo
           value={formData.fecha} // Importante no quitarlo
@@ -253,12 +248,12 @@ const CustomForm = () => {
       </div>
       <div className={className.doubleQuestions}>
         <div className={className.questionContainer}>
-          <label className={className.label} htmlFor="categoria">
-            Categoría: <span className={className.requiredField}>*</span>
+          <label className="inputLabel" htmlFor="categoria">
+            Categoría: <span className="requiredField">*</span>
           </label>
           <select
             required
-            className={className.questionField}
+            className="questionField"
             id="categoria" // Importante no quitarlo
             value={formData.categoria} // Importante no quitarlo
             onChange={(e) => {
@@ -278,12 +273,12 @@ const CustomForm = () => {
           </select>
         </div>
         <div className={className.questionContainer}>
-          <label className={className.label} htmlFor="subcategoria">
+          <label className="inputLabel" htmlFor="subcategoria">
             Subcategoría: <span className="text-red-500">*</span>
           </label>
           <select
             required
-            className={className.questionField}
+            className="questionField"
             id="subcategoria" // Importante no quitarlo
             value={formData.subcategoria} // Importante no quitarlo
             placeholder="Subcategoria"
@@ -299,13 +294,13 @@ const CustomForm = () => {
         </div>
       </div>
       <div className={className.questionContainer}>
-        <label className={className.label} htmlFor="responsable">
-          Responsable: <span className={className.requiredField}>*</span>
+        <label className="inputLabel" htmlFor="responsable">
+          Responsable: <span className="requiredField">*</span>
         </label>
         <input
           required
           type="text"
-          className={className.questionField}
+          className="questionField"
           id="responsable" // Importante no quitarlo
           placeholder="Ingrese el nombre del responsable " // Importante no quitarlo
           value={formData.responsable} // Importante no quitarlo
@@ -314,11 +309,11 @@ const CustomForm = () => {
       </div>
       <div className={className.doubleQuestions}>
         <div className={className.questionContainer}>
-          <label className={className.label} htmlFor="status">
+          <label className="inputLabel" htmlFor="status">
             Estado: <span className="text-red-500">*</span>
           </label>
           <select
-            className={className.questionField}
+            className="questionField"
             id="status" // Importante no quitarlo
             value={formData.status} // Importante no quitarlo
             onChange={(e) => {
@@ -335,11 +330,11 @@ const CustomForm = () => {
           </select>
         </div>
         <div className={className.questionContainer}>
-          <label className={className.label} htmlFor="categoria">
+          <label className="inputLabel" htmlFor="categoria">
             Prioridad: <span className="text-red-500">*</span>
           </label>
           <select
-            className={className.questionField}
+            className="questionField"
             id="prioridad" // Importante no quitarlo
             value={formData.prioridad} // Importante no quitarlo
             onChange={(e) => {
@@ -357,11 +352,11 @@ const CustomForm = () => {
       </div>
       {showFechaResuelto && (
         <div className={className.questionContainer}>
-          <label className={className.label} htmlFor="fecha_resuelto">
+          <label className="inputLabel" htmlFor="fecha_resuelto">
             Fecha Resuelto:
           </label>
           <input
-            className={className.questionField}
+            className="questionField"
             id="fecha_resuelto" // Importante no quitarlo
             type="date" // Importante no quitarlo
             value={formData.fecha_resuelto} // Importante no quitarlo
@@ -373,12 +368,12 @@ const CustomForm = () => {
       )}
 
       <div className={className.questionContainer}>
-        <label className={className.label} htmlFor="descripcion">
-          Descripción: <span className={className.requiredField}>*</span>
+        <label className="inputLabel" htmlFor="descripcion">
+          Descripción: <span className="requiredField">*</span>
         </label>
         <textarea
           required
-          className={className.questionField}
+          className="questionField"
           id="descripcion" // Importante no quitarlo
           placeholder="Ingrese la descripción" // Importante no quitarlo
           value={formData.descripcion} // Importante no quitarlo
@@ -386,11 +381,11 @@ const CustomForm = () => {
         />
       </div>
       <div className={className.questionContainer}>
-        <label className={className.label} htmlFor="descripcion">
+        <label className="inputLabel" htmlFor="descripcion">
           Notas:
         </label>
         <textarea
-          className={className.questionField}
+          className="questionField"
           id="notas" // Importante no quitarlo
           placeholder="Ingrese notas en caso de ser necesario" // Importante no quitarlo
           value={formData.notas} // Importante no quitarlo
@@ -407,7 +402,7 @@ const CustomForm = () => {
             }
           />
         </div>
-        <label className={className.label}>Incluir Folio</label>
+        <label className="inputLabel">Incluir Folio</label>
       </div>
 
       <div
@@ -415,10 +410,10 @@ const CustomForm = () => {
           isFolioHidden && "hidden"
         }`}
       >
-        <label className={className.label}>Folio:</label>
+        <label className="inputLabel">Folio:</label>
         <input
           type="text"
-          className={className.questionField}
+          className="questionField"
           id="folio" // Importante no quitarlo
           placeholder="Ingrese el folio" // Importante no quitarlo
           value={formData.folio} // Importante no quitarlo
