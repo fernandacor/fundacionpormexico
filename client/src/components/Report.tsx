@@ -5,6 +5,7 @@ import ClassroomsChart from "./charts/ClasroomsChart";
 import StatusesChart from "./charts/StatusesChart";
 import { Link } from 'react-router-dom';
 import Pencil from "../svgs/Pencil";
+import DeleteButton from "./DeleteButton";
 
 const Report = () => {
   const { data } = useListContext();
@@ -28,6 +29,7 @@ const Report = () => {
           <AccordionBody>
             <div className="grid md:grid-cols-5 gap-5">
               <div className="bg-neutral-50 dark:bg-neutral-900 p-5 rounded-2xl shadow-md md:col-span-4">
+                <DeleteButton resource={`/reports/${report.id}`} />
                 <h2 className="font-bold text-2xl mb-3">Estatus:</h2>
                 <StatusesChart statuses={report.estatuses} />
               </div>
