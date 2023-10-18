@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useCreateContext, useEditContext } from "react-admin";
-import DeleteButton from "./DeleteButton";
+import DeleteButton from "../DeleteButton";
 
 const categorias = [
   {

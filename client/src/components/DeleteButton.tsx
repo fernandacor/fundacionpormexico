@@ -30,7 +30,11 @@ const DeleteButton: React.FC<DeleteButtonProps> = ({ resource, record }) => {
   }
 
   return (
-    <button disabled={isLoading} onClick={handleClick}>
+    <button
+      disabled={isLoading}
+      onClick={handleClick}
+      className="hover:scale-110"
+    >
       <TrashSvg />
     </button>
   );

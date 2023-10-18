@@ -24,18 +24,20 @@ const Report = () => {
           className="bg-neutral-100 dark:bg-neutral-950 border-0 mb-5 p-0 hover:scale-[101%]"
           defaultOpen={index == 0}
         >
-          <AccordionHeader className="flex justify-between items-center px-8">
+          <AccordionHeader className="items-center px-8">
             {formatDateToOutput(report.fechaInicio)}
             {" - "}
             {formatDateToOutput(report.fechaFin)}
-            <Link to={`/reports/${report.id}`} className="ml-auto">
-              <PencilSvg />
-            </Link>
+            <div className="ml-auto flex flex-row gap-4">
+              <DeleteButton resource="reports" record={report} />
+              <Link to={`/reports/${report.id}`} className="hover:scale-110">
+                <PencilSvg />
+              </Link>
+            </div>
           </AccordionHeader>
           <AccordionBody>
             <div className="grid md:grid-cols-5 gap-5">
               <div className="bg-neutral-50 dark:bg-neutral-800 p-5 rounded-2xl shadow-md md:col-span-4">
-                <DeleteButton resource="reports" record={report} />
                 <h2 className="font-bold text-2xl mb-3">Estatus:</h2>
                 <StatusesChart statuses={report.estatuses} />
               </div>
