@@ -35,6 +35,7 @@ const CategoriesChart = ({ categories }: CategoriesChartProps) => {
     () => colorsOptions[Math.floor(Math.random() * colorsOptions.length)]
   );
   const legend = categories.map((e) => `${e.name}: ${e.value}`);
+  if (categories.length === 0) return null;
 
   return (
     <>
