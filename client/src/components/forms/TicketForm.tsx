@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useCreateContext, useEditContext } from "react-admin";
+import DeleteButton from "./DeleteButton";
 
 const categorias = [
   {
@@ -198,6 +199,7 @@ const CustomForm = () => {
     notas: record ? record.notas || "" : "",
     responsable: record ? record.responsable || "" : "",
     folio: record ? record.folio || "" : "",
+    id: record ? record.id || "" : "",
   });
 
   const handleInputChange = (field: string, value: string) => {
@@ -428,6 +430,7 @@ const CustomForm = () => {
         >
           Guardar
         </button>
+        <DeleteButton resource="tickets" record={formData} />
       </div>
     </form>
   );

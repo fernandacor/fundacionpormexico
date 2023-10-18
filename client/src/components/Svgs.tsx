@@ -52,7 +52,7 @@ export const MoonSvg = () => (
   </svg>
 );
 
-export const Pencil = () => (
+export const PencilSvg = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -134,7 +134,7 @@ export const TicketSvg = () => (
   </svg>
 );
 
-export const Trash = () => (
+export const TrashSvg = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
