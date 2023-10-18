@@ -50,7 +50,7 @@ const Ticket = () => {
               {ticket.prioridad === "Alto" && (
                 <p className={className.prioridad}>!!!</p>
               )}
-              {ticket.prioridad === "Critico" && (
+              {ticket.prioridad === "Crítico" && (
                 <p className={className.prioridad}>!!!!</p>
               )}
             </div>
