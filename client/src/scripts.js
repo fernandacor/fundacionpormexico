@@ -32,7 +32,35 @@ export function formatDateToOutput(dateString) {
     "diciembre",
   ];
 
-  console.log(day);
-
   return `${day} ${monthNames[month - 1]}, ${year}`;
+}
+
+export function getDay(dateString) {
+  const date = new Date(dateString);
+
+  const day = date.getDate() + 1;
+  return day;
+}
+
+export function getMonthInitials(dateString) {
+  const date = new Date(dateString);
+
+  const month = date.getMonth() + 1;
+
+  const monthNames = [
+    "Ene",
+    "Feb",
+    "Mar",
+    "Abr",
+    "May",
+    "Jun",
+    "Jul",
+    "Ago",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dic",
+  ];
+
+  return monthNames[month - 1];
 }
