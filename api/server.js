@@ -149,16 +149,11 @@ app.put("/tickets/:id", async (request, response) => {
     let token = request.get("Authentication");
     let verifiedToken = await jwt.verify(token, secretKey);
     let addValue = request.body;
-    console.log(addValue);
     addValue["id"] = Number(request.params.id);
     let fechaCreacion = new Date(addValue.fecha);
     let fechaResolucion = new Date(addValue.fecha_resuelto);
-    console.log(fechaCreacion);
-    console.log(fechaResolucion);
     let diferenciaEnMilisegundos = fechaResolucion - fechaCreacion;
-    console.log(diferenciaEnMilisegundos);
     let diasResolucion = Math.floor(diferenciaEnMilisegundos / (1000 * 60 * 60 * 24));
-    console.log(diasResolucion);
 
     // Agrega los días de resolución al objeto que vas a actualizar
     addValue["dias_resolucion"] = diasResolucion;
