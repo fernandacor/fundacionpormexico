@@ -1,6 +1,4 @@
-import ChartSvg from "../../svgs/Chart";
-import TicketSvg from "../../svgs/Ticket";
-import UsersSvg from "../../svgs/Users";
+import { ChartSvg, TicketSvg, UsersSvg } from "../Svgs";
 import MenuLink from "./MenuLink";
 const userRole = localStorage.getItem("permissions");
 

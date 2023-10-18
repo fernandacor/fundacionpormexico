@@ -1,6 +1,5 @@
 import { useTheme } from "react-admin";
-import Moon from "../svgs/Moon";
-import Sun from "../svgs/Sun";
+import { MoonSvg, SunSvg } from "../components/Svgs";
 
 const ThemeToggler = () => {
   const [theme, setTheme] = useTheme();
@@ -19,7 +18,7 @@ const ThemeToggler = () => {
 
   return (
     <button onClick={changeTheme}>
-      {theme == "light" ? <Moon /> : <Sun />}
+      {theme == "light" ? <MoonSvg /> : <SunSvg />}
     </button>
   );
 };

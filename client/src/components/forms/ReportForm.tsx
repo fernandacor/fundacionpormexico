@@ -22,7 +22,7 @@ const ReportForm = () => {
     e.preventDefault();
 
     if (formData.startDate > formData.endDate) {
-      alert("Algo");
+      alert("La fecha de inicio debe ser antes de la fecha fin");
       return;
     }
 
