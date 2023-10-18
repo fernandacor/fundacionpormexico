@@ -21,7 +21,7 @@ const Report = () => {
       {data.map((report, index) => (
         <Accordion
           key={report.id}
-          className="bg-neutral-100 dark:bg-neutral-950 border-0 mb-5 p-0 hover:scale-[101%]"
+          className="bg-neutral-100 dark:bg-neutral-950 border-0 mb-5 p-0 hover:scale-[101%] hover:w-[99%]"
           defaultOpen={index == 0}
         >
           <AccordionHeader className="items-center px-8">

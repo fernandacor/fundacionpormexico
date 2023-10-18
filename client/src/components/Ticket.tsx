@@ -50,7 +50,7 @@ const Ticket = () => {
             <div className={className.bottomContainer}>
               {ticket.status === "Por resolver" && (
                 <div
-                  className={`text-orange-800 bg-orange-100 dark:bg-orange-800 dark:text-orange-50 ${className.estatus}`}
+                  className={`text-red-800 bg-red-200/30 dark:bg-orange-800 dark:text-orange-50 ${className.estatus}`}
                 >
                   {ticket.status}
                 </div>
@@ -64,7 +64,7 @@ const Ticket = () => {
               )}
               {ticket.status === "Listo" && (
                 <div
-                  className={`text-green-800 bg-green-100 dark:bg-green-700 dark:text-green-50 ${className.estatus}`}
+                  className={`text-green-800 bg-green-200/30 dark:bg-green-700 dark:text-green-50 ${className.estatus}`}
                 >
                   {ticket.status}
                 </div>
