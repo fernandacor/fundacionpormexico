@@ -1,4 +1,4 @@
-import { Create, Edit, InfiniteList } from "react-admin";
+import { Create, Edit, InfiniteList, FilterButton, FilterForm, Filter, TextInput } from "react-admin";
 import CustomForm from "../components/CustomForm";
 import Ticket from "../components/Ticket";
 import ListTitle from "../components/layout/ListTitle";
@@ -11,7 +11,8 @@ const TicketsList = () => {
         title={"Tickets"}
         component={"div"}
         emptyWhileLoading
-        actions={<></>}
+        actions={<FilterButton /> /*Render FilterButton*/}
+        filters = {postFilters}
       >
         <Ticket />
       </InfiniteList>
@@ -34,5 +35,17 @@ const TicketsCreate = (props: any) => {
     </Create>
   );
 };
+
+// const FilterTickets = (props: any) => (
+//   <FilterForm {...props}>
+//     <TextInput label="Title" source="title" />
+//     <TextInput label="Description" source="description" />
+//   </FilterForm>
+// );
+
+export const postFilters = [
+  <TextInput label="Title" source="title" />,
+  <TextInput label="Description" source="description" />,
+];
 
 export { TicketsCreate, TicketsEdit, TicketsList };
