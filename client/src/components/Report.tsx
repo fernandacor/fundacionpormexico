@@ -1,5 +1,6 @@
 import { Accordion, AccordionBody, AccordionHeader } from "@tremor/react";
 import { useListContext } from "react-admin";
+import { formatDateToOutput } from "../scripts";
 import Tooltip from "./Tooltip";
 import CategoriesChart from "./charts/CategoriesChart";
 import ClassroomsChart from "./charts/ClasroomsChart";
@@ -21,7 +22,9 @@ const Report = () => {
           defaultOpen={index == 0}
         >
           <AccordionHeader className="px-8">
-            Desde {report.fechaInicio} hasta {report.fechaFin}
+            {formatDateToOutput(report.fechaInicio)}
+            {" - "}
+            {formatDateToOutput(report.fechaFin)}
           </AccordionHeader>
           <AccordionBody>
             <div className="grid md:grid-cols-5 gap-5">

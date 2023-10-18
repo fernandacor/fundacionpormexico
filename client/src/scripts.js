@@ -9,3 +9,28 @@ export function formatDate(date = new Date()) {
 
   return `${year}-${paddedMonth}-${paddedDay}`;
 }
+
+export function formatDateToOutput(dateString) {
+  const date = new Date(dateString);
+
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+
+  const monthNames = [
+    "enero",
+    "febrero",
+    "marzo",
+    "abril",
+    "mayo",
+    "junio",
+    "julio",
+    "agosto",
+    "septiembre",
+    "octubre",
+    "noviembre",
+    "diciembre",
+  ];
+
+  return `${day} ${monthNames[month - 1]}, ${year}`;
+}
