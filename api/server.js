@@ -431,6 +431,8 @@ app.post("/reports", async (request, response) => {
     let id = data.length + 1;
     console.log(id);
     // Insertar el informe en la colección de reports
+    console.log(averageResolutionDays);
+    console.log(fechaInicio, fechaFin);
     const reportData = {
       fechaInicio: fechaInicio,
       fechaFin: fechaFin,
