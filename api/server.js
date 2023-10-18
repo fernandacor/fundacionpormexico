@@ -14,7 +14,7 @@ const uri = `mongodb+srv://${dbUser}:${dbPassword}@cluster0.xflhwk3.mongodb.net/
 const port = 443;
 let db;
 
-const secretKey = "FCO7403AR0704SM2103SG0703";
+const secretKey = "FCO7403AR0704SM2103SA0703";
 
 const app = express();
 app.use(cors());
