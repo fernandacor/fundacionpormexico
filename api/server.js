@@ -54,9 +54,7 @@ app.get("/tickets", async (request, response) => {
     let parametersFind = {};
     if (authData.permissions == "Coordinador") {
       parametersFind["usuario"] = verifiedToken.usuario;
-      parametersFind["aula"] = authData.aula;
     }
-
     if ("_sort" in request.query) {
       let sortBy = request.query._sort;
       let sortOrder = request.query._order == "ASC" ? 1 : -1;
@@ -135,6 +133,11 @@ app.post("/tickets", async (request, response) => {
     let id = data.length + 1;
     addValue["id"] = id;
     addValue["usuario"] = verifiedToken.usuario;
+    data = await db
+    .collection("users")
+    .findOne({ usuario: verifiedToken.usuario });
+    addValue["aula"] = data.aula;
+    console.log(data.aula);
     data = await db.collection("tickets").insertOne(addValue);
     log(verifiedToken.usuario, "creó un ticket", request.params.id);
     response.json(data);
