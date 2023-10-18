@@ -37,9 +37,9 @@ function generateRandomJWTToken(byteLength) {
 
 // Uso
 const randomToken = generateRandomJWTToken(32); // Genera un token de 256 bits (32 bytes)
-console.log(randomToken);
 
-const secretKey = randomToken;
+const secretKey = "FCO7403AR0704SM2103SG0703";
+console.log(secretKey);
 
 const app = express();
 app.use(cors());
@@ -79,7 +79,7 @@ app.get("/tickets", async (request, response) => {
     let parametersFind = {};
     if (authData.permissions == "Coordinador") {
       parametersFind["usuario"] = verifiedToken.usuario;
-      parametersFind["aula"] = verifiedToken.aula;
+      parametersFind["aula"] = authData.aula;
     }
 
     if ("_sort" in request.query) {
@@ -174,7 +174,19 @@ app.put("/tickets/:id", async (request, response) => {
     let token = request.get("Authentication");
     let verifiedToken = await jwt.verify(token, secretKey);
     let addValue = request.body;
+    console.log(addValue);
     addValue["id"] = Number(request.params.id);
+    let fechaCreacion = new Date(addValue.fecha);
+    let fechaResolucion = new Date(addValue.fecha_resuelto);
+    console.log(fechaCreacion);
+    console.log(fechaResolucion);
+    let diferenciaEnMilisegundos = fechaResolucion - fechaCreacion;
+    console.log(diferenciaEnMilisegundos);
+    let diasResolucion = Math.floor(diferenciaEnMilisegundos / (1000 * 60 * 60 * 24));
+    console.log(diasResolucion);
+
+    // Agrega los días de resolución al objeto que vas a actualizar
+    addValue["dias_resolucion"] = diasResolucion;
     let data = await db
       .collection("tickets")
       .updateOne({ id: addValue["id"] }, { $set: addValue });
@@ -183,9 +195,7 @@ app.put("/tickets/:id", async (request, response) => {
       .find({ id: Number(request.params.id) })
       .project({ _id: 0 })
       .toArray();
-    console.log(request.params);
-    console.log(data);
-    console.log(data[0].status);
+    console.log(data[0]);
     log(
       verifiedToken.usuario,
       "actualizó ticket a '" + data[0].status + "'",
