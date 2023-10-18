@@ -14,6 +14,8 @@ const uri = `mongodb+srv://${dbUser}:${dbPassword}@cluster0.xflhwk3.mongodb.net/
 const port = 443;
 let db;
 
+const secretKey = "FCO7403AR0704SM2103SG0703";
+
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
@@ -45,7 +47,7 @@ async function log(sujeto, accion, objeto) {
 app.get("/tickets", async (request, response) => {
   try {
     let token = request.get("Authentication");
-    let verifiedToken = await jwt.verify(token, "secretKey");
+    let verifiedToken = await jwt.verify(token, secretKey);
     let authData = await db
       .collection("users")
       .findOne({ usuario: verifiedToken.usuario });
@@ -53,7 +55,6 @@ app.get("/tickets", async (request, response) => {
     if (authData.permissions == "Coordinador") {
       parametersFind["usuario"] = verifiedToken.usuario;
     }
-
     if ("_sort" in request.query) {
       let sortBy = request.query._sort;
       let sortOrder = request.query._order == "ASC" ? 1 : -1;
@@ -102,7 +103,7 @@ app.get("/tickets", async (request, response) => {
 app.get("/tickets/:id", async (request, response) => {
   try {
     let token = request.get("Authentication");
-    let verifiedToken = await jwt.verify(token, "secretKey");
+    let verifiedToken = await jwt.verify(token, secretKey);
     let authData = await db
       .collection("users")
       .findOne({ usuario: verifiedToken.usuario });
@@ -126,12 +127,17 @@ app.get("/tickets/:id", async (request, response) => {
 app.post("/tickets", async (request, response) => {
   try {
     let token = request.get("Authentication");
-    let verifiedToken = await jwt.verify(token, "secretKey");
+    let verifiedToken = await jwt.verify(token, secretKey);
     let addValue = request.body;
     let data = await db.collection("tickets").find({}).toArray();
     let id = data.length + 1;
     addValue["id"] = id;
     addValue["usuario"] = verifiedToken.usuario;
+    data = await db
+    .collection("users")
+    .findOne({ usuario: verifiedToken.usuario });
+    addValue["aula"] = data.aula;
+    console.log(data.aula);
     data = await db.collection("tickets").insertOne(addValue);
     log(verifiedToken.usuario, "creó un ticket", request.params.id);
     response.json(data);
@@ -144,9 +150,16 @@ app.post("/tickets", async (request, response) => {
 app.put("/tickets/:id", async (request, response) => {
   try {
     let token = request.get("Authentication");
-    let verifiedToken = await jwt.verify(token, "secretKey");
+    let verifiedToken = await jwt.verify(token, secretKey);
     let addValue = request.body;
     addValue["id"] = Number(request.params.id);
+    let fechaCreacion = new Date(addValue.fecha);
+    let fechaResolucion = new Date(addValue.fecha_resuelto);
+    let diferenciaEnMilisegundos = fechaResolucion - fechaCreacion;
+    let diasResolucion = Math.floor(diferenciaEnMilisegundos / (1000 * 60 * 60 * 24));
+
+    // Agrega los días de resolución al objeto que vas a actualizar
+    addValue["dias_resolucion"] = diasResolucion;
     let data = await db
       .collection("tickets")
       .updateOne({ id: addValue["id"] }, { $set: addValue });
@@ -155,9 +168,7 @@ app.put("/tickets/:id", async (request, response) => {
       .find({ id: Number(request.params.id) })
       .project({ _id: 0 })
       .toArray();
-    console.log(request.params);
-    console.log(data);
-    console.log(data[0].status);
+    console.log(data[0]);
     log(
       verifiedToken.usuario,
       "actualizó ticket a '" + data[0].status + "'",
@@ -180,7 +191,7 @@ app.post("/login", async (request, response) => {
   } else {
     bcrypt.compare(pass, data.contrasena, (error, result) => {
       if (result) {
-        let token = jwt.sign({ usuario: data.usuario }, "secretKey", {
+        let token = jwt.sign({ usuario: data.usuario }, secretKey, {
           expiresIn: "24hr",
         });
         log(user, "login", "");
@@ -202,7 +213,7 @@ app.post("/login", async (request, response) => {
 app.delete("/tickets/:id", async (request, response) => {
   try {
     let token = request.get("Authentication");
-    let verifiedToken = await jwt.verify(token, "secretKey");
+    let verifiedToken = await jwt.verify(token, secretKey);
     console.log(request.params.id);
     let data = await db
       .collection("tickets")
@@ -217,7 +228,7 @@ app.delete("/tickets/:id", async (request, response) => {
 app.get("/users", async (request, response) => {
   try {
     let token = request.get("Authentication");
-    let verifiedToken = await jwt.verify(token, "secretKey");
+    let verifiedToken = await jwt.verify(token, secretKey);
     let data = await db
       .collection("users")
       .find()
@@ -234,7 +245,7 @@ app.get("/users", async (request, response) => {
 app.post("/users", async (request, response) => {
   try {
     let token = request.get("Authentication");
-    let verifiedToken = await jwt.verify(token, "secretKey");
+    let verifiedToken = await jwt.verify(token, secretKey);
     let addValue = request.body;
     let data = await db.collection("users").find({}).toArray();
     let id = data.length + 1;
@@ -278,7 +289,7 @@ app.post("/users", async (request, response) => {
 app.get("/users/:id", async (request, response) => {
   try {
     let token = request.get("Authentication");
-    let verifiedToken = await jwt.verify(token, "secretKey");
+    let verifiedToken = await jwt.verify(token, secretKey);
     let data = await db
       .collection("users")
       .find({ id: Number(request.params.id) })
@@ -293,7 +304,7 @@ app.get("/users/:id", async (request, response) => {
 app.put("/users/:id", async (request, response) => {
   try {
     let token = request.get("Authentication");
-    let verifiedToken = await jwt.verify(token, "secretKey");
+    let verifiedToken = await jwt.verify(token, secretKey);
     let addValue = request.body;
     addValue["id"] = Number(request.params.id);
     let data = await db
@@ -313,7 +324,7 @@ app.put("/users/:id", async (request, response) => {
 app.delete("/users/:id", async (request, response) => {
   try {
     let token = request.get("Authentication");
-    let verifiedToken = await jwt.verify(token, "secretKey");
+    let verifiedToken = await jwt.verify(token, secretKey);
     let data = await db
       .collection("users")
       .deleteOne({ id: Number(request.params.id) });
@@ -326,7 +337,7 @@ app.delete("/users/:id", async (request, response) => {
 app.get("/reports", async (request, response) => {
   try {
     let token = request.get("Authentication");
-    let verifiedToken = await jwt.verify(token, "secretKey");
+    let verifiedToken = await jwt.verify(token, secretKey);
     let data = await db
       .collection("reports")
       .find()
@@ -344,7 +355,7 @@ app.get("/reports", async (request, response) => {
 app.get("/reports/:id", async (request, response) => {
   try {
     let token = request.get("Authentication");
-    let verifiedToken = await jwt.verify(token, "secretKey");
+    let verifiedToken = await jwt.verify(token, secretKey);
     let data = await db
       .collection("reports")
       .find({ id: Number(request.params.id) })
@@ -643,7 +654,7 @@ app.put("/reports/:id", async (request, response) => {
 app.delete("/reports/:id", async (request, response) => {
   try {
     let token = request.get("Authentication");
-    let verifiedToken = await jwt.verify(token, "secretKey");
+    let verifiedToken = await jwt.verify(token, secretKey);
     console.log(request.params);
     let data = await db
       .collection("reports")
