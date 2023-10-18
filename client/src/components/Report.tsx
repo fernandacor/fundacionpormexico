@@ -18,7 +18,7 @@ const Report = () => {
       {data.map((report, index) => (
         <Accordion
           key={report.id}
-          className="bg-neutral-100 dark:bg-neutral-950 border-0 mb-5 p-0"
+          className="bg-neutral-100 dark:bg-neutral-950 border-0 mb-5 p-0 hover:scale-[101%]"
           defaultOpen={index == 0}
         >
           <AccordionHeader className="px-8">
@@ -28,23 +28,23 @@ const Report = () => {
           </AccordionHeader>
           <AccordionBody>
             <div className="grid md:grid-cols-5 gap-5">
-              <div className="bg-neutral-50 dark:bg-neutral-900 p-5 rounded-2xl shadow-md md:col-span-4">
+              <div className="bg-neutral-50 dark:bg-neutral-800 p-5 rounded-2xl shadow-md md:col-span-4">
                 <h2 className="font-bold text-2xl mb-3">Estatus:</h2>
                 <StatusesChart statuses={report.estatuses} />
               </div>
               <Tooltip tooltip="Promedio de días para la resolución de tickets">
-                <div className="bg-neutral-50 dark:bg-neutral-900 p-5 rounded-2xl shadow-md md:col-span-1 flex flex-col items-center justify-center h-full">
+                <div className="bg-neutral-50 dark:bg-neutral-800 p-5 rounded-2xl shadow-md md:col-span-1 flex flex-col items-center justify-center h-full">
                   <p className="font-bold text-6xl">
                     {Math.round(report.promedioDiasResolucion)}
                   </p>
                   <p className="font-light">días</p>
                 </div>
               </Tooltip>
-              <div className="bg-neutral-50 dark:bg-neutral-900 p-5 rounded-2xl shadow-md md:col-span-3">
+              <div className="bg-neutral-50 dark:bg-neutral-800 p-5 rounded-2xl shadow-md md:col-span-3">
                 <h2 className="font-bold text-2xl mb-3">Aulas:</h2>
                 <ClassroomsChart classrooms={report.aulas} />
               </div>
-              <div className="bg-neutral-50 dark:bg-neutral-900 p-5 rounded-2xl shadow-md md:col-span-2">
+              <div className="bg-neutral-50 dark:bg-neutral-800 p-5 rounded-2xl shadow-md md:col-span-2">
                 <h2 className="font-bold text-2xl mb-3">Categorías:</h2>
                 <CategoriesChart categories={report.categorias} />
               </div>

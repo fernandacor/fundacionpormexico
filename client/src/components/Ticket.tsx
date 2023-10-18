@@ -8,7 +8,7 @@ const Ticket = () => {
     prioridad: "text-red-500 font-bold z-50",
     estatus: "text-xs rounded-full p-1 w-fit px-3 bottom-2 ",
     container:
-      "relative rounded-2xl shadow p-3 hover:scale-105 hover:shadow-neutral-400 dark:hover:shadow-neutral-600 transition flex flex-col gap-7 bg-neutral-50 dark:bg-neutral-800 group",
+      "relative rounded-2xl shadow p-3 hover:scale-105 transition flex flex-col gap-7 bg-neutral-50 dark:bg-neutral-800 group",
     topContainer: "flex flex-row relative gap-2",
     titlesContainer: "flex flex-col overflow-hidden mr-5",
     prioridadContainer:
