@@ -203,9 +203,11 @@ app.delete("/tickets/:id", async (request, response) => {
   try {
     let token = request.get("Authentication");
     let verifiedToken = await jwt.verify(token, "secretKey");
+    console.log(request.params.id);
     let data = await db
       .collection("tickets")
       .deleteOne({ id: Number(request.params.id) });
+      console.log(data);
     response.json(data);
   } catch {
     response.sendStatus(401);
@@ -322,8 +324,8 @@ app.delete("/users/:id", async (request, response) => {
 
 app.get("/reports", async (request, response) => {
   try {
-    //let token = request.get("Authentication");
-    //let verifiedToken = await jwt.verify(token, "secretKey");
+    let token = request.get("Authentication");
+    let verifiedToken = await jwt.verify(token, "secretKey");
     let data = await db
       .collection("reports")
       .find()
@@ -345,11 +347,11 @@ app.get("/reports/:id", async (request, response) => {
     let data = await db
       .collection("reports")
       .find({ id: Number(request.params.id) })
-      //.project({ _id: 0, id: 1, nombre: 1, apellidoMaterno: 1 })
       .toArray();
     response.set("Access-Control-Expose-Headers", "X-Total-Count");
     response.set("X-Total-Count", data.length);
-    response.json(data);
+    console.log(data[0]);
+    response.json(data[0]);
   } catch {
     response.sendStatus(401);
   }
@@ -557,6 +559,97 @@ async function calculateStatusSummaries(startDate, endDate) {
     tickets: statusCounts[status],
   }));
 }
+
+app.put('/reports/:id', async (request, response) => {
+  try{
+    let token = request.get("Authentication");
+    let verifiedToken = await jwt.verify(token, "secretKey");
+    let { startDate, endDate } = request.body; // Fechas de inicio y fin desde el frontend
+    console.log(startDate, endDate);
+    // Calcular promedio de días de resolución
+    let averageResolutionDays = await calculateAverageResolutionDays(
+      startDate,
+      endDate
+    );
+
+    // Calcular sumatoria de tickets por categoría
+    let categorySummaries = await calculateCategorySummaries(
+      startDate,
+      endDate
+    );
+    categorySummaries = categorySummaries.map((item) => {
+      return {
+        name: item.categoria,
+        value: item.tickets,
+      };
+    });
+
+    // Calcular sumatoria de tickets por aula
+    let classroomSummaries = await calculateClassroomSummaries(
+      startDate,
+      endDate
+    );
+    classroomSummaries = classroomSummaries.map((item) => {
+      return {
+        name: item.aula,
+        value: item.tickets,
+      };
+    });
+
+    // Calcular sumatoria de tickets por estatus
+    let statusSummaries = await calculateStatusSummaries(startDate, endDate);
+    statusSummaries = statusSummaries.map((item) => {
+      let color;
+      item.estatus == "Listo"
+        ? (color = "emerald")
+        : item.estatus == "En progreso"
+        ? (color = "yellow")
+        : (color = "rose");
+      return {
+        name: item.estatus,
+        value: item.tickets,
+        color: color,
+      };
+    });
+
+    // Insertar el informe en la colección de reports
+    const reportData = {
+      fechaInicio: startDate,
+      fechaFin: endDate,
+      promedioDiasResolucion: averageResolutionDays,
+      categorias: categorySummaries,
+      aulas: classroomSummaries,
+      estatuses: statusSummaries,
+    };
+
+    console.log(reportData);
+
+    let data = await db.collection("reports").updateOne({ id: Number(request.params.id)}, { $set: reportData });
+    console.log(data);
+    data = await db
+      .collection("reports")
+      .find({ id: Number(request.params.id) })
+      .project({ _id: 0 })
+      .toArray();
+      response.json(data[0]);
+  }catch{
+    response.sendStatus(401);
+  }
+})
+
+app.delete("/reports/:id", async (request, response) => {
+  try{
+    let token = request.get("Authentication");
+    let verifiedToken = await jwt.verify(token, "secretKey");
+    console.log(request.params);
+    let data = await db
+      .collection("reports")
+      .deleteOne({ id: Number(request.params.id) });
+    response.json(data);
+  }catch{
+    response.sendStatus(401);
+  }
+})
 
 https
   .createServer(
