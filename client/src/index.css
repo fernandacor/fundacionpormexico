@@ -7,7 +7,7 @@
 
 @layer components {
   .inputLabel {
-    @apply block text-gray-700 text-sm font-bold mb-2 dark:text-white;
+    @apply block text-gray-700 text-sm font-bold mb-2 ml-3 dark:text-white;
   }
 
   ;

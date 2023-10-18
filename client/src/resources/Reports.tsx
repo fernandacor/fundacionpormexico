@@ -1,5 +1,6 @@
-import { Create, DateInput, InfiniteList, SimpleForm } from "react-admin";
+import { Create, InfiniteList } from "react-admin";
 import Report from "../components/Report";
+import ReportForm from "../components/forms/ReportForm";
 import ListTitle from "../components/layout/ListTitle";
 
 export const ReportsList = () => (
@@ -16,11 +17,10 @@ export const ReportsList = () => (
   </>
 );
 
-export const ReportsCreate = () => (
-  <Create>
-    <SimpleForm>
-      <DateInput source="startDate" />
-      <DateInput source="endDate" />
-    </SimpleForm>
-  </Create>
-);
+export const ReportsCreate = (props: any) => {
+  return (
+    <Create {...props}>
+      <ReportForm />
+    </Create>
+  );
+};
