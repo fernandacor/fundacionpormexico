@@ -11,13 +11,11 @@ const DeleteButton: React.FC<DeleteButtonProps> = ({ resource, record }) => {
     const [deleteOne, { isLoading, error }] = useDelete();
 
     if (!record) return null;
-    
-    console.log(record)
 
     const handleClick = () => {
         deleteOne(
             resource,
-            { id: record }
+            { id: record.id }
         );
     }
 

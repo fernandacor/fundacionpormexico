@@ -203,9 +203,11 @@ app.delete("/tickets/:id", async (request, response) => {
   try {
     let token = request.get("Authentication");
     let verifiedToken = await jwt.verify(token, "secretKey");
+    console.log(request.params.id);
     let data = await db
       .collection("tickets")
       .deleteOne({ id: Number(request.params.id) });
+      console.log(data);
     response.json(data);
   } catch {
     response.sendStatus(401);
@@ -632,6 +634,7 @@ app.delete("/reports/:id", async (request, response) => {
   try{
     let token = request.get("Authentication");
     let verifiedToken = await jwt.verify(token, "secretKey");
+    console.log(request.params);
     let data = await db
       .collection("reports")
       .deleteOne({ id: Number(request.params.id) });
