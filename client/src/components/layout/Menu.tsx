@@ -29,6 +29,12 @@ const Menu = ({ className, isOpen }: MenuProps) => {
           Icon={ChartSvg}
         />
       )}
+      <MenuLink
+        endpoint="tickets"
+        title="Tickets"
+        isOpen={isOpen}
+        Icon={TicketSvg}
+      />
       {userRole === "Ejecutivo" && (
         <MenuLink
           endpoint="users"
@@ -37,12 +43,6 @@ const Menu = ({ className, isOpen }: MenuProps) => {
           Icon={UsersSvg}
         />
       )}
-      <MenuLink
-        endpoint="tickets"
-        title="Tickets"
-        isOpen={isOpen}
-        Icon={TicketSvg}
-      />
     </div>
   );
 };

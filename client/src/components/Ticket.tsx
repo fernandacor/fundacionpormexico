@@ -1,5 +1,6 @@
 import { useListContext } from "react-admin";
 import { Link } from "react-router-dom";
+import { getDay, getMonthInitials } from "../scripts";
 
 const Ticket = () => {
   const { data } = useListContext();
@@ -22,7 +23,14 @@ const Ticket = () => {
         <Link to={`/tickets/${ticket.id}`} key={ticket.id}>
           <div className={className.container}>
             <div className={className.topContainer}>
-              fecha
+              <div className=" w-14 h-14 rounded-2xl flex flex-none flex-col items-center justify-center bg-green-400/20 dark:bg-green-600/20">
+                <p className="font-black text-green-800 dark:text-green-200 text-xl leading-tight">
+                  {getDay(ticket.fecha)}
+                </p>
+                <p className="leading-tight">
+                  {getMonthInitials(ticket.fecha)}
+                </p>
+              </div>
               <div className={className.titlesContainer}>
                 <h1 className="uppercase font-bold tracking-tight text-black dark:text-white truncate mr-4">
                   {ticket.categoria}
