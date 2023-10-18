@@ -445,22 +445,6 @@ app.post("/reports", async (request, response) => {
   }
 });
 
-function limpiarNombre(string) {
-  return string
-    .normalize("NFD") // Esto normaliza los caracteres diacríticos (como tildes) en caracteres separados. Por ejemplo, "á" se convierte en "a".
-    .replace(/[\u0300-\u036f]/g, "") // Esto elimina cualquier caracter diacrítico restante.
-    .split(" ") // Divide el string en un array de palabras.
-    .map((word, index) => {
-      // Busca sobre cada palabra en el array.
-      if (index === 0) {
-        return word.toLowerCase(); // Si es la primera palabra (índice 0), la convierte a minúsculas.
-      } else {
-        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase(); // Si no es la primera palabra, convierte la primera letra a mayúscula y el resto a minúsculas.
-      }
-    })
-    .join(""); //  Une las palabras del array de nuevo en un solo string.
-}
-
 async function calculateAverageResolutionDays(startDate, endDate) {
   const tickets = await db
     .collection("tickets")
