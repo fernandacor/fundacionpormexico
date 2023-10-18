@@ -372,7 +372,7 @@ app.get("/reports/:id", async (request, response) => {
 app.post("/reports", async (request, response) => {
   try {
     let token = request.get("Authentication");
-    let verifiedToken = await jwt.verify(token, "secretKey");
+    let verifiedToken = await jwt.verify(token, secretKey);
     let { fechaInicio, fechaFin } = request.body; // Fechas de inicio y fin desde el frontend
 
     // Validar las fechas
@@ -532,7 +532,7 @@ async function calculateClassroomSummaries(fechaInicio, fechaFin) {
 
   tickets.forEach((ticket) => {
     //  Esto busca sobre cada ticket en el arreglo tickets.
-    const aula = ticket.usuario; // Obtiene el usuario (hay que cambiarlo a aula) del ticket actual.
+    const aula = ticket.aula; // Obtiene el usuario (hay que cambiarlo a aula) del ticket actual.
     classroomCounts[aula] = (classroomCounts[aula] || 0) + 1; // Esto incrementa el contador del usuario actual en el objeto classroomCounts.
     //Si el usuario no existe en classroomCounts, se inicializa con 0 antes de incrementarla en 1.
   });
@@ -575,7 +575,7 @@ async function calculateStatusSummaries(fechaInicio, fechaFin) {
 app.put("/reports/:id", async (request, response) => {
   try {
     let token = request.get("Authentication");
-    let verifiedToken = await jwt.verify(token, "secretKey");
+    let verifiedToken = await jwt.verify(token, secretKey);
     let { fechaInicio, fechaFin } = request.body; // Fechas de inicio y fin desde el frontend
     console.log(fechaInicio, fechaFin);
     // Calcular promedio de días de resolución
