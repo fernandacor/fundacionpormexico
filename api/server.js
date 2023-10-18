@@ -238,6 +238,13 @@ app.post("/users", async (request, response) => {
     let addValue = request.body;
     let data = await db.collection("users").find({}).toArray();
     let id = data.length + 1;
+    let avatar = addValue["avatar"];
+    if (request.body.permissions == "Ejecutivo") {
+      addValue["avatar"] = "../../images/avatarEjec.PNG"}
+    else if (request.body.permissions == "Coordinador") {
+      addValue["avatar"] = "../../images/avatarCoordAula.PNG"}
+    else if (request.body.permissions == "Nacional") {
+      addValue["avatar"] = "../../images/avatarCoordNac.PNG"}
     addValue["id"] = id;
     let pass = addValue["contrasena"];
     console.log(request.body);
