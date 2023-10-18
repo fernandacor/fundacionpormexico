@@ -79,6 +79,7 @@ app.get("/tickets", async (request, response) => {
     let parametersFind = {};
     if (authData.permissions == "Coordinador") {
       parametersFind["usuario"] = verifiedToken.usuario;
+      parametersFind["aula"] = verifiedToken.aula;
     }
 
     if ("_sort" in request.query) {
