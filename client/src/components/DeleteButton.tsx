@@ -4,16 +4,20 @@ import Trash from '../svgs/Trash';
 
 interface DeleteButtonProps {
     resource: string;
+    record: any;
 }
 
-const DeleteButton: React.FC<DeleteButtonProps> = ({ resource }) => {
-    const record = useRecordContext();
+const DeleteButton: React.FC<DeleteButtonProps> = ({ resource, record }) => {
     const [deleteOne, { isLoading, error }] = useDelete();
+
+    if (!record) return null;
+    
+    console.log(record)
 
     const handleClick = () => {
         deleteOne(
             resource,
-            { id: record.id, previousData: record }
+            { id: record }
         );
     }
 

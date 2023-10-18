@@ -628,6 +628,19 @@ app.put('/reports/:id', async (request, response) => {
   }
 })
 
+app.delete("/reports/:id", async (request, response) => {
+  try{
+    let token = request.get("Authentication");
+    let verifiedToken = await jwt.verify(token, "secretKey");
+    let data = await db
+      .collection("reports")
+      .deleteOne({ id: Number(request.params.id) });
+    response.json(data);
+  }catch{
+    response.sendStatus(401);
+  }
+})
+
 https
   .createServer(
     {

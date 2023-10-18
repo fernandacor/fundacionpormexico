@@ -1,5 +1,5 @@
 import { Accordion, AccordionBody, AccordionHeader } from "@tremor/react";
-import { useListContext, EditButton } from "react-admin";
+import { useListContext } from "react-admin";
 import CategoriesChart from "./charts/CategoriesChart";
 import ClassroomsChart from "./charts/ClasroomsChart";
 import StatusesChart from "./charts/StatusesChart";
@@ -29,7 +29,7 @@ const Report = () => {
           <AccordionBody>
             <div className="grid md:grid-cols-5 gap-5">
               <div className="bg-neutral-50 dark:bg-neutral-900 p-5 rounded-2xl shadow-md md:col-span-4">
-                <DeleteButton resource={`/reports/${report.id}`} />
+                <DeleteButton resource="reports" record={report.id}/>
                 <h2 className="font-bold text-2xl mb-3">Estatus:</h2>
                 <StatusesChart statuses={report.estatuses} />
               </div>
