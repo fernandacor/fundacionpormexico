@@ -45,18 +45,18 @@ const Login = () => {
               placeholder="Usuario"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className=" text-black dark:text-white rounded-md bg-gray-200/50 mb-5 placeholder:text-slate-400 block w-full border border-slate-300 py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-gray-500 focus:ring-gray-500 focus:ring-1 text-base"
+              className="questionField mb-5 p-3"
             />
             <input
               type="password"
               placeholder="Contraseña"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className=" text-black dark:text-white rounded-md bg-gray-200/50 mb-5 placeholder:text-slate-400 block w-full border border-slate-300 py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-gray-500 focus:ring-gray-500 focus:ring-1 text-base"
+              className="questionField p-3"
             />
             <button
               onClick={handleLogin}
-              className="bg-green-600 text-white p-2 shadow-lg rounded-lg w-64 mt-5 hover:scale-[103%] focus:outline-none focus:outline-green-500 dark:text-black dark:bg-green-400 dark:hover:shadow-green-400/30"
+              className="bg-green-600 text-white p-2 shadow-lg rounded-lg w-64 mt-5 hover:scale-[103%] hover:shadow-green-400/50 focus:outline-none focus:outline-green-500 dark:text-black dark:bg-green-400 dark:hover:shadow-green-400/30"
             >
               Iniciar sesión
             </button>

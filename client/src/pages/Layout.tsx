@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { LayoutComponent, LayoutProps, useTheme } from "react-admin";
+import { ThreeBarsSvg } from "../components/Svgs";
 import Menu from "../components/layout/Menu";
 import NavBar from "../components/layout/NavBar";
-import ThreeBars from "../svgs/ThreeBars";
 
 const Layout: LayoutComponent = ({ children }: LayoutProps) => {
   // Que no dañe el theme cuando se haga el reload
@@ -14,7 +14,7 @@ const Layout: LayoutComponent = ({ children }: LayoutProps) => {
   }, [setTheme]);
 
   // Abrir y cerrar el menú
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const menuClasses = isOpen
     ? "translate-x-0 px-3"
     : "-translate-x-48 pl-48 items-center";
@@ -31,7 +31,7 @@ const Layout: LayoutComponent = ({ children }: LayoutProps) => {
         onClick={menuBehavior}
         className={`${buttonClasses} fixed left-64 top-0 ml-4 mt-4 z-50 transition`}
       >
-        {isOpen ? <ThreeBars /> : <ThreeBars />}
+        {isOpen ? <ThreeBarsSvg /> : <ThreeBarsSvg />}
       </button>
       <main
         className={`${mainClasses} transition scroll-smooth bg-neutral-100 dark:bg-neutral-950 min-h-[100vh]`}
