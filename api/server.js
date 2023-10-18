@@ -207,7 +207,7 @@ app.delete("/tickets/:id", async (request, response) => {
     let data = await db
       .collection("tickets")
       .deleteOne({ id: Number(request.params.id) });
-      console.log(data);
+    console.log(data);
     response.json(data);
   } catch {
     response.sendStatus(401);
@@ -240,11 +240,12 @@ app.post("/users", async (request, response) => {
     let id = data.length + 1;
     let avatar = addValue["avatar"];
     if (request.body.permissions == "Ejecutivo") {
-      addValue["avatar"] = "../../images/avatarEjec.PNG"}
-    else if (request.body.permissions == "Coordinador") {
-      addValue["avatar"] = "../../images/avatarCoordAula.PNG"}
-    else if (request.body.permissions == "Nacional") {
-      addValue["avatar"] = "../../images/avatarCoordNac.PNG"}
+      addValue["avatar"] = "../../images/avatarEjec.PNG";
+    } else if (request.body.permissions == "Coordinador") {
+      addValue["avatar"] = "../../images/avatarCoordAula.PNG";
+    } else if (request.body.permissions == "Nacional") {
+      addValue["avatar"] = "../../images/avatarCoordNac.PNG";
+    }
     addValue["id"] = id;
     let pass = addValue["contrasena"];
     console.log(request.body);
@@ -361,24 +362,24 @@ app.post("/reports", async (request, response) => {
   try {
     let token = request.get("Authentication");
     let verifiedToken = await jwt.verify(token, "secretKey");
-    let { startDate, endDate } = request.body; // Fechas de inicio y fin desde el frontend
+    let { fechaInicio, fechaFin } = request.body; // Fechas de inicio y fin desde el frontend
 
     // Validar las fechas
-    if (new Date(startDate) > new Date(endDate)) {
+    if (new Date(fechaInicio) > new Date(fechaFin)) {
       throw new Error(
         "La fecha de inicio no puede ser mayor que la fecha final"
       );
     }
     // Calcular promedio de días de resolución
     let averageResolutionDays = await calculateAverageResolutionDays(
-      startDate,
-      endDate
+      fechaInicio,
+      fechaFin
     );
 
     // Calcular sumatoria de tickets por categoría
     let categorySummaries = await calculateCategorySummaries(
-      startDate,
-      endDate
+      fechaInicio,
+      fechaFin
     );
     categorySummaries = categorySummaries.map((item) => {
       return {
@@ -389,8 +390,8 @@ app.post("/reports", async (request, response) => {
 
     // Calcular sumatoria de tickets por aula
     let classroomSummaries = await calculateClassroomSummaries(
-      startDate,
-      endDate
+      fechaInicio,
+      fechaFin
     );
     classroomSummaries = classroomSummaries.map((item) => {
       return {
@@ -400,7 +401,7 @@ app.post("/reports", async (request, response) => {
     });
 
     // Calcular sumatoria de tickets por estatus
-    let statusSummaries = await calculateStatusSummaries(startDate, endDate);
+    let statusSummaries = await calculateStatusSummaries(fechaInicio, fechaFin);
     statusSummaries = statusSummaries.map((item) => {
       let color;
       item.estatus == "Listo"
@@ -420,8 +421,8 @@ app.post("/reports", async (request, response) => {
     console.log(id);
     // Insertar el informe en la colección de reports
     const reportData = {
-      fechaInicio: startDate,
-      fechaFin: endDate,
+      fechaInicio: fechaInicio,
+      fechaFin: fechaFin,
       promedioDiasResolucion: averageResolutionDays,
       categorias: categorySummaries,
       aulas: classroomSummaries,
@@ -453,14 +454,14 @@ function limpiarNombre(string) {
     .join(""); //  Une las palabras del array de nuevo en un solo string.
 }
 
-async function calculateAverageResolutionDays(startDate, endDate) {
+async function calculateAverageResolutionDays(fechaInicio, fechaFin) {
   const tickets = await db
     .collection("tickets")
     .find({
       // Busca en la colección de "tickets" de la base de datos los documentos que tienen una fecha de resolución dentro del rango especificado
       fecha_resuelto: {
-        $gte: startDate,
-        $lte: endDate,
+        $gte: fechaInicio,
+        $lte: fechaFin,
       },
     })
     .toArray(); // convierte el resultado en un arreglo.
@@ -476,14 +477,14 @@ async function calculateAverageResolutionDays(startDate, endDate) {
   return totalDias / tickets.length; // Devuelve el promedio de días de resolución, dividiendo la suma total de los días de resolución entre el número total de tickets.
 }
 
-async function calculateCategorySummaries(startDate, endDate) {
+async function calculateCategorySummaries(fechaInicio, fechaFin) {
   const tickets = await db
     .collection("tickets")
     .find({
       // Esto busca en la colección de "tickets" de la base de datos los documentos que tienen una fecha de resolución dentro del rango especificado
       fecha: {
-        $gte: startDate,
-        $lte: endDate,
+        $gte: fechaInicio,
+        $lte: fechaFin,
       },
     })
     .toArray(); // Convierte el resultado en un arreglo.
@@ -504,14 +505,14 @@ async function calculateCategorySummaries(startDate, endDate) {
   }));
 }
 
-async function calculateClassroomSummaries(startDate, endDate) {
+async function calculateClassroomSummaries(fechaInicio, fechaFin) {
   const tickets = await db
     .collection("tickets")
     .find({
       // Lo mismo que la de arriba
       fecha: {
-        $gte: startDate,
-        $lte: endDate,
+        $gte: fechaInicio,
+        $lte: fechaFin,
       },
     })
     .toArray(); // Convierte el resultado en un arreglo.
@@ -532,14 +533,14 @@ async function calculateClassroomSummaries(startDate, endDate) {
   }));
 }
 
-async function calculateStatusSummaries(startDate, endDate) {
+async function calculateStatusSummaries(fechaInicio, fechaFin) {
   const tickets = await db
     .collection("tickets")
     .find({
       // Lo mismo que la de arriba
       fecha: {
-        $gte: startDate,
-        $lte: endDate,
+        $gte: fechaInicio,
+        $lte: fechaFin,
       },
     })
     .toArray(); // Convierte el resultado en un arreglo.
@@ -560,22 +561,22 @@ async function calculateStatusSummaries(startDate, endDate) {
   }));
 }
 
-app.put('/reports/:id', async (request, response) => {
-  try{
+app.put("/reports/:id", async (request, response) => {
+  try {
     let token = request.get("Authentication");
     let verifiedToken = await jwt.verify(token, "secretKey");
-    let { startDate, endDate } = request.body; // Fechas de inicio y fin desde el frontend
-    console.log(startDate, endDate);
+    let { fechaInicio, fechaFin } = request.body; // Fechas de inicio y fin desde el frontend
+    console.log(fechaInicio, fechaFin);
     // Calcular promedio de días de resolución
     let averageResolutionDays = await calculateAverageResolutionDays(
-      startDate,
-      endDate
+      fechaInicio,
+      fechaFin
     );
 
     // Calcular sumatoria de tickets por categoría
     let categorySummaries = await calculateCategorySummaries(
-      startDate,
-      endDate
+      fechaInicio,
+      fechaFin
     );
     categorySummaries = categorySummaries.map((item) => {
       return {
@@ -586,8 +587,8 @@ app.put('/reports/:id', async (request, response) => {
 
     // Calcular sumatoria de tickets por aula
     let classroomSummaries = await calculateClassroomSummaries(
-      startDate,
-      endDate
+      fechaInicio,
+      fechaFin
     );
     classroomSummaries = classroomSummaries.map((item) => {
       return {
@@ -597,7 +598,7 @@ app.put('/reports/:id', async (request, response) => {
     });
 
     // Calcular sumatoria de tickets por estatus
-    let statusSummaries = await calculateStatusSummaries(startDate, endDate);
+    let statusSummaries = await calculateStatusSummaries(fechaInicio, fechaFin);
     statusSummaries = statusSummaries.map((item) => {
       let color;
       item.estatus == "Listo"
@@ -614,8 +615,8 @@ app.put('/reports/:id', async (request, response) => {
 
     // Insertar el informe en la colección de reports
     const reportData = {
-      fechaInicio: startDate,
-      fechaFin: endDate,
+      fechaInicio: fechaInicio,
+      fechaFin: fechaFin,
       promedioDiasResolucion: averageResolutionDays,
       categorias: categorySummaries,
       aulas: classroomSummaries,
@@ -624,21 +625,23 @@ app.put('/reports/:id', async (request, response) => {
 
     console.log(reportData);
 
-    let data = await db.collection("reports").updateOne({ id: Number(request.params.id)}, { $set: reportData });
+    let data = await db
+      .collection("reports")
+      .updateOne({ id: Number(request.params.id) }, { $set: reportData });
     console.log(data);
     data = await db
       .collection("reports")
       .find({ id: Number(request.params.id) })
       .project({ _id: 0 })
       .toArray();
-      response.json(data[0]);
-  }catch{
+    response.json(data[0]);
+  } catch {
     response.sendStatus(401);
   }
-})
+});
 
 app.delete("/reports/:id", async (request, response) => {
-  try{
+  try {
     let token = request.get("Authentication");
     let verifiedToken = await jwt.verify(token, "secretKey");
     console.log(request.params);
@@ -646,10 +649,10 @@ app.delete("/reports/:id", async (request, response) => {
       .collection("reports")
       .deleteOne({ id: Number(request.params.id) });
     response.json(data);
-  }catch{
+  } catch {
     response.sendStatus(401);
   }
-})
+});
 
 https
   .createServer(

@@ -13,7 +13,7 @@ export function formatDate(date = new Date()) {
 export function formatDateToOutput(dateString) {
   const date = new Date(dateString);
 
-  const day = date.getDate();
+  const day = date.getDate() + 1;
   const month = date.getMonth() + 1;
   const year = date.getFullYear();
 
@@ -31,6 +31,8 @@ export function formatDateToOutput(dateString) {
     "noviembre",
     "diciembre",
   ];
+
+  console.log(day);
 
   return `${day} ${monthNames[month - 1]}, ${year}`;
 }

@@ -7,8 +7,8 @@ const ReportForm = () => {
   const { save: saveCreate } = useCreateContext(); // Para creación
 
   const [formData, setFormData] = useState({
-    startDate: record ? record.startDate || "" : formatDate(),
-    endDate: record ? record.endDate || "" : formatDate(),
+    fechaInicio: record ? record.fechaInicio || "" : formatDate(),
+    fechaFin: record ? record.fechaFin || "" : formatDate(),
   });
 
   const handleInputChange = (field: string, value: string) => {
@@ -21,7 +21,7 @@ const ReportForm = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (formData.startDate > formData.endDate) {
+    if (formData.fechaInicio > formData.fechaFin) {
       alert("La fecha de inicio debe ser antes de la fecha fin");
       return;
     }
@@ -49,27 +49,27 @@ const ReportForm = () => {
       <div>
         <div className={className.doubleQuestions}>
           <div className={className.questionContainer}>
-            <label className="inputLabel" htmlFor="startDate">
+            <label className="inputLabel" htmlFor="fechaInicio">
               Fecha inicio:
             </label>
             <input
               className="questionField"
-              id="startDate" // Importante no quitarlo
+              id="fechaInicio" // Importante no quitarlo
               type="date" // Importante no quitarlo
-              value={formData.startDate} // Importante no quitarlo
-              onChange={(e) => handleInputChange("startDate", e.target.value)} // Importante no quitarlo
+              value={formData.fechaInicio} // Importante no quitarlo
+              onChange={(e) => handleInputChange("fechaInicio", e.target.value)} // Importante no quitarlo
             />
           </div>
           <div className={className.questionContainer}>
-            <label className="inputLabel" htmlFor="endDate">
+            <label className="inputLabel" htmlFor="fechaFin">
               Fecha fin:
             </label>
             <input
               className="questionField"
-              id="endDate" // Importante no quitarlo
+              id="fechaFin" // Importante no quitarlo
               type="date" // Importante no quitarlo
-              value={formData.endDate} // Importante no quitarlo
-              onChange={(e) => handleInputChange("endDate", e.target.value)} // Importante no quitarlo
+              value={formData.fechaFin} // Importante no quitarlo
+              onChange={(e) => handleInputChange("fechaFin", e.target.value)} // Importante no quitarlo
             />
           </div>
         </div>
