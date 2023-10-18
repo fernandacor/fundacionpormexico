@@ -14,32 +14,7 @@ const uri = `mongodb+srv://${dbUser}:${dbPassword}@cluster0.xflhwk3.mongodb.net/
 const port = 443;
 let db;
 
-// Genera un array de bytes aleatorios usando el API crypto
-function generateRandomBytes(length) {
-  const randomBytes = new Uint8Array(length);
-  crypto.getRandomValues(randomBytes);
-  return randomBytes;
-}
-
-// Convierte los bytes en una cadena hexadecimal
-function randomBytesToHex(bytes) {
-  return Array.from(bytes)
-    .map(byte => byte.toString(16).padStart(2, '0'))
-    .join('');
-}
-
-// Genera un token JWT aleatorio usando un número de bytes específico
-function generateRandomJWTToken(byteLength) {
-  const randomBytes = generateRandomBytes(byteLength);
-  const token = randomBytesToHex(randomBytes);
-  return token;
-}
-
-// Uso
-const randomToken = generateRandomJWTToken(32); // Genera un token de 256 bits (32 bytes)
-
 const secretKey = "FCO7403AR0704SM2103SG0703";
-console.log(secretKey);
 
 const app = express();
 app.use(cors());
