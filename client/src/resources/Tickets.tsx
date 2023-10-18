@@ -1,6 +1,6 @@
 import { Create, Edit, InfiniteList } from "react-admin";
-import CustomForm from "../components/CustomForm";
 import Ticket from "../components/Ticket";
+import TicketForm from "../components/forms/TicketForm";
 import ListTitle from "../components/layout/ListTitle";
 
 const TicketsList = () => {
@@ -22,7 +22,7 @@ const TicketsList = () => {
 const TicketsEdit = (props: any) => {
   return (
     <Edit {...props}>
-      <CustomForm />
+      <TicketForm />
     </Edit>
   );
 };
@@ -30,7 +30,7 @@ const TicketsEdit = (props: any) => {
 const TicketsCreate = (props: any) => {
   return (
     <Create {...props}>
-      <CustomForm />
+      <TicketForm />
     </Create>
   );
 };

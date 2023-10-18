@@ -1,6 +1,4 @@
-import ChartSvg from "../../svgs/Chart";
-import TicketSvg from "../../svgs/Ticket";
-import UsersSvg from "../../svgs/Users";
+import { ChartSvg, TicketSvg, UsersSvg } from "../Svgs";
 import MenuLink from "./MenuLink";
 const userRole = localStorage.getItem("permissions");
 
@@ -11,7 +9,7 @@ type MenuProps = {
 
 const Menu = ({ className, isOpen }: MenuProps) => {
   const styles = {
-    menu: `${className} fixed top-0 left-0 w-64 h-[100vh] transition overflow-auto overscroll-auto scroll-smooth flex flex-col py-3 gap-2 gap-y-5 shadow-xl min-h-screen bg-neutral-50 dark:bg-neutral-900 z-50`,
+    menu: `${className} fixed top-0 left-0 w-64 h-[100vh] transition overflow-auto overscroll-auto scroll-smooth flex flex-col py-3 gap-2 gap-y-5 shadow-xl min-h-screen bg-neutral-50 dark:bg-neutral-800 z-50`,
   };
 
   return (
