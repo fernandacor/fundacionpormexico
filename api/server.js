@@ -317,8 +317,8 @@ app.delete("/users/:id", async (request, response) => {
 
 app.get("/reports", async (request, response) => {
   try {
-    //let token = request.get("Authentication");
-    //let verifiedToken = await jwt.verify(token, "secretKey");
+    let token = request.get("Authentication");
+    let verifiedToken = await jwt.verify(token, "secretKey");
     let data = await db
       .collection("reports")
       .find()
@@ -335,8 +335,8 @@ app.get("/reports", async (request, response) => {
 
 app.get("/reports/:id", async (request, response) => {
   try {
-    //let token = request.get("Authentication");
-    //let verifiedToken = await jwt.verify(token, "secretKey");
+    let token = request.get("Authentication");
+    let verifiedToken = await jwt.verify(token, "secretKey");
     let data = await db
       .collection("reports")
       .find({ id: Number(request.params.id) })
