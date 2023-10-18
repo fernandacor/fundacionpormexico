@@ -1,5 +1,6 @@
 import { Accordion, AccordionBody, AccordionHeader } from "@tremor/react";
 import { useListContext } from "react-admin";
+import Tooltip from "./Tooltip";
 import CategoriesChart from "./charts/CategoriesChart";
 import ClassroomsChart from "./charts/ClasroomsChart";
 import StatusesChart from "./charts/StatusesChart";
@@ -28,12 +29,14 @@ const Report = () => {
                 <h2 className="font-bold text-2xl mb-3">Estatus:</h2>
                 <StatusesChart statuses={report.estatuses} />
               </div>
-              <div className="bg-neutral-50 dark:bg-neutral-900 p-5 rounded-2xl shadow-md md:col-span-1 flex flex-col items-center justify-center h-full">
-                <p className="font-bold text-6xl">
-                  {Math.round(report.promedioDiasResolucion)}
-                </p>
-                <p className="font-light">días</p>
-              </div>
+              <Tooltip tooltip="Promedio de días para la resolución de tickets">
+                <div className="bg-neutral-50 dark:bg-neutral-900 p-5 rounded-2xl shadow-md md:col-span-1 flex flex-col items-center justify-center h-full">
+                  <p className="font-bold text-6xl">
+                    {Math.round(report.promedioDiasResolucion)}
+                  </p>
+                  <p className="font-light">días</p>
+                </div>
+              </Tooltip>
               <div className="bg-neutral-50 dark:bg-neutral-900 p-5 rounded-2xl shadow-md md:col-span-3">
                 <h2 className="font-bold text-2xl mb-3">Aulas:</h2>
                 <ClassroomsChart classrooms={report.aulas} />
