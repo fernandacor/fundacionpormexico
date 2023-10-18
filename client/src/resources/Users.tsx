@@ -7,6 +7,7 @@ import {
   SimpleForm,
   TextField,
   TextInput,
+  SelectInput,
 } from "react-admin";
 import ListTitle from "../components/layout/ListTitle";
 
@@ -33,9 +34,16 @@ export const UsersEdit = () => (
       <TextInput source="apellidoPaterno" />
       <TextInput source="apellidoMaterno" />
       <TextInput source="correo" />
+      <SelectInput source="permissions" choices={permissions} />
     </SimpleForm>
   </Edit>
 );
+
+const permissions = [
+  { id: "Ejecutivo", name: "Ejecutivo" },
+  { id: "Coordinador", name: "Coordinador"  },
+  { id: "Nacional", name: "Nacional" },
+];
 
 export const UsersCreate = () => (
   <Create>
@@ -45,6 +53,7 @@ export const UsersCreate = () => (
       <TextInput source="contrasena" />
       <TextInput source="apellidoPaterno" />
       <TextInput source="apellidoMaterno" />
+      <SelectInput source="permissions" choices={permissions} />
     </SimpleForm>
   </Create>
 );
