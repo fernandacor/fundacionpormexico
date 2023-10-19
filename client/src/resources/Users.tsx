@@ -45,6 +45,16 @@ const permissions = [
   { id: "Nacional", name: "Nacional" },
 ];
 
+const aulas = [
+  { id: "Cuautitlán", name: "Cuautitlán" },
+  { id: "Matatlán", name: "Matatlán"  },
+  { id: "Coordinadora Aula Ecatepec", name: "Coordinadora Aula Ecatepec" },
+  { id: "Interlomas", name: "Interlomas" },
+  { id: "Ludoteca Ecatepec", name: "Ludoteca Ecatepec" },
+  { id: "Aula Digital Ecatepec", name: "Aula Digital Ecatepec" },
+];
+
+
 export const UsersCreate = () => (
   <Create>
     <SimpleForm>
@@ -54,6 +64,7 @@ export const UsersCreate = () => (
       <TextInput source="apellidoPaterno" />
       <TextInput source="apellidoMaterno" />
       <SelectInput source="permissions" choices={permissions} />
+      <SelectInput source="aula" choices={aulas} />
     </SimpleForm>
   </Create>
 );
