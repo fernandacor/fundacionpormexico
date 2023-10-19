@@ -1,6 +1,5 @@
 import {
   CreateButton,
-  ExportButton,
   TitlePortal,
   TopToolbar,
 } from "react-admin";
@@ -20,7 +19,6 @@ const ListTitle = () => (
       {/* <SelectColumnsButton /> */}
       {/* <FilterButton /> */}
       <CreateButton />
-      <ExportButton />
     </TopToolbar>
   </div>
 );
