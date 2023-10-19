@@ -2,12 +2,12 @@ import {
   Create,
   Datagrid,
   Edit,
-  EmailField,
   InfiniteList,
+  PasswordInput,
+  SelectInput,
   SimpleForm,
   TextField,
   TextInput,
-  SelectInput,
 } from "react-admin";
 import ListTitle from "../components/layout/ListTitle";
 
@@ -20,7 +20,7 @@ export const UsersList = () => (
         <TextField source="nombre" />
         <TextField source="apellidoPaterno" />
         <TextField source="apellidoMaterno" />
-        <EmailField source="correo" />
+        <TextField source="aula" />
       </Datagrid>
     </InfiniteList>
   </>
@@ -33,7 +33,6 @@ export const UsersEdit = () => (
       <TextInput source="nombre" />
       <TextInput source="apellidoPaterno" />
       <TextInput source="apellidoMaterno" />
-      <TextInput source="correo" />
       <SelectInput source="permissions" choices={permissions} />
     </SimpleForm>
   </Edit>
@@ -41,29 +40,28 @@ export const UsersEdit = () => (
 
 const permissions = [
   { id: "Ejecutivo", name: "Ejecutivo" },
-  { id: "Coordinador", name: "Coordinador"  },
+  { id: "Coordinador", name: "Coordinador" },
   { id: "Nacional", name: "Nacional" },
 ];
 
 const aulas = [
   { id: "Cuautitlán", name: "Cuautitlán" },
-  { id: "Matatlán", name: "Matatlán"  },
+  { id: "Matatlán", name: "Matatlán" },
   { id: "Coordinadora Aula Ecatepec", name: "Coordinadora Aula Ecatepec" },
   { id: "Interlomas", name: "Interlomas" },
   { id: "Ludoteca Ecatepec", name: "Ludoteca Ecatepec" },
   { id: "Aula Digital Ecatepec", name: "Aula Digital Ecatepec" },
 ];
 
-
 export const UsersCreate = () => (
   <Create>
     <SimpleForm>
       <TextInput source="usuario" />
       <TextInput source="nombre" />
-      <TextInput source="contrasena" />
+      <PasswordInput source="contrasena" label="Contraseña" />
       <TextInput source="apellidoPaterno" />
       <TextInput source="apellidoMaterno" />
-      <SelectInput source="permissions" choices={permissions} />
+      <SelectInput source="permissions" choices={permissions} label="Permiso" />
       <SelectInput source="aula" choices={aulas} />
     </SimpleForm>
   </Create>
